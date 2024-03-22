@@ -1,0 +1,20 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+
+textarea:focus, input:focus{
+  outline: none;
+}
+
+
+.new_Page_GroundImage{
+  background-image: url('/images/HomebackgroundImage.png');
+  background-size: cover;
+  background-position: center 10px;
+  background-repeat: no-repeat;   
+  height: auto;
+  width: 100%;
+
+}

@@ -1,0 +1,31 @@
+.HomeBackGroundImage{
+    background-image: url('/images/HomebackgroundImage.png');
+    /* background-color: black; */
+    background-size: cover;
+    background-position: center 10px;
+    background-repeat: no-repeat;   
+    height: auto;
+    width: 100%;
+
+}
+
+
+.new_Page_GroundImage{
+        background-image: url('/images/content-2.png');
+        /* background-color: black; */
+        background-size: cover;
+        /* background-position: center 10px; */
+        background-repeat: no-repeat;   
+        height: auto;
+        width: 100%;
+}
+
+
+
+.backGroundGradinatecss{
+    background: linear-gradient(221.6deg, #EB00FF 0.6%, #0253CD 101.67%);
+}
+
+.backGroundGradinateForprimenrm{
+    background: linear-gradient(180deg, #0253CD 0%, #550073 100%);
+}

@@ -1,0 +1,15 @@
+.OwnStatusImageBackgound{
+    background-image: url('/images/Rectangle 540.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;   
+    height: auto;
+}
+
+.ImageBackgoundDesktop{
+  background-image: url('/images/content.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;   
+  height: auto;
+}

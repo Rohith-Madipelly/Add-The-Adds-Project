@@ -1,0 +1,49 @@
+.container12 {
+    width: 80%;
+    /* margin: auto 10px; */
+    /* margin-left: 70px; */
+
+  }
+
+  
+    /* Screen more then 320 and less then 480 >>  Mobile Device */
+    @media screen and (min-width:320) and (max-width:480){
+      .container12 {
+        width: 90%;
+        /* margin: 0 auto; */
+      }
+    
+    }
+  
+
+
+
+
+
+
+      /* Screen more then 1201  >>  Extra Large Screens, Tv  (optional) */
+      @media screen and (min-width:1201) {
+        
+      }
+  
+      /* Screen more then 1025 and less then 1200  >>  Large Screens, Desktops Large Screen */
+      @media screen and (min-width:1025) and (max-width:1200){
+          
+      }
+  
+      /* Screen more then 769 and less then 1024  >>  Small Screens, laptops Large Screen */
+      @media screen and (min-width:769) and (max-width:1024){
+          
+      }
+  
+  
+      /* Screen more then 481 and less then 769  >>  i Pads, Tablets */
+      @media screen and (min-width:481) and (max-width:768){
+          
+      }
+  
+  
+      /* Screen more then 320 and less then 480 >>  Mobile Device */
+      @media screen and (min-width:320) and (max-width:480){
+          
+      }
