@@ -8,9 +8,9 @@ import { setToken } from '../../redux/actions/loginAction';
 
 const NavBar = () => {
     const location = useLocation();
-    const dispatch =useDispatch();
+    const dispatch = useDispatch();
     const loginSelector = useSelector((state) => state.isLogin);
-    console.log("Hello user Token is ",loginSelector)
+    console.log("Hello user Token is ", loginSelector)
     const PageName = location.pathname === '/' || location.pathname === '/home' || location.pathname === '/data123';
     const NavBarDisplay = location.pathname === '/login' || location.pathname === '/signup' || location.pathname === '/forget';
 
@@ -26,8 +26,8 @@ const NavBar = () => {
         console.log("Clear the token from localStorage")
         dispatch(setToken(""));
         localStorage.removeItem('token');
-      };
-    
+    };
+
 
     return (
         <div className={`w-full px-[5em] sm:px-0 mdl:px-[2.5em] md:px-[1em] fixed z-50 ${PageName ? 'bg-white' : 'bg-black'} ${NavBarDisplay ? 'hidden' : 'block'}`}>
@@ -49,15 +49,15 @@ const NavBar = () => {
 
                     </ul>
 
-                    {!loginSelector?<button className={`shadow font-[Poppins] rounded md:ml-8 
+                    {!loginSelector ? <button className={`shadow font-[Poppins] rounded md:ml-8 
         hover: duration-500 flex items-center justify-center h-9 text-black-900 tracking-[1.00px] 
         text-center text-xl border-black-900_33 border border-solid bg-white-A700 shadow-xs min-w-[103px] rounded-[10px] ${PageName ? 'text-black' : 'text-white'} mx-0`}>
                         <Link to={'/login'}>Login</Link>
-                        </button>:<button className={`shadow font-[Poppins] rounded md:ml-8 
+                    </button> : <button className={`shadow font-[Poppins] rounded md:ml-8 
         hover: duration-500 flex items-center justify-center h-9 text-black-900 tracking-[1.00px] 
         text-center text-xl border-black-900_33 border border-solid bg-white-A700 shadow-xs min-w-[103px] rounded-[10px] ${PageName ? 'text-black' : 'text-white'} mx-0`}>
-                        <Link onClick={handleLogout}>LogOut 123</Link>
-                        </button>}
+                        <Link onClick={handleLogout}>LogOut</Link>
+                    </button>}
 
                     <NavDropDown />
                 </div>

@@ -75,3 +75,14 @@ export const SettingsAPI = async () => {
 
   return await axios.get(`${BASE_URL}/settings`);
 };
+
+
+
+
+export const GetPlanInfo = async (token) => {
+
+  return await axios.get(`${BASE_URL}/user/plans`,{
+    headers: { Authorization:"Bearer " + token}
+  });
+};
+
