@@ -4,7 +4,7 @@ import { IoIosArrowForward } from 'react-icons/io'
 
 function Footter() {
     const location = useLocation();
-    const FootterDisplay = location.pathname === '/login' || location.pathname === '/Register' || location.pathname === '/forget';
+    const FootterDisplay = location.pathname === '/login' || location.pathname === '/signup' || location.pathname === '/forget';
     return (
         <div className={`w-[100%] bg-black  h-auto p-5 sm:p-1 text-white pt-5 ${FootterDisplay ? 'hidden' : 'block'}`}>
             <div className='p-5 sm:px-0 flex justify-center item-center'>

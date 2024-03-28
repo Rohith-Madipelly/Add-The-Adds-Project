@@ -32,11 +32,6 @@ import Desktop from './Screens/Desktop';
 import License from './Screens/MainScreens/OtherPages/License';
 import Blog from './Screens/MainScreens/OtherPages/Blog';
 import { ToastContainer } from 'react-toastify';
-import UploadPage from './Screens/MainScreens/UploadAdd/UploadAdd';
-import Trending from './Screens/MainScreens/OtherPages/Trending';
-import Festivals from './Screens/MainScreens/OtherPages/Festivals';
-import Register from './Screens/AuthScreens/Register';
-
 
 
 const Loader = lazy(() => import('./shared/Loaders/Loader1'));
@@ -62,30 +57,26 @@ function App() {
           <Route exact path='/Edit Own Page' element={<EditOwnPage />} />
           <Route exact path='/Add Page' element={<AddPage />} />
           <Route exact path='/Create Page' element={<CreatePage />} />
-          <Route exact path='/Upload add' element={<UploadPage />} />
+          {/* <Route exact path='/Upload add' element={<UploadAdd />} /> */}
           <Route exact path='/d' element={<Desktop />} />
 
 
           <Route exact path='/About us' element={<About />} />
           <Route exact path='/Blog' element={<Blog />} />
-          <Route exact path='/Festivals' element={<Festivals />} />
-
-          <Route exact path='/Trending' element={<Trending />} />
           <Route exact path='/License' element={<License />} />
           <Route exact path='/Services' element={<Services />} />
           <Route exact path='/Contact us' element={<ContactUs />} />
           <Route exact path='/FAQ' element={<FAQ />} />
           <Route exact path='/Terms of use' element={<TermsandCondition />} />
           <Route exact path='/Privacy Policy' element={<PrivacyPolicy />} />
-          
+          <Route path='/Login' element={<Login />} />
 
 
 
           {/* Auth Screen */}
-          <Route path='/Login' element={<Login />} />
 
-          {/* <Route path='/Login' element={!loginSelector ? <Login /> : <Home />} /> */}
-          <Route path='/signup' element={<Register />} />
+          <Route path='/Login' element={!loginSelector ? <Login /> : <Home />} />
+          {/* <Route path='/signup' element={!loginSelector ? <Register /> : <Home />} /> */}
 
 
 

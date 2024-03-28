@@ -18,6 +18,9 @@ function EditOwnPage() {
 
     return (
         <div className='w-flex'>
+                  <div className='h-[70px]'>
+
+</div>
 
             <div className='ImageBackgoundDesktop  pt-5 px-[100px]'>
                 <div className='flex justify-center gap-10'>

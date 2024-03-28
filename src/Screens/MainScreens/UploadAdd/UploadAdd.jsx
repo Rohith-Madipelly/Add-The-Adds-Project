@@ -20,7 +20,9 @@ function UploadPage() {
 
   return (
     <div className='h-auto'>
+      <div className='h-[70px]'>
 
+</div>
 
       <div className=' w-full flex justify-center mt-8'>
         <div className='w-[70vw] h-[auto]'>

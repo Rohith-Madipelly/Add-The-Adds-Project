@@ -1,27 +1,134 @@
-import React, { useState } from 'react'
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router";
 
-import { AiOutlineEye } from "react-icons/ai";
-import { AiOutlineEyeInvisible } from "react-icons/ai";
+import { useDispatch } from "react-redux";
+import { setToken } from "../../redux/actions/loginAction";
 
-function Register() {
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+
+import { useFormik } from "formik";
+import { loginValidationSchema } from "./validationSchemas/LoginValidations.jsx";
+
+
+
+import { UserLoginAPI } from "../../utils/APIcall.jsx";
+import { showToastMessage_error, showToastMessage_success } from "../../shared/Toaster.jsx";
+// import Loader2 from "../../shared/Loaders/Loader2.jsx";
+
+
+
+const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [emailOrPhoneApiErr, setEmailOrPhoneApiErr] = useState("");
+  const [passwordApiErr, setPasswordApiErr] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const onSubmit = async () => {
+    setIsLoading(true);
+    try {
+
+      let loginFormData;
+
+      // Verify whether the entered field is a phone number or an email address.
+      if (/^\d+$/.test(values.emailOrPhone)) {
+        loginFormData = { phone_number: values.emailOrPhone };
+      } else {
+        loginFormData = { email: values.emailOrPhone };
+      }
+
+      loginFormData.password = values.password;
+
+      // API Call
+      const res = await UserLoginAPI(loginFormData)
+
+      if (res.status === 200) {
+        showToastMessage_success(res.data.message)
+        setEmailOrPhoneApiErr("");
+        setPasswordApiErr("");
+        dispatch(setToken(res.data.token));
+        navigate('/');
+      }
+      else {
+        
+      }
+
+    } catch (error) {
+
+      if (error.response) {
+        if (error.response.status === 401) {
+          setPasswordApiErr("Incorrect Password")
+        } else if (error.response.status === 404) {
+          setEmailOrPhoneApiErr("Account does not exist with the provided email or phone number")
+        } else if (error.response.status === 500) {
+          console.log("Data Error Internal server error 500 ", error)
+          showToastMessage_error("Internal server error 500")
+        } else {
+          console.log("Error else ?? ")
+        }
+      } else if (error.request) {
+        showToastMessage_error(`No response received from the server. ${error.message} . Please Try Again `)
+      } else {
+        showToastMessage_error('Error setting up the request.')
+      }
+
+    } finally {
+      setIsLoading(false);
+    }
+
+  };
+
+
+  const handleInputChange = (e) => {
+    // Resetting error states when input value changes
+    setEmailOrPhoneApiErr("");
+    setPasswordApiErr("");
+    handleChange(e);
+  };
+
 
   function togglePasswordVisibility() {
     setIsPasswordVisible((prevState) => !prevState);
   }
 
+
+
+  const {
+    values,
+    errors,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    touched,
+    isSubmitting,
+    setFieldValue,
+  } = useFormik({
+    initialValues: {
+      emailOrPhone: "",
+      password: "",
+    },
+    validationSchema: loginValidationSchema,
+    onSubmit,
+  });
+
+
   return (
-    <section className="">
-      <div className="flex flex-col 2xl:flex-row xl:flex-row   lg:flex-row items-center h-screen justify-center py-[50px] mx-5 2xl:mx-auto  lg:mx-auto lg:w-[895px] xl:w-[900px] 2xl:w-[1000px]">
-        <div className="hidden lg:block xl:block 2xl:block 2xl:w-[1000px] 2xl:h-[490px] w-[700px] h-[495px] pe-5">
+    <section className="font-mainFont">
+
+
+      <div className="flex items-center justify-center pt-[5%] sm:mx-5 md:mx-5 mdl:w-[769px] mx-auto lg:w-[895px] xl:w-[900px] 2xl:w-[1000px] h-[600px] sm:h-[480px] sm:mt-20">
+        <div className="hidden lg:block xl:block 2xl:block w-[50%] h-full me-5">
           <img
-            src='/images/AuthBanner/AuthBanner.jpeg'
+            src={'/images/AuthBanner/AuthBanner.jpeg'}
             alt="login hero img"
-            className="object-cover rounded-r-0 rounded-l-lg  h-full w-full"
+            className="object-cover rounded-r-0 rounded-l-lg  h-full w-full brightness-25"
           />
         </div>
-        <div className="w-full bg-white rounded-lg shadow-[0px_14px_207px_10px_rgba(72,_181,_255,_0.43)] z-100 2xl:h-[490px] lg:-ml-2 xl:-m-2 2xl:-m-2 sm:max-w-md xl:p-0">
-          <div className="p-6 space-y-4 md:space-y-6 sm:p-8 z-10">
+        <div className=" sm:w-full md:w-full mdl:w-full w-[50%] h-full rounded-lg border-[0.7px] lg:-ml-2 xl:-m-2 2xl:-m-2 z-10">
+          <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <div className="text-center mb-8">
               <h1 className="text-[24px]">Sign Up</h1>
               <p className="sm:text-[14px] text-slate-500">
@@ -29,31 +136,102 @@ function Register() {
               </p>
             </div>
             <form
-              // onSubmit={handleSubmit}
+              onSubmit={handleSubmit}
               className="space-y-4 md:space-y-6"
               action="#"
             >
+
+
+
               <div>
                 <label
-                  htmlFor="email"
+                  htmlFor="emailOrPhone"
                   className="block mb-2 text-sm font-medium text-gray-900"
                 >
                   E-mail or phone number
                 </label>
                 <input
-                  // value={values.email}
-                  // onChange={handleChange}
-                  // onBlur={handleBlur}
-                  type="email"
-                  name="email"
-                  id="email"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                  value={values.emailOrPhone}
+                  // onChange={handleInputChange}
+                  onChange={(e) => {
+                    const value = e.target.value || "";
+                    setFieldValue("emailOrPhone", value.toLowerCase());
+                    handleInputChange;
+                  }}
+                  // onChange={handleInputChange}
+                  onBlur={handleBlur}
+                  type="text"
+                  name="emailOrPhone"
+                  id="emailOrPhone"
+                  className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 
+                  ${(errors.emailOrPhone && touched.emailOrPhone) || (emailOrPhoneApiErr)? "border-red-500": ""}`}
                   placeholder="Enter your email or phone number"
-                  required=""
                 />
-
-
+                {errors.emailOrPhone && touched.emailOrPhone && (
+                  <small className="text-red-500 mt-1">
+                    {errors.emailOrPhone}
+                  </small>
+                )}
+                {emailOrPhoneApiErr && (
+                  <small className="text-red-500 mt-1">
+                    {emailOrPhoneApiErr}
+                  </small>
+                )}
               </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <div>
+                <label
+                  htmlFor="emailOrPhone"
+                  className="block mb-2 text-sm font-medium text-gray-900"
+                >
+                  E-mail or phone number
+                </label>
+                <input
+                  value={values.emailOrPhone}
+                  // onChange={handleInputChange}
+                  onChange={(e) => {
+                    const value = e.target.value || "";
+                    setFieldValue("emailOrPhone", value.toLowerCase());
+                    handleInputChange;
+                  }}
+                  // onChange={handleInputChange}
+                  onBlur={handleBlur}
+                  type="text"
+                  name="emailOrPhone"
+                  id="emailOrPhone"
+                  className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 
+                  ${(errors.emailOrPhone && touched.emailOrPhone) || (emailOrPhoneApiErr)? "border-red-500": ""}`}
+                  placeholder="Enter your email or phone number"
+                />
+                {errors.emailOrPhone && touched.emailOrPhone && (
+                  <small className="text-red-500 mt-1">
+                    {errors.emailOrPhone}
+                  </small>
+                )}
+                {emailOrPhoneApiErr && (
+                  <small className="text-red-500 mt-1">
+                    {emailOrPhoneApiErr}
+                  </small>
+                )}
+              </div>
+
 
 
               <div>
@@ -65,14 +243,18 @@ function Register() {
                 </label>
                 <div className="relative">
                   <input
-                    // value={values.password}
-                    // onChange={handleChange}
-                    // onBlur={handleBlur}
+                    value={values.password}
+                    onChange={handleInputChange}
+                    onBlur={handleBlur}
                     type={isPasswordVisible ? "text" : "password"}
                     name="password"
                     id="password"
                     placeholder="Enter your password"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 relative"
+                    className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 relative 
+                    ${(errors.password && touched.password)||(passwordApiErr)
+                      ? "border-red-500"
+                      : ""
+                      }`}
                     required=""
                   />
                   {isPasswordVisible ? (
@@ -89,40 +271,54 @@ function Register() {
                     />
                   )}
                 </div>
+                {errors.password && touched.password && (
+                  <small className="text-red-500 mt-1">{errors.password}</small>
+                )}
+                {passwordApiErr && (
+                  <small className="text-red-500 mt-1">{passwordApiErr}</small>
+                )}
               </div>
 
-              <button
-                type="submit"
-                className="w-full text-white bg-darkPink rounded-lg px-5 py-2.5 text-center"
-              >
-                Login
-              </button>
+
+
+              <div className="pt-4">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className={`w-full text-white rounded-lg px-5 py-2.5 text-center
+                bg-blue-700 ${isSubmitting ? "opacity-35" : ""
+                    }`}
+                >
+                  Log in
+                </button>
+              </div>
 
               <div className="text-right">
-                <a href="#" className="text-[13px] text-sky-500">
+                <Link
+                  to={"/forgot-password"}
+                  className="text-[13px] text-blue-800"
+                >
                   Forgot password?
-                </a>
+                </Link>
               </div>
-
-
-
               <p className="text-sm text-center font-light text-gray-500">
                 Don’t have an account yet?{" "}
-                <a
-                  href="#"
-                  className="font-medium text-sky-500   hover:underline"
+                <Link
+                  to={"/signup"}
+                  className="font-medium text-blue-400 hover:underline"
                 >
                   Sign up
-                </a>
+                </Link>
               </p>
             </form>
           </div>
         </div>
-
-        {/* <div>Hello</div> */}
       </div>
+      {/* {isLoading && (
+        <div className="absolute top-[50%] left-[50%] z-50 w-16 h-16 border-8 border-dashed rounded-full animate-spin border-orange-500"></div>
+      )} */}
     </section>
-  )
-}
+  );
+};
 
-export default Register
+export default Login;

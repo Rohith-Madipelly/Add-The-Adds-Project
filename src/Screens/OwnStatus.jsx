@@ -9,6 +9,9 @@ function OwnStatus() {
 
     return (
         <div className='w-full'>
+                  <div className='h-[70px]'>
+
+</div>
             <div className='OwnStatusImageBackgound  pt-5 px-[100px] sm:px-5 '>
                 <div className='flex bg-black'>
                     <div className='w-[35%]'>

@@ -3,11 +3,16 @@ import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import NavDropDown from './NavDropDown/NavDropDown'
 import { Button } from 'flowbite-react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setToken } from '../../redux/actions/loginAction';
 
 const NavBar = () => {
     const location = useLocation();
+    const dispatch =useDispatch();
+    const loginSelector = useSelector((state) => state.isLogin);
+    console.log("Hello user Token is ",loginSelector)
     const PageName = location.pathname === '/' || location.pathname === '/home' || location.pathname === '/data123';
-    const NavBarDisplay = location.pathname === '/login' || location.pathname === '/Register' || location.pathname === '/forget';
+    const NavBarDisplay = location.pathname === '/login' || location.pathname === '/signup' || location.pathname === '/forget';
 
     let LinkPages = [
         { name: "Home", link: "/" },
@@ -16,8 +21,16 @@ const NavBar = () => {
         { name: "Contact us", link: "/Contact us" },
     ]
 
+    const handleLogout = () => {
+
+        console.log("Clear the token from localStorage")
+        dispatch(setToken(""));
+        localStorage.removeItem('token');
+      };
+    
+
     return (
-        <div className={`w-full px-[5em] sm:px-0 mdl:px-[2.5em] md:px-[1em] ${PageName ? 'bg-white' : 'bg-black'} ${NavBarDisplay ? 'hidden' : 'block'}`}>
+        <div className={`w-full px-[5em] sm:px-0 mdl:px-[2.5em] md:px-[1em] fixed z-50 ${PageName ? 'bg-white' : 'bg-black'} ${NavBarDisplay ? 'hidden' : 'block'}`}>
             <div className='flex items-center justify-between h-[60px]'>
                 <h2 className={`cursor-pointer sm:text-lg  ${PageName ? 'text-black' : 'text-white'}  !text-black-900 text-xl !font-balootamma text-white-A700 font-dmsans text-white-A700 font-dmsans w-[40%] sm:w-[70%] !text-black-900  !font-balootamma font-bold ps-1`}>
                     <Link to={'/'}>Add the Adds.com</Link>
@@ -36,10 +49,15 @@ const NavBar = () => {
 
                     </ul>
 
-                    <button className={`shadow font-[Poppins] rounded md:ml-8 
+                    {!loginSelector?<button className={`shadow font-[Poppins] rounded md:ml-8 
         hover: duration-500 flex items-center justify-center h-9 text-black-900 tracking-[1.00px] 
         text-center text-xl border-black-900_33 border border-solid bg-white-A700 shadow-xs min-w-[103px] rounded-[10px] ${PageName ? 'text-black' : 'text-white'} mx-0`}>
-                        <Link to={'/login'}>Login</Link></button>
+                        <Link to={'/login'}>Login</Link>
+                        </button>:<button className={`shadow font-[Poppins] rounded md:ml-8 
+        hover: duration-500 flex items-center justify-center h-9 text-black-900 tracking-[1.00px] 
+        text-center text-xl border-black-900_33 border border-solid bg-white-A700 shadow-xs min-w-[103px] rounded-[10px] ${PageName ? 'text-black' : 'text-white'} mx-0`}>
+                        <Link onClick={handleLogout}>LogOut 123</Link>
+                        </button>}
 
                     <NavDropDown />
                 </div>

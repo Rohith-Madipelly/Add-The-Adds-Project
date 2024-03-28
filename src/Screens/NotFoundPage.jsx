@@ -1,5 +1,4 @@
 import React from 'react'
-import Loader1 from '../shared/Loaders/Loader1'
 
 function NotFoundPage() {
 

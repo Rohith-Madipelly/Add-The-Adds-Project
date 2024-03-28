@@ -38,6 +38,9 @@ function AddPage() {
 
   return (
     <div className='w-full px-8 new_Page_GroundImage'>
+            <div className='h-[70px]'>
+
+</div>
       <div className='grid grid-cols-12 py-4'>
         <div className='sm:col-span-3'><div className='hidden sm:block'><NDShare /></div></div>
         <div className='col-span-12 sm:col-span-9'><div className='font-bold text-xl mb-2 text-center sm:text-start'>Add Page </div>

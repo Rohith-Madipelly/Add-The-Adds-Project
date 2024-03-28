@@ -24,7 +24,9 @@ function CreatePage() {
 
     return (
         <div className='new_Page_GroundImage'>
+      <div className='h-[70px]'>
 
+</div>
 
             <div className='w-full px-8 sm:px-2 py-5'>
 

@@ -3,21 +3,21 @@
 
 import React, { useEffect, useState } from 'react'
 import { OpenScroll } from '../../../utils/OpenScroller'
-import { ServicesAPI } from '../../../utils/APIcall';
+import { PrivacyPolicyAPI } from '../../../utils/APIcall';
 import { useSelector } from 'react-redux';
 
 
 
 
-function Services() {
-  const [ServicesData, setServicesData] = useState("No Data Found")
+function PrivacyPolicy() {
+  const [privacyPolicyData, setprivacyPolicyData] = useState("No Data Found")
   const token = useSelector((state) => state.token)
 
   const APICaller = async () => {
     try {
-      const res = await ServicesAPI(token)
-      console.log(res.data.blog)
-      // setServicesData(res.data)
+      const res = await PrivacyPolicyAPI(token)
+      console.log(res.data)
+      setprivacyPolicyData(res.data.privacyPolicy)
 
     }
     catch (e) {
@@ -39,10 +39,10 @@ function Services() {
       <div className='h-[70px]'>
       </div>
       <div className='w-[100vw] h-[100vh] max-h-auto'>
-        <div className='my-5 font-bold text-xl text-center'>Services</div>
+        <div className='my-5 font-bold text-xl text-center'>Terms and Condition</div>
         <div className=' mx-10 px-10 '>
-          {ServicesData ? <div>
-            {ServicesData}
+          {privacyPolicyData ? <div>
+            {privacyPolicyData}
           </div> : ""}
 
         </div>
@@ -53,4 +53,4 @@ function Services() {
   )
 }
 
-export default Services
+export default PrivacyPolicy

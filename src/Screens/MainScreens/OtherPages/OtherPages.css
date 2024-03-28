@@ -1,0 +1,9 @@
+.HomeBackGroundImage{
+    background-image: url('/images/HomebackgroundImage.png');
+    /* background-color: black; */
+    background-size: cover;
+    background-position: center 10px;
+    background-repeat: no-repeat;   
+
+
+}
