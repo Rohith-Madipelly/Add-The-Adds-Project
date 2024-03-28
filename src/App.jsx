@@ -36,6 +36,7 @@ import UploadPage from './Screens/MainScreens/UploadAdd/UploadAdd';
 import Trending from './Screens/MainScreens/OtherPages/Trending';
 import Festivals from './Screens/MainScreens/OtherPages/Festivals';
 import Register from './Screens/AuthScreens/Register';
+import Test1 from './Screens/TestingScreens/Test1';
 
 
 
@@ -77,6 +78,9 @@ function App() {
           <Route exact path='/FAQ' element={<FAQ />} />
           <Route exact path='/Terms of use' element={<TermsandCondition />} />
           <Route exact path='/Privacy Policy' element={<PrivacyPolicy />} />
+
+
+          <Route exact path='/Test' element={<Test1 />} />
           
 
 

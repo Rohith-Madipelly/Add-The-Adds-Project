@@ -86,3 +86,15 @@ export const GetPlanInfo = async (token) => {
   });
 };
 
+export const getaddAPI=async ()=>{
+  return await axios.get(`${BASE_URL}/getaddimage`)
+}
+
+
+export const getTemplatesAPI=async(token)=>{
+  console.log(token)
+  return await axios.get(`${BASE_URL}/user/getimage`,{
+    headers: { Authorization:"Bearer " + token}
+  }
+  );
+}

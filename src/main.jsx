@@ -12,6 +12,7 @@ import NavBar from './Components/NavBar/Navbar.jsx'
 import "react-toastify/dist/ReactToastify.css";
 
 
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
@@ -22,5 +23,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <ScreenSizeDisplayer123 />
       </BrowserRouter>
     </Provider>
+
+    {/* <Test1/> */}
   </React.StrictMode>,
 )
