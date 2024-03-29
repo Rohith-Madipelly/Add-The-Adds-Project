@@ -37,6 +37,8 @@ import Trending from './Screens/MainScreens/OtherPages/Trending';
 import Festivals from './Screens/MainScreens/OtherPages/Festivals';
 import Register from './Screens/AuthScreens/Register';
 import Test1 from './Screens/TestingScreens/Test1';
+import Test2 from './Screens/TestingScreens/Test2';
+import SearchF from './Screens/MainScreens/EditOwnPage/SearchF';
 
 
 
@@ -81,6 +83,10 @@ function App() {
 
 
           <Route exact path='/Test' element={<Test1 />} />
+          <Route exact path='/Test2' element={<Test2 />} />
+         
+         
+          <Route exact path='/SearchF' element={<SearchF />} />
           
 
 

@@ -1,22 +1,35 @@
-import React, { useEffect, useState } from 'react'
-import './css/OwnStatus.css'
-import { Button, Carousel } from 'flowbite-react'
-import Footter from '../Components/Footter'
-import { Link } from 'react-router-dom'
-import { getTemplatesAPI } from '../utils/APIcall'
-import { useSelector } from 'react-redux'
-
+import React, { useEffect, useRef, useState } from 'react'
 import { Virtual, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
+
+import { getTemplatesAPI } from '../utils/APIcall'
+import { useSelector } from 'react-redux'
+
+
+
+
+import './css/OwnStatus.css'
+import { Button, Carousel } from 'flowbite-react'
+
+import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { showToastMessage_error } from '../shared/Toaster';
+
+
 function OwnStatus() {
-    const [Data, setData] = useState("No Data Found")
+    const [Data, setData] = useState([])
     const token = useSelector((state) => state.token);
+    const navigate = useNavigate();
+    const [swiperRef, setSwiperRef] = useState(null);
+    const appendNumber = useRef(500);
+    const prependNumber = useRef(1);
+    // Create array with 500 slides
+
+
     const APICaller = async () => {
         console.log("sdad")
         try {
@@ -24,10 +37,30 @@ function OwnStatus() {
             console.log(res.data.Data)
             setData(res.data.Data)
             console.log("klbxvj")
-        } catch (e) {
-            console.log("vdvsd",e)
+        } catch (error) {
+
+            if (error.response) {
+                if (error.response.status === 401) {
+                  showToastMessage_error("Incorrect Password")
+                  navigate('/login');
+                } else if (error.response.status === 404) {
+                //   setEmailOrPhoneApiErr("Account does not exist with the provided email or phone number")
+                } else if (error.response.status === 500) {
+                //   console.log("Data Error Internal server error 500 ", error)
+                  showToastMessage_error("Internal server error 500")
+                } else {
+                  console.log("Error else ?? ")
+                }
+              } else if (error.request) {
+                showToastMessage_error(`No response received from the server. ${error.message} . Please Try Again `)
+              } else {
+                showToastMessage_error('Error setting up the request.')
+              }
+
+
+            console.log("vdvsd", e)
         } finally {
-            console.log("Finally")
+            console.log("Finally 123")
         }
     }
 
@@ -41,9 +74,9 @@ function OwnStatus() {
 
             </div>
             <div className='OwnStatusImageBackgound  pt-5 px-[100px] sm:px-5 '>
-                <div className='flex bg-black'>
+                <div className='flex '>
                     <div className='w-[35%]'>
-                        <Button className='my-4 bg-blue-800' as={Link} to={'/Edit Own Page'}>Own Status</Button>
+                        <Button className='my-4 bg-blue-800' as={Link} to={'/Own Status'}>Own Status</Button>
                         <Button className='my-4 bg-blue-800'>Ready for themes</Button>
                     </div>
 
@@ -57,19 +90,110 @@ function OwnStatus() {
                         <div className='w-90  bg-white shadow-xl px-5 py-2 rounded-lg'>Search Here</div>
                     </div>
                 </div>
-                <div className='w-full h-[500px] sm:h-[250px] mt-5'>
-        {Data.map((data)=>(
-            <div>1</div>
-        ))}
+                <div className='w-full h-[400px] sm:h-[250px] mt-5 mx-5'>
+
+                    {Data ? <Swiper
+                        modules={[Virtual, Navigation, Pagination]}
+                        // modules={[Autoplay]}
+                        onSwiper={setSwiperRef}
+                        slidesPerView={3}
+                        centeredSlides={true}
+                        spaceBetween={10}
+                        // pagination={{
+                        //     type: 'fraction',
+                        // }}
+                        navigation={true}
+                        virtual
+                        autoplay={{
+                            delay: 2500,
+                            disableOnInteraction: false,
+                        }}
+                        pagination={{
+                            clickable: true,
+                        }}
+                        className="w-full h-full"
+
+                        breakpoints={{
+                            480: {
+                                slidesPerView: 1,
+                                spaceBetween: 10,
+                            },
+                            768: {
+                                slidesPerView: 2,
+                                spaceBetween: 10,
+                            },
+                            1023: {
+                                slidesPerView: 3,
+                                spaceBetween: 10,
+                            },
+                            1280: {
+                                slidesPerView: 4,
+                                spaceBetween: 10,
+                            },
+                        }}
+                    >
+                        {Data.map((slideContent, index) => (
+                            <SwiperSlide key={slideContent} virtualIndex={index} className="z-40 h-full sm:flex sm:items-center sm:justify-center ">
+                                <Link to={{ pathname: '/Edit Own Page'}} state={{slideContent }}>
+
+                                    <img src={slideContent.imageUrl} className='w-full h-[364px] w-[327px] sm:h-[204px] m-0 p-0 object-cover' />
+                                </Link>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper> : ""}
+
                 </div>
 
-                <div className='bg-black w-full h-[500px] sm:h-[250px] mt-5'>
-                    <Carousel className='w-full h-full'>
-                        <p>Hello Rohith madipelly </p>
-                        <p>Hello Rohith madipelly </p>
-                        <p>Hello Rohith madipelly </p>
-                        <p>Hello Rohith madipelly </p>
-                    </Carousel>
+                <div className='w-full h-[400px] sm:h-[250px] mt-5 mx-5'>
+
+                    {Data ? <Swiper
+                        modules={[Virtual, Navigation, Pagination]}
+                        // modules={[Autoplay]}
+                        onSwiper={setSwiperRef}
+                        slidesPerView={3}
+                        centeredSlides={true}
+                        spaceBetween={10}
+                        // pagination={{
+                        //     type: 'fraction',
+                        // }}
+                        navigation={true}
+                        virtual
+                        autoplay={{
+                            delay: 2500,
+                            disableOnInteraction: false,
+                        }}
+                        pagination={{
+                            clickable: true,
+                        }}
+                        className="w-full h-full"
+
+                        breakpoints={{
+                            480: {
+                                slidesPerView: 1,
+                                spaceBetween: 10,
+                            },
+                            768: {
+                                slidesPerView: 2,
+                                spaceBetween: 10,
+                            },
+                            1023: {
+                                slidesPerView: 3,
+                                spaceBetween: 10,
+                            },
+                            1280: {
+                                slidesPerView: 4,
+                                spaceBetween: 10,
+                            },
+                        }}
+                    >
+                        {Data.map((slideContent, index) => (
+                            <SwiperSlide key={slideContent} virtualIndex={index} className="z-40 h-full sm:flex sm:items-center sm:justify-center ">
+
+                                <Link to={{ pathname: '/next-page', state: { data: slideContent } }}><img src={slideContent.imageUrl} className='w-full h-[364px] w-[327px] sm:h-[204px] m-0 p-0 object-cover' /></Link>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper> : ""}
+
                 </div>
                 <div className='h-[100px]'>
 

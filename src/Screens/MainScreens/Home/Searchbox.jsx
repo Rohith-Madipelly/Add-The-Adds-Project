@@ -1,4 +1,5 @@
 import React from 'react'
+import SearchF from '../EditOwnPage/SearchF'
 
 function Searchbox() {
     return (
@@ -29,6 +30,8 @@ function Searchbox() {
               }
               className="flex items-center justify-center w-[40%] sm:w-[80%] h-[50px] gap-[35px] left-0 bottom-0 right-0 top-0 px-[40px] m-auto text-black-900_cc tracking-[1.00px] font-outfit text-xl bg-white-A700 shadow-sm absolute rounded-[10px] z-0"
             />
+
+            <SearchF/>
           </div>
 
         </div>

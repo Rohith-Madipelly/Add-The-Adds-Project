@@ -8,14 +8,16 @@ import { GetPlanInfo } from '../../../utils/APIcall'
 function UploadPage() {
 
   const [PlanData, SetPlanData] = useState([])
+  const [benefitsData, SetBenefitsData] = useState([])
   const token = useSelector((state) => state.token);
 
   const ApiCaller = async () => {
     try {
       const res = await GetPlanInfo(token)
-
+      console.log(res.data.plans)
       SetPlanData(res.data.plans)
-      console.log("Data Page", PlanData)
+      console.log("Data Page >", PlanData)
+
 
     } catch (e) {
       console.log(e)
@@ -28,6 +30,10 @@ function UploadPage() {
   useEffect(() => {
     ApiCaller()
   }, [])
+
+
+
+
 
   let imagesBe = [
     { name: "hero1", Type: 'Free Add', ImageLink: '/images/icons2/Rectangle 552.png' },
@@ -53,11 +59,11 @@ function UploadPage() {
           <div className='grid grid-cols-4 md:grid-flow-col-3 sm:grid-cols-2 gap-8 gap-y-3'>
             <a href='Home'>
               <CustomButton
-              classStyle='text-blue-950 font-bold  text-xs'
-              Linkurl='/Home'
-            >
-              My Page <img src='/images/icons2/Frame (1).png' className='inline ps-2' />
-            </CustomButton>
+                classStyle='text-blue-950 font-bold  text-xs'
+                Linkurl='/Home'
+              >
+                My Page <img src='/images/icons2/Frame (1).png' className='inline ps-2' />
+              </CustomButton>
             </a>
             <CustomButton
               classStyle='text-blue-950 font-bold text-xs'
@@ -76,12 +82,12 @@ function UploadPage() {
 
 
             <a href='Home'>
-            <CustomButton
-              classStyle='text-blue-950 font-bold text-xs'
-              Linkurl='/Pink'
-            >
-              cancel
-            </CustomButton>
+              <CustomButton
+                classStyle='text-blue-950 font-bold text-xs'
+                Linkurl='/Pink'
+              >
+                cancel
+              </CustomButton>
             </a>
           </div>
 
@@ -106,6 +112,7 @@ function UploadPage() {
                   <div key={index}>
                     <div className="text-center my-2 font-bold text-base">{Data.Type}</div>
                     <img src={Data.PlanPic} alt={`Plan ${index}`} />
+
                   </div>
                 ))
               )}
@@ -145,7 +152,7 @@ function UploadPage() {
             {PlanData.length === 0 ? (
               <div className='text-center text-black font-bold'>No plans available</div>
             ) : (
-              PlanData.map((data, index) => (
+              PlanData.flatMap((data, index) => (
                 <div key={index} className='h-[500px] rounded-3xl'>
                   <div className='backGroundGradinateForprimenrm p-5 w-full h-full rounded-3xl'>
                     <div className='flex justify-center items-center'>
@@ -161,6 +168,10 @@ function UploadPage() {
                     </div>
 
                     <div className='text-white text-center mt-5'>
+                      {/* {data.benefits.map((benefit, index) => ( // Changed parameter name to avoid conflict
+                        <div key={index}>{benefit}</div> // Assuming benefits is an array of strings
+                      ))} */}
+
                       <div className='my-6'>
                         <img className='inline-block' src="images/dd/img_frame_green_a700.svg" alt="image_three" /> Lorem Ipsum is simply dummy
                       </div>

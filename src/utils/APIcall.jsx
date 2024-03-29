@@ -23,6 +23,26 @@ export const UserLoginAPI = async (requestBody) => {
 
 };
 
+// User Login API Call 
+export const UserRegisterAPI = async (requestBody) => {
+  console.log("dddddd",requestBody)
+
+const RegisterData = {
+  username:"rohith",
+  firstname: "madipelly",
+  lastname: "goud",
+  phone_Number: "9951072005",
+  email: "madipellyrohith@gmail.com",
+  password: "Rohith@7",
+  pagename: "Male Adha",
+
+}
+
+  return await axios.post(`${GUEST_URL}/register`, RegisterData);
+
+};
+
+
 
 //Frequently Asked Questions (FAQ)
 export const FAQuestionsAPI = async (token) => {
@@ -81,20 +101,20 @@ export const SettingsAPI = async () => {
 
 export const GetPlanInfo = async (token) => {
 
-  return await axios.get(`${BASE_URL}/user/plans`,{
-    headers: { Authorization:"Bearer " + token}
+  return await axios.get(`${BASE_URL}/user/plans`, {
+    headers: { Authorization: "Bearer " + token }
   });
 };
 
-export const getaddAPI=async ()=>{
+export const getaddAPI = async () => {
   return await axios.get(`${BASE_URL}/getaddimage`)
 }
 
 
-export const getTemplatesAPI=async(token)=>{
-  console.log(token)
-  return await axios.get(`${BASE_URL}/user/getimage`,{
-    headers: { Authorization:"Bearer " + token}
+export const getTemplatesAPI = async (token) => {
+
+  return await axios.get(`${BASE_URL}/user/getimage`, {
+    headers: { Authorization: "Bearer " + token }
   }
   );
 }
