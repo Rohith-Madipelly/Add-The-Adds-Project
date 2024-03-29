@@ -1,24 +1,52 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import './css/OwnStatus.css'
 import { Button, Carousel } from 'flowbite-react'
 import Footter from '../Components/Footter'
 import { Link } from 'react-router-dom'
+import { getTemplatesAPI } from '../utils/APIcall'
+import { useSelector } from 'react-redux'
 
+import { Virtual, Navigation, Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 function OwnStatus() {
+    const [Data, setData] = useState("No Data Found")
+    const token = useSelector((state) => state.token);
+    const APICaller = async () => {
+        console.log("sdad")
+        try {
+            const res = await getTemplatesAPI(token)
+            console.log(res.data.Data)
+            setData(res.data.Data)
+            console.log("klbxvj")
+        } catch (e) {
+            console.log("vdvsd",e)
+        } finally {
+            console.log("Finally")
+        }
+    }
+
+    useEffect(() => {
+        APICaller()
+    }, [])
 
     return (
         <div className='w-full'>
-                  <div className='h-[70px]'>
+            <div className='h-[70px]'>
 
-</div>
+            </div>
             <div className='OwnStatusImageBackgound  pt-5 px-[100px] sm:px-5 '>
                 <div className='flex bg-black'>
                     <div className='w-[35%]'>
                         <Button className='my-4 bg-blue-800' as={Link} to={'/Edit Own Page'}>Own Status</Button>
                         <Button className='my-4 bg-blue-800'>Ready for themes</Button>
                     </div>
-                    
+
                     <div className='mx-5  w-[65%] '>
                         <div className='flex gap-5'>
                             <Button className='my-4 bg-white text-black  shadow-xl hover:bg-white'>My Page</Button>
@@ -29,13 +57,10 @@ function OwnStatus() {
                         <div className='w-90  bg-white shadow-xl px-5 py-2 rounded-lg'>Search Here</div>
                     </div>
                 </div>
-                <div className='bg-black w-full h-[500px] sm:h-[250px] mt-5'>
-                    <Carousel className='w-full h-full'>
-                        <p>Hello Rohith madipelly </p>
-                        <p>Hello Rohith madipelly </p>
-                        <p>Hello Rohith madipelly </p>
-                        <p>Hello Rohith madipelly </p>
-                    </Carousel>
+                <div className='w-full h-[500px] sm:h-[250px] mt-5'>
+        {Data.map((data)=>(
+            <div>1</div>
+        ))}
                 </div>
 
                 <div className='bg-black w-full h-[500px] sm:h-[250px] mt-5'>
