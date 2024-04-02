@@ -1,39 +1,128 @@
 import React, { useEffect, useState } from 'react'
 import { MdDelete } from 'react-icons/md'
-import { ProfileAPI } from '../../../utils/APIcall';
+import { AddLinkAPI, DeleteLinkAPI, ProfileAPI } from '../../../utils/APIcall';
 import { useSelector } from 'react-redux';
+import { IoAddCircleSharp } from 'react-icons/io5';
+import { FaUpload } from "react-icons/fa";
+import { showToastMessage_error, showToastMessage_success } from '../../../shared/Toaster';
 
 function LinkCreatePage() {
 
     const token = useSelector((state) => state.token);
 
-    const [LiveLink1, setLiveLink1] = useState("Live Link 1")
-    const [LiveLink2, setLiveLink2] = useState("Live Link 2")
 
-    const [GeneralLink1, setGeneralLink1] = useState("General Link 1")
-    const [GeneralLink2, setGeneralLink2] = useState("General Link 2")
+    const [APIDATA, setAPIDATA] = useState([""])
 
-    const [ChanelLink1, setChanelLink1] = useState("Chanel Link 1")
-    const [ChanelLink2, setChanelLink2] = useState("Chanel Link 2")
+    const [LiveLinkURLS, setLiveLinkURLS] = useState([""])
+    const [GeneralLinkURLS, setGeneralLinkURLS] = useState([""])
+    const [ChanelLinkURLS, setChanelLinkURLS] = useState([""])
 
+    const [error, setError] = useState()
+
+
+    const [linksData_Number, setLinksData_Number] = useState({
+        live_DataNumber: "",
+        General_DataNumber: "",
+        Chanel_DataNumber: ""
+    });
 
     const Apicaller = async () => {
         console.log(token)
         const res = await ProfileAPI(token)
 
-        console.log("Data in the page", res.data.liveLinks)
-        setLiveLink1(res.data.liveLinks[0])
-        setLiveLink2(res.data.liveLinks[1])
+        const LINK = res.data.Links;
+
+        console.log("Data in the page", LINK)
+        setLiveLinkURLS(LINK.live_links)
+        console.log(LiveLinkURLS)
+
+        setLinksData_Number(prevState => ({
+            ...prevState,
+            live_DataNumber: LINK.live_links.length
+        }));
+
+        setLinksData_Number(prevState => ({
+            ...prevState,
+            General_DataNumber: LINK.general_links.length
+        }));
+
+        setLinksData_Number(prevState => ({
+            ...prevState,
+            Chanel_DataNumber: LINK.chanel_links.length
+        }));
 
 
-        console.log("Data in the page", res.data.generalLinks)
-        setGeneralLink1(res.data.generalLinks[0])
-        setGeneralLink2(res.data.generalLinks[1])
 
 
-        console.log("Data in the page 3", res.data.liveLinks)
-        setChanelLink1(res.data.liveLinks[0])
-        setChanelLink2(res.data.liveLinks[1])
+        setGeneralLinkURLS(LINK.general_links)
+        console.log("><<",LINK.general_links)
+
+        setChanelLinkURLS(LINK.chanel_links)
+        console.log(ChanelLinkURLS)
+
+    }
+
+
+    const addLinkToArray = () => {
+        // Replace 'yourLink' with the link you want to add
+        const newLink = '';
+        setLiveLinkURLS(prevLinks => [...prevLinks, newLink]);
+    }
+
+    const addsetGeneralLinkURLSToArray = () => {
+        // Replace 'yourLink' with the link you want to add
+        const newLink = '';
+        setGeneralLinkURLS(prevLinks => [...prevLinks, newLink]);
+    }
+
+    const addsetChanelLinkURLSToArray = () => {
+        // Replace 'yourLink' with the link you want to add
+        const newLink = '';
+        setChanelLinkURLS(prevLinks => [...prevLinks, newLink]);
+    }
+
+    const AddLinkCaller = async (LinkName, LinkURL) => {
+        
+        if (LinkURL) {
+
+            const res = await AddLinkAPI(token, LinkName, LinkURL)
+            console.log("Data Deleted>", res)
+            if (res) {
+                showToastMessage_success(res.data.message)
+                Apicaller()
+            }
+            else {
+
+            }
+        }
+        else {
+            showToastMessage_error("No Link")
+        }
+    }
+
+    const DeleteLinkCaller = async (LinkName, LinkURL) => {
+
+
+        // if(linksData_Number.live_DataNumber){
+        //     console.log("sajbaj")
+        // }
+
+
+        if (LinkURL) {
+
+            const res = await DeleteLinkAPI(token, LinkName, LinkURL)
+            console.log("Data Deleted>", res)
+            if (res) {
+                showToastMessage_success(res.data.message)
+                Apicaller()
+            }
+            else {
+
+            }
+        }
+        else {
+            showToastMessage_error("No Link")
+        }
     }
 
     const SubmitData = async () => {
@@ -52,137 +141,240 @@ function LinkCreatePage() {
         <div>
             <div>
 
-
-                {/* Live Links */}
+                {/*<<<<<< Links >>>>>>>*/}
                 <div>
-                    <p className='my-2'>Live Links</p>
-                    <div className='flex w-[95%] border-2 rounded-lg bg-white h-[55px]'>
-                        <input
-                            name="service"
-                            type="text"
-                            id="service"
-                            // value={singleService.service}
-                            // onChange={(e) => handleServiceChange(e, index)}
-                            value={LiveLink1} onChange={(e) => setLiveLink1(e.target.value.toLowerCase())}
-                            required
-                            className='border-none focus:outline-none focus:border-none w-full h-[50px]' />
-                        {/* <div>
-      <IoAddCircleSharp size={25} color='blue' className='m-3' onClick={handleServiceAdd} />
-    </div> */}
-                        <div className='m-3'>
-                            <MdDelete size={25} color='red' onClick={() => { console.log("sa") }} />
+                    {/* Live Links */}
+                    <div className='mb-3'>
+                        <div className='flex justify-between w-[95%]'>
+                            <p className='my-1'>Live Links</p>
+                            <p onClick={() => { addLinkToArray() }}>Add more Links</p>
                         </div>
+                        {LiveLinkURLS.length > 0 ? (
+                            LiveLinkURLS.map((link, index) => (
+                                <div >
+                                    <div key={index} className={`flex w-[95%] border-2 rounded-lg bg-white ${error ? 'bg-black' : 'bg-black'} h-[55px] mb-2`}>
+
+
+                                        <input
+                                            name={`service-${index}`}
+                                            type="text"
+                                            id={`service-${index}`}
+                                            value={link}
+                                            onChange={(e) => {
+                                                const updatedLinks = [...LiveLinkURLS];
+                                                updatedLinks[index] = e.target.value.toLowerCase();
+                                                setLiveLinkURLS(updatedLinks);
+                                            }}
+
+                                            // onChange={(e) => {
+                                            //     const updatedLinks = [...LiveLinkURLS];
+                                            //     const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/; // Regular expression for URL validation
+                                            //     const isValidUrl = urlRegex.test(e.target.value.toLowerCase());
+
+                                            //     if (isValidUrl) {
+                                            //         updatedLinks[index] = e.target.value.toLowerCase();
+                                            //         setLiveLinkURLS(updatedLinks);
+                                            //     } else {
+                                            //         updatedLinks[index] = e.target.value.toLowerCase();
+                                            //         setLiveLinkURLS(updatedLinks);
+                                            //         // Handle invalid URL input here (e.g., show error message)
+                                            //         // For example, you can set an error state to display an error message
+                                            //         setError('Please enter a valid URL');
+                                            //     }
+                                            // }}
+
+
+                                            required
+                                            className='border-none focus:outline-none focus:border-none w-full h-[50px]'
+                                        />
+
+                                        <div>
+                                            {/* <IoAddCircleSharp
+                                            size={25}
+                                            color='blue'
+                                            className='m-3'
+                                            onClick={() => { AddLinkCaller("live_links", `${link}`) }}
+                                        /> */}
+
+                                            {index >= linksData_Number.live_DataNumber ? <FaUpload size={22}
+                                                color='blue'
+                                                className='m-3' onClick={() => { AddLinkCaller("live_links", `${link}`) }} /> : ""}
+
+                                        </div>
+
+                                        {index < linksData_Number.live_DataNumber ?
+                                            <>
+                                                {link && (
+                                                    <div className='m-3'>
+                                                        {/* <MdDelete
+                                                size={25}
+                                                color='red'
+                                                onClick={() => {
+                                                    const updatedLinks = [...LiveLinkURLS];
+                                                    updatedLinks.splice(index, 1);
+                                                    setLiveLinkURLS(updatedLinks);
+                                                }}
+                                            /> */}
+
+
+                                                        <MdDelete
+                                                            size={25}
+                                                            color='red'
+                                                            onClick={() => { DeleteLinkCaller("live_links", `${link}`) }}
+                                                        />
+                                                    </div>
+                                                )}</> : ""}
+
+                                    </div>
+
+                                </div>
+                            ))
+                        ) : (
+                            <div className='flex w-[95%] border-2 rounded-lg bg-white h-[55px]'>
+                                <input
+                                    name={`service-0`}
+                                    type="text"
+                                    id={`service-0`}
+                                    value=""
+                                    onChange={(e) => {
+                                        const updatedLinks = [...LiveLinkURLS];
+                                        updatedLinks[0] = e.target.value.toLowerCase();
+                                        setLiveLinkURLS(updatedLinks);
+                                    }}
+                                    required
+                                    className='border-none focus:outline-none focus:border-none w-full h-[50px]'
+                                />
+                            </div>
+                        )}
+                        <p className='text-red-500'>{error}</p>
                     </div>
-                    <div className='flex w-[95%] border-2 rounded-lg mt-2 bg-white h-[55px]'>
-                        <input
-                            name="service"
-                            type="text"
-                            id="service"
-                            value={LiveLink2} onChange={(e) => setLiveLink2(e.target.value.toLowerCase())}
-                            // value={singleService.service}
-                            // onChange={(e) => handleServiceChange(e, index)}
-                            required
-                            className='border-none focus:outline-none focus:border-none w-full h-[50px]' />
-                        <div>
-                            {/* <IoAddCircleSharp size={25} color='blue' className='m-3' onClick={handleServiceAdd} /> */}
+
+                    {/* General Links */}
+                    <div className='mb-3'>
+                        <div className='flex justify-between w-[95%]'>
+                            <p className='my-1'>General Links</p>
+                            <p onClick={() => { addsetGeneralLinkURLSToArray() }}>Add more Links</p>
                         </div>
-                        <div className='m-3'>
-                            {/* <MdDelete size={25} color='red' onClick={() => handleServiceRemove(index)} /> */}
-                        </div>
+                        {GeneralLinkURLS.length > 0 ? (
+                            GeneralLinkURLS.map((link, index) => (
+                                <div>
+                                    <div key={index} className={`flex w-[95%] border-2 rounded-lg bg-white ${error ? 'bg-black' : 'bg-black'} h-[55px] mb-2`}>
+                                        <input
+                                            name={`service-${index}`}
+                                            type="text"
+                                            id={`service-${index}`}
+                                            value={link}
+                                            onChange={(e) => {
+                                                const updatedLinks = [...GeneralLinkURLS];
+                                                updatedLinks[index] = e.target.value.toLowerCase();
+                                                setGeneralLinkURLS(updatedLinks);
+                                            }}
+                                            required
+                                            className='border-none focus:outline-none focus:border-none w-full h-[50px]'
+                                        />
+                                        <div>
+                                            {index >= linksData_Number.General_DataNumber ? <FaUpload size={22} color='blue' className='m-3' onClick={() => { AddLinkCaller("general_links", `${link}`) }} /> : ""}
+                                        </div>
+                                        {index < linksData_Number.General_DataNumber ?
+                                            <>
+                                                {link && (
+                                                    <div className='m-3'>
+                                                        <MdDelete
+                                                            size={25}
+                                                            color='red'
+                                                            onClick={() => { DeleteLinkCaller("general_links", `${link}`) }}
+                                                        />
+                                                    </div>
+                                                )}
+                                            </> : ""}
+                                    </div>
+                                </div>
+                            ))
+                        ) : (
+                            <div className='flex w-[95%] border-2 rounded-lg bg-white h-[55px]'>
+                                <input
+                                    name={`service-0`}
+                                    type="text"
+                                    id={`service-0`}
+                                    value=""
+                                    onChange={(e) => {
+                                        const updatedLinks = [...GeneralLinkURLS];
+                                        updatedLinks[0] = e.target.value.toLowerCase();
+                                        setGeneralLinkURLS(updatedLinks);
+                                    }}
+                                    required
+                                    className='border-none focus:outline-none focus:border-none w-full h-[50px]'
+                                />
+                            </div>
+                        )}
+                        <p className='text-red-500'>{error}</p>
                     </div>
+
+                    {/* Channel Links */}
+                    <div className='mb-3'>
+                        <div className='flex justify-between w-[95%]'>
+                            <p className='my-1'>Channel Links</p>
+                            <p onClick={() => { addsetChanelLinkURLSToArray() }}>Add more Links</p>
+                        </div>
+                        {ChanelLinkURLS.length > 0 ? (
+                            ChanelLinkURLS.map((link, index) => (
+                                <div>
+                                    <div key={index} className={`flex w-[95%] border-2 rounded-lg bg-white ${error ? 'bg-black' : 'bg-black'} h-[55px] mb-2`}>
+                                        <input
+                                            name={`service-${index}`}
+                                            type="text"
+                                            id={`service-${index}`}
+                                            value={link}
+                                            onChange={(e) => {
+                                                const updatedLinks = [...ChanelLinkURLS];
+                                                updatedLinks[index] = e.target.value.toLowerCase();
+                                                setChanelLinkURLS(updatedLinks);
+                                            }}
+                                            required
+                                            className='border-none focus:outline-none focus:border-none w-full h-[50px]'
+                                        />
+                                        <div>
+                                            {index >= linksData_Number.Chanel_DataNumber ? <FaUpload size={22} color='blue' className='m-3' onClick={() => { AddLinkCaller("chanel_links", `${link}`) }} /> : ""}
+                                        </div>
+                                        {index < linksData_Number.Chanel_DataNumber ?
+                                            <>
+                                                {link && (
+                                                    <div className='m-3'>
+                                                        <MdDelete
+                                                            size={25}
+                                                            color='red'
+                                                            onClick={() => { DeleteLinkCaller("chanel_links", `${link}`) }}
+                                                        />
+                                                    </div>
+                                                )}
+                                            </> : ""}
+                                    </div>
+                                </div>
+                            ))
+                        ) : (
+                            <div className='flex w-[95%] border-2 rounded-lg bg-white h-[55px]'>
+                                <input
+                                    name={`service-0`}
+                                    type="text"
+                                    id={`service-0`}
+                                    value=""
+                                    onChange={(e) => {
+                                        const updatedLinks = [...ChanelLinkURLS];
+                                        updatedLinks[0] = e.target.value.toLowerCase();
+                                        setChanelLinkURLS(updatedLinks);
+                                    }}
+                                    required
+                                    className='border-none focus:outline-none focus:border-none w-full h-[50px]'
+                                />
+                            </div>
+                        )}
+                        <p className='text-red-500'>{error}</p>
+                    </div>
+
+
+      
                 </div>
 
-                {/* General Links */}
-                <div>
-                    <p className='my-2'>General Links</p>
-                    <div className='flex w-[95%] border-2 rounded-lg bg-white h-[55px]'>
-                        <input
-                            name="service"
-                            type="text"
-                            id="service"
-
-
-
-                            value={GeneralLink1} onChange={(e) => setGeneralLink1(e.target.value.toLowerCase())}
-                            // value={singleService.service}
-                            // onChange={(e) => handleServiceChange(e, index)}
-                            required
-                            className='border-none focus:outline-none focus:border-none w-full h-[50px]' />
-                        <div>
-                            {/* <IoAddCircleSharp size={25} color='blue' className='m-3' onClick={handleServiceAdd} /> */}
-                        </div>
-                        <div className='m-3'>
-                            {/* <MdDelete size={25} color='red' onClick={() => handleServiceRemove(index)} /> */}
-                        </div>
-                    </div>
-                    <div className='flex w-[95%] border-2 rounded-lg mt-2 bg-white h-[55px]'>
-                        <input
-                            name="Link1"
-                            type="text"
-
-                            label="Link1" placeholder="Link1"
-
-                            value={GeneralLink2} onChange={(e) => setGeneralLink2(e.target.value.toLowerCase())}
-                            // error={emailError !== null}
-                            // helperText={emailError}
-
-                            required
-                            className='border-none focus:outline-none focus:border-none w-full h-[50px]' />
-                        <div>
-                            {/* <IoAddCircleSharp size={25} color='blue' className='m-3' onClick={handleServiceAdd} /> */}
-                        </div>
-                        <div className='m-3'>
-                            {/* <MdDelete size={25} color='red' onClick={() => handleServiceRemove(index)} /> */}
-                        </div>
-                    </div>
-                </div>
-
-                {/* Chanel Links */}
-                <div>
-                    <p className='my-2'>Chanel Links</p>
-                    <div className='flex w-[95%] border-2 rounded-lg bg-white h-[55px]'>
-                        <input
-                            name="Link1"
-                            type="text"
-
-                            label="Link1" placeholder="Link1"
-                            value={ChanelLink1} onChange={(e) => setChanelLink1(e.target.value.toLowerCase())}
-                            // error={emailError !== null}
-                            // helperText={emailError}
-
-                            required
-                            className='border-none focus:outline-none focus:border-none w-full h-[50px]' />
-                        <div>
-                            {/* <IoAddCircleSharp size={25} color='blue' className='m-3' onClick={handleServiceAdd} /> */}
-                        </div>
-                        <div className='m-3'>
-                            {/* <MdDelete size={25} color='red' onClick={() => handleServiceRemove(index)} /> */}
-                        </div>
-                    </div>
-
-
-                    <div className='flex w-[95%] border-2 rounded-lg bg-white h-[55px] mt-2'>
-                        <input
-                            name="Link2"
-                            type="text"
-
-                            label="Link2" placeholder="Link1"
-                            value={ChanelLink2} onChange={(e) => setChanelLink2(e.target.value.toLowerCase())}
-                            // error={emailError !== null}
-                            // helperText={emailError}
-
-                            required
-                            className='border-none focus:outline-none focus:border-none w-full h-[50px]' />
-                        <div>
-                            {/* <IoAddCircleSharp size={25} color='blue' className='m-3' onClick={handleServiceAdd} /> */}
-                        </div>
-                        <div className='m-3'>
-                            {/* <MdDelete size={25} color='red' onClick={() => handleServiceRemove(index)} /> */}
-                        </div>
-                    </div>
-
-                </div>
-                {/* {Data?<LinksDisplay link={linkData}/>:""} */}
             </div>
             {/* Section 2 */}
             <div className='my-5 flex justify-center'>
@@ -202,9 +394,9 @@ function LinkCreatePage() {
 
 
 
-                    <div className='flex justify-center'>
+                    {/* <div className='flex justify-center'>
                         <button className='rounded-lg bg-red-500 items-center p-3 py-2 m-2' onClick={() => { SubmitData() }}>Submit</button>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>

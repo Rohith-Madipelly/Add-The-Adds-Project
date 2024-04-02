@@ -92,7 +92,7 @@ export const SettingsAPI = async () => {
 
 
 export const GetPlanInfo = async (token) => {
-console.log(token)
+  console.log(token)
   return await axios.get(`${BASE_URL}/user/plans`, {
     headers: { Authorization: "Bearer " + token }
   });
@@ -121,5 +121,64 @@ export const ProfileAPI = async (token) => {
 
 
 
+// DeleteLinkAPI
+
+export const DeleteLinkAPI = async (token, LinkName, LinkURL) => {
+  const DeletableLink = {
+    [`${LinkName}`]: `${LinkURL}`
+  }
+
+  return await axios.post(`${BASE_URL}/user/deletelinks`, DeletableLink, {
+    headers: { Authorization: "Bearer " + token }
+  });
+  // return 0
+};
 
 
+// DeleteLinkAPI
+
+export const AddLinkAPI = async (token, LinkName, LinkURL) => {
+  const DeletableLink = {
+    [`${LinkName}`]: `${LinkURL}`
+  }
+
+  return await axios.post(`${BASE_URL}/user/createpage`, DeletableLink, {
+    headers: { Authorization: "Bearer " + token }
+  });
+  // return 0
+};
+
+
+
+
+// Addheaders video Link Api
+
+export const Add_Video_In_HeadersAPI = async (token, YTvideoURL) => {
+  const Data = {
+    headLink: YTvideoURL
+  }
+
+  console.log(token, YTvideoURL)
+
+  return await axios.post(`${BASE_URL}/user/addheaders`, Data, {
+    headers: { Authorization: "Bearer " + token }
+  });
+
+};
+
+
+
+
+// Addheaders video Link Api
+
+export const Add_Image_In_HeadersAPI = async (token, ImageFile) => {
+  const formData = new FormData();
+  formData.append("headlinkPic", ImageFile);
+  console.log("formDat", formData)
+
+
+  return await axios.post(`${BASE_URL}/user/addheaders`, formData, {
+    headers: { Authorization: "Bearer " + token }
+  });
+
+};
