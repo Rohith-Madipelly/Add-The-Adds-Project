@@ -81,7 +81,7 @@ const SearchF = () => {
           className="ms-2"
         />
       </div>
-      {results && results.length > 0 && <SearchResultsList results={results} />}
+      {/* {results && results.length > 0 && <SearchResultsList results={results} />} */}
     </div>
 
   );

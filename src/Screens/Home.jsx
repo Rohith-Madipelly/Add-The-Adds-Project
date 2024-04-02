@@ -22,9 +22,6 @@ function Home() {
     <div>
       <div className='px-2'>
         <div className=''>
-          {/* <div className='h-[80px] bg-black mt-2' >
-             <NavBar /> 
-          </div> */}
 
 
           {/* search here box */}

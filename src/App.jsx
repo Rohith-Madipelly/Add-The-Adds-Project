@@ -39,6 +39,8 @@ import Register from './Screens/AuthScreens/Register';
 import Test1 from './Screens/TestingScreens/Test1';
 import Test2 from './Screens/TestingScreens/Test2';
 import SearchF from './Screens/MainScreens/EditOwnPage/SearchF';
+import CopyToClipboard from './Screens/TestingScreens/CopyToClipboard';
+import Tester from './Screens/MainScreens/Tester';
 
 
 
@@ -60,7 +62,6 @@ function App() {
         <Routes>
           <Route exact path='/' element={<Home />} />
           <Route exact path='/Home' element={<Home />} />
-
           <Route exact path='/Own Status' element={<OwnStatus />} />
           <Route exact path='/Edit Own Page' element={<EditOwnPage />} />
           <Route exact path='/Add Page' element={<AddPage />} />
@@ -82,19 +83,14 @@ function App() {
           <Route exact path='/Privacy Policy' element={<PrivacyPolicy />} />
 
 
-          <Route exact path='/Test' element={<Test1 />} />
-          <Route exact path='/Test2' element={<Test2 />} />
+          {/* <Route exact path='/Test' element={<CopyToClipboard />} />*/}
+          <Route exact path='/Test2' element={<Tester />} /> 
          
          
-          <Route exact path='/SearchF' element={<SearchF />} />
-          
+      
 
 
-
-          {/* Auth Screen */}
-          <Route path='/Login' element={<Login />} />
-
-          {/* <Route path='/Login' element={!loginSelector ? <Login /> : <Home />} /> */}
+          <Route path='/Login' element={!loginSelector ? <Login /> : <NotFoundPage />} />
           <Route path='/signup' element={<Register />} />
 
 

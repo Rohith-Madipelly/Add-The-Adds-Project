@@ -18,6 +18,7 @@ import { Button, Carousel } from 'flowbite-react'
 
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { showToastMessage_error } from '../shared/Toaster';
+import CopyToClipBoard from '../utils/CopyToClipBoard';
 
 
 function OwnStatus() {
@@ -82,10 +83,10 @@ function OwnStatus() {
 
                     <div className='mx-5  w-[65%] '>
                         <div className='flex gap-5'>
-                            <Button className='my-4 bg-white text-black  shadow-xl hover:bg-white'>My Page</Button>
-                            <Button className='my-4 bg-white text-black  shadow-xl hover:bg-white'>Share</Button>
+                            <Link to={'/Add Page'}><Button className='my-4 bg-white text-black  shadow-xl hover:bg-white' >My Page</Button></Link>
+                            <Button className='my-4 bg-white text-black  shadow-xl hover:bg-white' onClick={()=>{CopyToClipBoard("Hello Copy chasukunavaa","Text copied to clipboard!")}}>Share</Button>
                             <Button className='my-4 bg-white text-black  shadow-xl hover:bg-white'>Add</Button>
-                            <Button className='my-4 bg-white text-black  shadow-xl hover:bg-white'>Cancel</Button>
+                            <Link to={'/'}><Button className='my-4 bg-white text-black  shadow-xl hover:bg-white'>Cancel</Button></Link>
                         </div>
                         <div className='w-90  bg-white shadow-xl px-5 py-2 rounded-lg'>Search Here</div>
                     </div>
@@ -144,57 +145,9 @@ function OwnStatus() {
 
                 </div>
 
-                <div className='w-full h-[400px] sm:h-[250px] mt-5 mx-5'>
+                
 
-                    {Data ? <Swiper
-                        modules={[Virtual, Navigation, Pagination]}
-                        // modules={[Autoplay]}
-                        onSwiper={setSwiperRef}
-                        slidesPerView={3}
-                        centeredSlides={true}
-                        spaceBetween={10}
-                        // pagination={{
-                        //     type: 'fraction',
-                        // }}
-                        navigation={true}
-                        virtual
-                        autoplay={{
-                            delay: 2500,
-                            disableOnInteraction: false,
-                        }}
-                        pagination={{
-                            clickable: true,
-                        }}
-                        className="w-full h-full"
-
-                        breakpoints={{
-                            480: {
-                                slidesPerView: 1,
-                                spaceBetween: 10,
-                            },
-                            768: {
-                                slidesPerView: 2,
-                                spaceBetween: 10,
-                            },
-                            1023: {
-                                slidesPerView: 3,
-                                spaceBetween: 10,
-                            },
-                            1280: {
-                                slidesPerView: 4,
-                                spaceBetween: 10,
-                            },
-                        }}
-                    >
-                        {Data.map((slideContent, index) => (
-                            <SwiperSlide key={slideContent} virtualIndex={index} className="z-40 h-full sm:flex sm:items-center sm:justify-center ">
-
-                                <Link to={{ pathname: '/next-page', state: { data: slideContent } }}><img src={slideContent.imageUrl} className='w-full h-[364px] w-[327px] sm:h-[204px] m-0 p-0 object-cover' /></Link>
-                            </SwiperSlide>
-                        ))}
-                    </Swiper> : ""}
-
-                </div>
+            
                 <div className='h-[100px]'>
 
                 </div>

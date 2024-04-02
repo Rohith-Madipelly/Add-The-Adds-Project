@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { MdDelete } from "react-icons/md";
+import React, { useState } from 'react'
+import { IoAddCircleSharp } from 'react-icons/io5';
+import { MdDelete } from 'react-icons/md';
 
 function Tester() {
     const [LinkList, setLinkList] = useState([{ service: "" }]);
@@ -22,27 +23,18 @@ function Tester() {
     };
 
     return (
-        <form className="App" autoComplete="off">
-                  <div className='h-[70px]'>
+        <div className='h-full'>
+            <div className='h-[100px]'>
 
-</div>
-            <div className="form-field mt-9">
-                <div className="flex justify-around">
-
-                    <div><label htmlFor="service">Service(s)</label></div>
-                    <div> <button
-                        type="button"
-                        onClick={handleServiceAdd}
-                        className="bg-pink-600"
-                    >
-                        <span>Add a Service</span>
-                    </button></div>
-                </div>
+            </div>
+ 
 
 
-                {LinkList.map((singleService, index) => (
-                    <div key={index} className="services flex justify-center w-[25%]">
-                        <div className="first-division">
+
+            {LinkList.map((singleService, index) => (
+                <div key={index} className="services flex justify-center">
+                    <div className='flex flex-col w-[100%] '>
+                        <div className='flex w-[95%] border-2 rounded-lg bg-white h-[55px]'>
                             <input
                                 name="service"
                                 type="text"
@@ -50,43 +42,32 @@ function Tester() {
                                 value={singleService.service}
                                 onChange={(e) => handleServiceChange(e, index)}
                                 required
-                            />
-                            {/* {LinkList.length - 1 === index && LinkList.length < 4 && (
-                                <button
-                                    type="button"
-                                    onClick={handleServiceAdd}
-                                    className="add-btn"
-                                >
-                                    <span>Add a Service</span>
-                                </button>
-                            )} */}
-                        </div>
-
-                        <div className="second-division">
-                            {LinkList.length !== 1 && (
-                                <button
-                                    type="button"
-                                    onClick={() => handleServiceRemove(index)}
-                                    className=""
-                                >
-                                    <span className="h-100"><MdDelete /></span>
-                                </button>
-                            )}
+                                className='border-none focus:outline-none focus:border-none w-full h-[50px]' />
+                            <div>
+                                <IoAddCircleSharp size={25} color='blue' className='m-3' onClick={handleServiceAdd} />
+                            </div>
+                            <div className='m-3'>
+                                <MdDelete size={25} color='red' onClick={() => handleServiceRemove(index)} />
+                            </div>
                         </div>
                     </div>
-                ))}
+                </div>
+            ))}
+
+            {/* {
+                LinkList &&
+                LinkList.map((singleService, index) => (
+                    <ul key={index}>
+                        {singleService.service && <li>{singleService.service}</li>}
+                    </ul>
+                ))
+            } */}
+
+            <div className='h-[100px]'>
+
             </div>
-            <div className="output">
-                <h2>Output</h2>
-                {/* {LinkList &&
-                    LinkList.map((singleService, index) => (
-                        <ul key={index}>
-                            {singleService.service && <li>{singleService.service}</li>}
-                        </ul>
-                ))} */}
-            </div>
-        </form>
-    );
+        </div >
+    )
 }
 
-export default Tester;
+export default Tester

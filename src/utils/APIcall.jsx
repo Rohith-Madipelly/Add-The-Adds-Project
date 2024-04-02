@@ -35,6 +35,7 @@ export const UserRegisterAPI = async (requestBody) => {
 
 
 
+
 //Frequently Asked Questions (FAQ)
 export const FAQuestionsAPI = async (token) => {
 
@@ -91,7 +92,7 @@ export const SettingsAPI = async () => {
 
 
 export const GetPlanInfo = async (token) => {
-
+console.log(token)
   return await axios.get(`${BASE_URL}/user/plans`, {
     headers: { Authorization: "Bearer " + token }
   });
@@ -109,3 +110,16 @@ export const getTemplatesAPI = async (token) => {
   }
   );
 }
+
+
+//AboutusAPI
+export const ProfileAPI = async (token) => {
+  return await axios.get(`${BASE_URL}/user/profile`, {
+    headers: { Authorization: "Bearer " + token }
+  });
+};
+
+
+
+
+

@@ -18,9 +18,9 @@ function Desktop() {
 
     return (
         <div className='w-flex'>
-                  <div className='h-[70px]'>
+            <div className='h-[70px]'>
 
-</div>
+            </div>
             <div className='ImageBackgoundDesktop  pt-5 px-[100px]'>
                 <div className='flex justify-center gap-10'>
                     <Button className='my-4 bg-white text-black  shadow-xl hover:bg-white'>My Page</Button>

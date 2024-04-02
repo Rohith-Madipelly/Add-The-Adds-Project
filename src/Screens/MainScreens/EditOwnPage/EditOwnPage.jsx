@@ -3,6 +3,8 @@ import './EditOwnPage.css'
 import { Button, Carousel } from 'flowbite-react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import ImageSaver from '../../../utils/ImageSaver'
+import { useSelector } from 'react-redux'
+import { ProfileAPI } from '../../../utils/APIcall'
 
 
 
@@ -13,6 +15,19 @@ function EditOwnPage() {
     const receivedData = location.state
     console.log(receivedData)
     const [PageData, setData] = useState(receivedData || { slideContent: { imageUrl: '' } })
+
+    const token = useSelector((state) => state.token);
+
+    const Apicaller = async () => {
+      console.log(token)
+      const res = await ProfileAPI(token)
+      console.log(res.data.user.pagename)
+    }
+    useEffect(() => {
+      Apicaller()
+    }, [])
+
+    
 
     let optionsArray = [
         // { name: 'Design', logoImage: 'images/icons/dock-right.png' },

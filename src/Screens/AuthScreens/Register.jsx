@@ -30,11 +30,34 @@ const Login = () => {
     try {
       console.log(values)
       const res = await UserRegisterAPI(values)
+      showToastMessage_success(res.data.message)
+      dispatch(setToken(res.data.token));
+        navigate('/');
       console.log(res)
-    } catch (e) {
-      console.log(e)
+    }catch (error) {
+
+      if (error.response) {
+        if (error.response.status === 401) {
+          // setPasswordApiErr("Incorrect Password")
+        } else if (error.response.status === 404) {
+          // setEmailOrPhoneApiErr("Account does not exist with the provided email or phone number")
+        } else if (error.response.status === 409) {
+          // console.log("HEllo")
+          setEmailOrPhoneApiErr("")
+        } else if (error.response.status === 500) {
+          // console.log("Data Error Internal server error 500 ", error)
+          showToastMessage_error("Internal server error 500")
+        } else {
+          console.log("Error else ?? ")
+        }
+      } else if (error.request) {
+        showToastMessage_error(`No response received from the server. ${error.message} . Please Try Again `)
+      } else {
+        showToastMessage_error('Error setting up the request.')
+      }
+
     } finally {
-      console.log("finally")
+      setIsLoading(false);
     }
   };
 
