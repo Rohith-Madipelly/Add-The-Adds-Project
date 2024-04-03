@@ -51,7 +51,9 @@ const LoadingFallback = () => <Loader />;
 
 function App() {
   const loginSelector = useSelector((state) => state.isLogin);
-  console.log("data here is login or not ", loginSelector)
+  const userName = useSelector((state) => state.userName);
+
+  console.log("data here is login or not ", loginSelector,"kjskdfjhksf",userName)
 
 
   return (
@@ -65,6 +67,12 @@ function App() {
           <Route exact path='/Own Status' element={<OwnStatus />} />
           <Route exact path='/Edit Own Page' element={<EditOwnPage />} />
           <Route exact path='/Add Page' element={<AddPage />} />
+
+
+          <Route exact path='/Add Page/:userName' element={< AddPage/>} />
+
+
+
           <Route exact path='/Create Page' element={<CreatePage />} />
           <Route exact path='/Upload add' element={<UploadPage />} />
           <Route exact path='/d' element={<Desktop />} />

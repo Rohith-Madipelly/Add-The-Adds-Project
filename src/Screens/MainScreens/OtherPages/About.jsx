@@ -10,6 +10,8 @@ import { useSelector } from 'react-redux';
 import './OtherPages.css'
 
 function About() {
+
+
   const [AboutUsData, setAboutUsData] = useState("No Data Found")
   const token = useSelector((state) => state.token)
 
@@ -42,6 +44,7 @@ function About() {
       <div className='w-[100vw] h-[100vh] max-h-auto'>
         <div className='my-5 font-bold text-xl text-center'>About us</div>
         <div className=' mx-10 px-10 '>
+
           {AboutUsData ? <div>
             {AboutUsData}
           </div> : ""}

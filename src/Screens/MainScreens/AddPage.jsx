@@ -4,26 +4,28 @@ import TextInputCustom from '../../Components/UI/Input/TextInputCustom'
 import { MdDelete } from "react-icons/md";
 import { IoAddCircleSharp } from "react-icons/io5";
 import NDShare from '../../Components/NavBar/NavDropDown/NDShare';
-import { ProfileAPI } from '../../utils/APIcall';
+import { ProfileAPI, UserPageAPI } from '../../utils/APIcall';
 import { useSelector } from 'react-redux';
 import LinksDisplay from '../../Components/LinksDisplay';
 import CarouselComponent from './CreatePage/CarouselComponent';
 function AddPage() {
   const [LinkList, setLinkList] = useState([{ service: "" }]);
-  const token = useSelector((state) => state.token);
+  const userName = useSelector((state) => state.userName);
   const [Data, setData] = useState("")
   const [Dataapi, setDataapi] = useState("")
 
 
+
   const Apicaller = async () => {
-    console.log(token)
-    const res = await ProfileAPI(token)
+
+    const res = await UserPageAPI(userName)
     setDataapi(res.data)
   }
 
 
   useEffect(() => {
     Apicaller()
+
   }, [])
 
 
@@ -64,7 +66,7 @@ function AddPage() {
 
           <div className='col-span-5 sm:col-span-10 '>
           
-            <CarouselComponent />
+            {/* <CarouselComponent /> */}
 
                 <div className='my-4  flex justify-end'>
                 <div className='grid grid-flow-col gap-2 sm:w-[90vw]'>

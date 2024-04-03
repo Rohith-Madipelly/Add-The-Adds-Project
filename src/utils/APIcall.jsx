@@ -112,14 +112,21 @@ export const getTemplatesAPI = async (token) => {
 }
 
 
-//AboutusAPI
+//profileapi
 export const ProfileAPI = async (token) => {
   return await axios.get(`${BASE_URL}/user/profile`, {
     headers: { Authorization: "Bearer " + token }
   });
 };
 
-
+//UserPageAPI
+export const UserPageAPI= async (userName) => {
+  console.log("userName",userName)
+  const reqData={
+    userPageName:userName
+  }
+  return await axios.get(`${BASE_URL}/userpage`,reqData);
+};
 
 // DeleteLinkAPI
 

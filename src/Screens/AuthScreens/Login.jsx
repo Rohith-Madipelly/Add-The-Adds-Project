@@ -49,7 +49,7 @@ const Login = () => {
         showToastMessage_success(res.data.message)
         setEmailOrPhoneApiErr("");
         setPasswordApiErr("");
-        dispatch(setToken(res.data.token));
+        dispatch(setToken(res.data.token,res.data.userName));
         navigate('/');
       }
       else {
