@@ -121,11 +121,11 @@ export const ProfileAPI = async (token) => {
 
 //UserPageAPI
 export const UserPageAPI= async (userName) => {
-  console.log("userName",userName)
+
   const reqData={
     userPageName:userName
   }
-  return await axios.get(`${BASE_URL}/userpage`,reqData);
+  return await axios.post(`${BASE_URL}/userpage`,reqData);
 };
 
 // DeleteLinkAPI
