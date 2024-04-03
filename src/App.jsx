@@ -41,6 +41,7 @@ import Test2 from './Screens/TestingScreens/Test2';
 import SearchF from './Screens/MainScreens/EditOwnPage/SearchF';
 import CopyToClipboard from './Screens/TestingScreens/CopyToClipboard';
 import Tester from './Screens/MainScreens/Tester';
+import Profile from './Screens/MainScreens/Profile/Profile';
 
 
 
@@ -67,6 +68,8 @@ function App() {
           <Route exact path='/Own Status' element={<OwnStatus />} />
           <Route exact path='/Edit Own Page' element={<EditOwnPage />} />
           <Route exact path='/Add Page' element={<AddPage />} />
+
+          <Route exact path='/Profile' element={<Profile />} />
 
 
           <Route exact path='/Add Page/:userName' element={< AddPage/>} />

@@ -189,3 +189,40 @@ export const Add_Image_In_HeadersAPI = async (token, ImageFile) => {
   });
 
 };
+
+
+
+
+// DeleteHeaders 
+
+export const DeleteHeadersAPI = async (token, ID) => {
+const reqData={
+  headerId:ID
+}
+
+
+  return await axios.post(`${BASE_URL}/user/deleteheaders`, reqData, {
+    headers: { Authorization: "Bearer " + token }
+  });
+
+};
+
+
+
+
+
+
+
+// AdduserspageAPI 
+
+export const AdduserspageAPI = async (token, UserName) => {
+  const reqData={
+    userPage:UserName
+  }
+  console.log(UserName,token)
+ 
+    return await axios.post(`${BASE_URL}/user/adduserspage`, reqData, {
+      headers: { Authorization: "Bearer " + token }
+    });
+  
+  };

@@ -5,6 +5,8 @@ import NavDropDown from './NavDropDown/NavDropDown'
 import { Button } from 'flowbite-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setToken } from '../../redux/actions/loginAction';
+import { CgProfile } from "react-icons/cg";
+
 
 const NavBar = () => {
     const location = useLocation();
@@ -17,7 +19,7 @@ const NavBar = () => {
     let LinkPages = [
         { name: "Home", link: "/" },
         { name: "About us", link: "/About us" },
-        { name: "Services", link: "/Services" },
+        // { name: "Services", link: "/Services" },
         { name: "Contact us", link: "/Contact us" },
     ]
 
@@ -31,12 +33,12 @@ const NavBar = () => {
 
         // Check user's choice
         if (confirmation) {
-          // If user clicked OK, proceed with logout
-          alert("Logged out successfully!");
-          // Perform logout actions here, such as redirecting to a logout page
+            // If user clicked OK, proceed with logout
+            alert("Logged out successfully!");
+            // Perform logout actions here, such as redirecting to a logout page
         } else {
-          // If user clicked Cancel, do nothing or provide feedback
-          alert("Logout canceled!");
+            // If user clicked Cancel, do nothing or provide feedback
+            alert("Logout canceled!");
         }
         console.log("Clear the token from localStorage")
         dispatch(setToken(""));
@@ -103,7 +105,7 @@ const NavBar = () => {
 
                                             <li>
                                                 <a href="Own Status" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                                   Own Status
+                                                    Own Status
                                                 </a>
                                             </li>
 
@@ -124,7 +126,7 @@ const NavBar = () => {
                                                     Upload Add
                                                 </a>
                                             </li>
-        
+
                                         </ul>
                                     </div>
                                 )}
@@ -133,7 +135,18 @@ const NavBar = () => {
                     </ul>
 
 
+                    {loginSelector ? <ul className='sm:hidden mdl:hidden md:hidden flex  mdl:gap-8 lg:gap-5 xl:gap-5 2xl:gap-5 me-5 mt-0 '>
 
+                        <li className='md:ml-8 text-xl flex mdl:sm '>
+
+                            {/* <p>{linkBtns.name}</p> */}
+                            <Link to="/profile" className={`!text-black-900 tracking-[1.00px] !font-normal text-shadow-ts1 mt-1 ${PageName ? 'text-black' : 'text-white'}`}>
+                                <CgProfile size={25} />
+                            </Link>
+                        </li>
+
+
+                    </ul> : ""}
 
                     {!loginSelector ? <button className={`shadow font-[Poppins] rounded md:ml-8 
         hover: duration-500 flex items-center justify-center h-9 text-black-900 tracking-[1.00px] 

@@ -4,8 +4,8 @@ import CustomButton from '../../../Components/UI/Button/CustomButton'
 import '../Home/Home.css'
 import NDShare from '../../../Components/NavBar/NavDropDown/NDShare'
 import { useSelector } from 'react-redux'
-import { Add_Image_In_HeadersAPI, Add_Video_In_HeadersAPI, ProfileAPI } from '../../../utils/APIcall'
-import { MdDelete } from 'react-icons/md'
+import { Add_Image_In_HeadersAPI, Add_Video_In_HeadersAPI, DeleteHeadersAPI, ProfileAPI } from '../../../utils/APIcall'
+import { MdDelete, MdThumbUp } from 'react-icons/md'
 import { IoAddCircleSharp } from 'react-icons/io5'
 import { Link } from 'react-router-dom'
 import LinksDisplay from '../../../Components/LinksDisplay'
@@ -14,21 +14,31 @@ import CarouselComponent from './CarouselComponent'
 import { YouTubeModal } from './YouTubeModel'
 import { ImageUploadModel } from './ImageUploadModel'
 import { showToastMessage_error, showToastMessage_success } from '../../../shared/Toaster'
+import { DeleteHeadersModel } from './DeleteHeadersModel'
+import LikeButton from '../../../utils/LikeButton'
+import { AddPagetoUser } from './AddPagetoUser'
 function CreatePage() {
   const [LinkList, setLinkList] = useState([{ service: "" }]);
   const [Data, setData] = useState("")
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+
+  const [headerData, setHeadersData] = useState([])
 
   const token = useSelector((state) => state.token);
 
   const Apicaller = async () => {
     console.log(token)
     const res = await ProfileAPI(token)
+    const ResData = await res.data;
     //   console.log(res.data)
     // console.log(res.data.user.pagename)
-    console.log("shajsh", res.data)
+    console.log(">>>>", res.data)
     setData(res.data)
+    setHeadersData(ResData.ownHeaders)
     console.log("da", Data.likes)
+
+    console.log("cdas", headerData)
 
   }
   useEffect(() => {
@@ -75,7 +85,7 @@ function CreatePage() {
   // Image models
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
 
-  const handleImageOpenModal = () => {
+  const handleImageOpenModal = () => {handleImageOpenModal
     setIsImageModalOpen(true);
   };
 
@@ -110,9 +120,52 @@ function CreatePage() {
 
   };
 
+  ;
 
 
 
+    // Image models
+    const [isPageModalOpen, setIsPageModalOpen] = useState(false);
+
+    const handlePageOpenModal = () => {handlePageOpenModal
+      setIsPageModalOpen(true);
+    };
+  
+    const handlePageCloseModal = () => {
+      setIsPageModalOpen(false);
+    };
+  
+    const handlePageSubmit = async () => {
+      setIsPageModalOpen(false);
+    };
+  
+    ;
+
+
+  // delete Headers Links
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+  const handleDeleteOpenModal = () => {
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleDeleteCloseModal = () => {
+    setIsDeleteModalOpen(false);
+  };
+
+
+  const handleDeleteSubmit = async () => {
+    setIsDeleteModalOpen(false);
+    window.location.reload();
+  };
+
+  const [liked, setLiked] = useState(false);
+
+  const toggleLike = () => {
+    Apicaller()
+    setLiked(!liked);
+  }
   return (
     <div className='new_Page_GroundImage'>
       <div className='h-[70px]'></div>
@@ -131,15 +184,27 @@ function CreatePage() {
               <CarouselComponent data={Data} />
               <div className='my-4  flex justify-end'>
                 <div className='grid grid-flow-col gap-2 sm:w-[90vw]'>
-                  <CustomButton classStyle={'my-3 bg-white h-auto'}>
-                    {Data.likes} Likes
+                  <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={toggleLike}>
+                    {liked ? <MdThumbUp color="blue" size={25} /> : <MdThumbUp size={25} />}
+                    {liked ? <p className='ms-2'>{Data.likes} Likes</p> : <p className='ms-2'>{Data.likes} Likes</p>}
                   </CustomButton>
+       
                   <CustomButton classStyle={'my-3 bg-white h-auto'}>{Data.views} Views</CustomButton>
                   <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handleOpenModal() }}>Upload Video </CustomButton>
                   <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handleImageOpenModal() }}>Image</CustomButton>
+                  <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handlePageOpenModal() }}>Add Page</CustomButton>
+                  <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handleDeleteOpenModal() }}>Delete </CustomButton>
+
+
                   <YouTubeModal isOpen={isModalOpen} onClose={handleCloseModal} onSubmit={handleSubmit} />
 
                   <ImageUploadModel isOpen={isImageModalOpen} onClose={handleImageCloseModal} onSubmit={handleImageSubmit} />
+
+                  <AddPagetoUser isOpen={isPageModalOpen} onClose={handlePageCloseModal} onSubmit={handlePageSubmit} />
+
+                  <DeleteHeadersModel datares={headerData} isOpen={isDeleteModalOpen} onClose={handleDeleteCloseModal} onSubmit={handleDeleteSubmit} />
+
+
                 </div>
               </div>
             </div>
@@ -151,8 +216,11 @@ function CreatePage() {
           <div className='w-[60%] sm:w-[95%]'>
             {/* {Data?<LinksDisplay DataLinks={Data}/>:""} */}
             <LinkCreatePage />
+
           </div>
         </div>
+
+        <div></div>
 
 
       </div>

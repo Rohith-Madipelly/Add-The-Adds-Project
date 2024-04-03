@@ -36,7 +36,7 @@ function Services() {
   }, [])
 
   return (
-    <div>
+<div className='new_Page_GroundImage'>
       <div className='h-[70px]'>
       </div>
       <div className='w-[100vw] h-[100vh] max-h-auto'>
