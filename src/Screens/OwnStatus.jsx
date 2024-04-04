@@ -100,17 +100,17 @@ function OwnStatus() {
                 <div className='w-full h-[400px] sm:h-[250px] mt-5 mx-5'>
 
                     {Data ? <Swiper
-                        modules={[Virtual, Navigation, Pagination]}
+                       
                         // modules={[Autoplay]}
                         onSwiper={setSwiperRef}
                         slidesPerView={3}
-                        centeredSlides={true}
+                        centeredSlides={false}
                         spaceBetween={10}
                         // pagination={{
                         //     type: 'fraction',
                         // }}
                         navigation={true}
-                        virtual
+                        
                         autoplay={{
                             delay: 2500,
                             disableOnInteraction: false,
@@ -119,7 +119,7 @@ function OwnStatus() {
                             clickable: true,
                         }}
                         className="w-full h-full"
-
+                        modules={[ Navigation, Pagination]}
                         breakpoints={{
                             480: {
                                 slidesPerView: 1,
@@ -140,7 +140,7 @@ function OwnStatus() {
                         }}
                     >
                         {Data.map((slideContent, index) => (
-                            <SwiperSlide key={slideContent} virtualIndex={index} className="z-40 h-full sm:flex sm:items-center sm:justify-center ">
+                            <SwiperSlide key={slideContent}  className="z-40 h-full sm:flex sm:items-center sm:justify-center ">
                                 <Link to={{ pathname: '/Edit Own Page'}} state={{slideContent }}>
 {/* {console.log("Data ",slideContent)} */}
                                     <img src={slideContent.imageUrl} className='w-full h-[364px] w-[327px] sm:h-[204px] m-0 p-0 object-cover' />

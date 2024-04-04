@@ -7,13 +7,14 @@ import { useSelector } from 'react-redux'
 import { GetPlanInfo } from '../../../utils/APIcall'
 import { useLocation } from 'react-router-dom'
 import { showToastMessage_warn } from '../../../shared/Toaster'
+import Loading from '../../../utils/Loadings/Loading'
 function UploadPage() {
 
   const [PlanData, SetPlanData] = useState([])
   const [benefitsData, SetBenefitsData] = useState([])
   const token = useSelector((state) => state.token);
   const location = useLocation();
-
+  const [isLoading, setIsLoading] = useState(true);
   // Check if there's a state with a message
   if (location.state && location.state.message) {
    // Show toaster notification with the message
@@ -32,6 +33,7 @@ function UploadPage() {
     }
     finally {
       console.log("API Call Finished .")
+      setIsLoading(false)
     }
   }
 
@@ -55,9 +57,12 @@ function UploadPage() {
     { PlanName: 'Business', price: '1000', duration: '24 Months', description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.' },
   ]
 
-
+  if (isLoading) {
+    return <Loading />
+  }
   return (
     <div className='h-auto'>
+      
       <div className='h-[70px]'>
 
       </div>
@@ -111,7 +116,7 @@ function UploadPage() {
       <div className='mx-[80px] sm:mx-[10px] my-9'>
         <div className='mt-10'>
           <h1 className='text-3xl font-bold'>Upload Add</h1>
-          <div className='mt-5'>
+          {/* <div className='mt-5'>
             <div className='grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1  gap-5 justify-center'>
               {PlanData.length === 0 ? (
                 <div className="text-center my-2 font-bold text-base">No data found</div>
@@ -127,7 +132,7 @@ function UploadPage() {
 
             </div>
             <div className='text-center tracking-[3.00px] my-5 w-full'><button className='bg-blue-800 px-8 py-3 rounded-lg text-white font-bold leading-31 tracking-5'>Select Free Ads Option </button></div>
-          </div>
+          </div> */}
         </div>
 
         {/* section 2 */}

@@ -35,9 +35,16 @@ const SearchF = () => {
       console.log("<><", res.data.Data)
       const Data = res.data.Data
       console.log(Data)
-
-      
-      setResults(Data);
+      const filteredResults = Data.filter((user) => {
+        return (
+          value &&
+          user &&
+          user.img_name &&
+          user.img_name.toLowerCase().includes(value.toLowerCase())
+        );
+      });
+      console.log("msdhgf",filteredResults)
+      setResults(filteredResults);
     }
     catch (e) {
       console.log("Hello", e)
@@ -55,14 +62,24 @@ const SearchF = () => {
   };
 
   const SearchResult = ({ result }) => {
-console.log("searchRes",result)
+    console.log("searchRes", result)
+   if(result.length===0){
+    console.log("avunu anta ga")
+    return (
+      <div
+        className="search-result"
 
+      >
+        No Data Found
+      </div>
+    );
+   }
 
     return (
       <div
         className="search-result"
         // onClick={() => alert(`You selected ${result.img_name}!`) }
-        onClick={() => {navigate(`/Edit Own Page/${result._id}`);}}
+        onClick={() => { navigate(`/Edit Own Page/${result._id}`); }}
       >
         {result.img_name}
       </div>
@@ -70,6 +87,17 @@ console.log("searchRes",result)
   };
 
   const SearchResultsList = ({ results }) => {
+    console.log("Asalu data unda sir",results)
+
+    if (results.length === 0) {
+      console.log("No data found");
+      return (
+        <div className="results-list h-[50px]">
+          <SearchResult result={results}/>
+        </div>
+      );
+    }
+   
     return (
       <div className="results-list h-[135px]">
         {results.map((result, id) => (
@@ -79,6 +107,9 @@ console.log("searchRes",result)
       </div>
     );
   };
+
+
+
 
   return (
 
@@ -92,7 +123,8 @@ console.log("searchRes",result)
           className="ms-2"
         />
       </div>
-      {results && results.length > 0 && <SearchResultsList results={results} />}
+      {results &&  <SearchResultsList results={results} />}
+      {/* {results && results.length > 0 ?<SearchResultsListNODATA />:""} */}
     </div>
 
   );
