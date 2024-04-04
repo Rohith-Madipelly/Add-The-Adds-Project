@@ -135,18 +135,18 @@ const NavBar = () => {
                     </ul>
 
 
-                    {loginSelector ? <ul className='sm:hidden mdl:hidden md:hidden flex  mdl:gap-8 lg:gap-5 xl:gap-5 2xl:gap-5 me-5 mt-0 '>
+                    {/* {loginSelector ? <ul className='sm:hidden mdl:hidden md:hidden flex  mdl:gap-8 lg:gap-5 xl:gap-5 2xl:gap-5 me-5 mt-0 '>
 
                         <li className='md:ml-8 text-xl flex mdl:sm '>
 
-                            {/* <p>{linkBtns.name}</p> */}
+                         
                             <Link to="/profile" className={`!text-black-900 tracking-[1.00px] !font-normal text-shadow-ts1 mt-1 ${PageName ? 'text-black' : 'text-white'}`}>
                                 <CgProfile size={25} />
                             </Link>
                         </li>
 
 
-                    </ul> : ""}
+                    </ul> : ""} */}
 
                     {!loginSelector ? <button className={`shadow font-[Poppins] rounded md:ml-8 
         hover: duration-500 flex items-center justify-center h-9 text-black-900 tracking-[1.00px] 

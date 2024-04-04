@@ -112,6 +112,16 @@ export const getTemplatesAPI = async (token) => {
 }
 
 
+export const getSingleTemplatesAPI = async (token,ID) => {
+
+  return await axios.get(`${BASE_URL}/user/getimage/${ID}`, {
+    headers: { Authorization: "Bearer " + token }
+  }
+  );
+}
+
+
+
 //profileapi
 export const ProfileAPI = async (token) => {
   return await axios.get(`${BASE_URL}/user/profile`, {

@@ -17,11 +17,13 @@ import { showToastMessage_error, showToastMessage_success, showToastMessage_warn
 import { DeleteHeadersModel } from './DeleteHeadersModel'
 import LikeButton from '../../../utils/LikeButton'
 import { AddPagetoUser } from './AddPagetoUser'
+import Loading from '../../../utils/Loadings/Loading'
 function CreatePage() {
-  const [LinkList, setLinkList] = useState([{ service: "" }]);
+
   const [Data, setData] = useState("")
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const [isLoading, setIsLoading] = useState(false);
 
   const [headerData, setHeadersData] = useState([])
 
@@ -30,21 +32,29 @@ function CreatePage() {
 
   // Check if there's a state with a message
   if (location.state && location.state.message) {
-   // Show toaster notification with the message
-   showToastMessage_warn(location.state.message);
- }
+    // Show toaster notification with the message
+    showToastMessage_warn(location.state.message);
+  }
   const Apicaller = async () => {
-    console.log(token)
-    const res = await ProfileAPI(token)
-    const ResData = await res.data;
-    //   console.log(res.data)
-    // console.log(res.data.user.pagename)
-    console.log(">>>>", res.data)
-    setData(res.data)
-    setHeadersData(ResData.ownHeaders)
-    console.log("da", Data.likes)
+    setIsLoading(true)
+    try {
+      const res = await ProfileAPI(token)
+      const ResData = await res.data;
 
-    console.log("cdas", headerData)
+      console.log(">>>>", res.data)
+      setData(res.data)
+      setHeadersData(ResData.ownHeaders)
+      console.log("da", Data.likes)
+
+      console.log("cdas", headerData)
+    }
+    catch (e) {
+      console.log(e);
+    }
+    finally{
+      setIsLoading(false)
+    }
+
 
   }
   useEffect(() => {
@@ -91,7 +101,8 @@ function CreatePage() {
   // Image models
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
 
-  const handleImageOpenModal = () => {handleImageOpenModal
+  const handleImageOpenModal = () => {
+    handleImageOpenModal
     setIsImageModalOpen(true);
   };
 
@@ -130,22 +141,23 @@ function CreatePage() {
 
 
 
-    // Image models
-    const [isPageModalOpen, setIsPageModalOpen] = useState(false);
+  // Image models
+  const [isPageModalOpen, setIsPageModalOpen] = useState(false);
 
-    const handlePageOpenModal = () => {handlePageOpenModal
-      setIsPageModalOpen(true);
-    };
-  
-    const handlePageCloseModal = () => {
-      setIsPageModalOpen(false);
-    };
-  
-    const handlePageSubmit = async () => {
-      setIsPageModalOpen(false);
-    };
-  
-    ;
+  const handlePageOpenModal = () => {
+    handlePageOpenModal
+    setIsPageModalOpen(true);
+  };
+
+  const handlePageCloseModal = () => {
+    setIsPageModalOpen(false);
+  };
+
+  const handlePageSubmit = async () => {
+    setIsPageModalOpen(false);
+  };
+
+  ;
 
 
   // delete Headers Links
@@ -172,8 +184,14 @@ function CreatePage() {
     Apicaller()
     setLiked(!liked);
   }
+
+
+
+
+
   return (
     <div className='new_Page_GroundImage'>
+      {isLoading && <Loading />}
       <div className='h-[70px]'></div>
 
       <div className='w-full px-8 sm:px-2 py-5'>
@@ -194,7 +212,7 @@ function CreatePage() {
                     {liked ? <MdThumbUp color="blue" size={25} /> : <MdThumbUp size={25} />}
                     {liked ? <p className='ms-2'>{Data.likes} Likes</p> : <p className='ms-2'>{Data.likes} Likes</p>}
                   </CustomButton>
-       
+
                   <CustomButton classStyle={'my-3 bg-white h-auto'}>{Data.views} Views</CustomButton>
                   <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handleOpenModal() }}>Upload Video </CustomButton>
                   <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handleImageOpenModal() }}>Image</CustomButton>

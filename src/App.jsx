@@ -26,6 +26,7 @@ import Festivals from './Screens/MainScreens/OtherPages/Festivals';
 import Register from './Screens/AuthScreens/Register';
 import Tester from './Screens/MainScreens/Tester';
 import Profile from './Screens/MainScreens/Profile/Profile';
+import EditOwnPageC from './Screens/MainScreens/EditOwnPage/EditOwnPageC';
 
 const Loader = lazy(() => import('./shared/Loaders/Loader1'));
 const LoadingFallback = () => <Loader />;
@@ -42,6 +43,7 @@ function App() {
           <Route path="/Home" element={<Home />} />
           <Route path="/Own Status"  element={isLogin ? <OwnStatus /> : <Navigate to="/login" state={{ from: "Own Status", message: "Login is required" }}/>} />
           <Route path="/Edit Own Page" element={<EditOwnPage />} />
+          <Route path="/Edit Own Page/:id" element={<EditOwnPageC />} />
           <Route path="/Add Page" element={isLogin ? <AddPage /> : <Navigate to="/login" state={{ from: "Add Page", message: "Login is required" }}/>} />
           <Route path="/Profile" element={isLogin ? <Profile /> : <Navigate to="/login" state={{ from: "Profile", message: "Login is required" }}/>} />
 

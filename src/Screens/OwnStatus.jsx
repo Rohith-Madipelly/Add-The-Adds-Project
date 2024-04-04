@@ -142,7 +142,7 @@ function OwnStatus() {
                         {Data.map((slideContent, index) => (
                             <SwiperSlide key={slideContent} virtualIndex={index} className="z-40 h-full sm:flex sm:items-center sm:justify-center ">
                                 <Link to={{ pathname: '/Edit Own Page'}} state={{slideContent }}>
-
+{/* {console.log("Data ",slideContent)} */}
                                     <img src={slideContent.imageUrl} className='w-full h-[364px] w-[327px] sm:h-[204px] m-0 p-0 object-cover' />
                                 </Link>
                             </SwiperSlide>

@@ -3,6 +3,8 @@ import { FaSearch } from "react-icons/fa";
 import "./SearchCSS.css";
 import { getTemplatesAPI } from "../../../utils/APIcall";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 // import "./SearchResultsList.css";
 // import "./SearchResult.css";
 
@@ -10,27 +12,32 @@ const SearchF = () => {
   const [results, setResults] = useState([]);
   const [input, setInput] = useState("");
   const token = useSelector((state) => state.token)
-
+  const navigate = useNavigate();
   const fetchData = async (value) => {
 
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then((response) => response.json())
-      .then((json) => {
-        const filteredResults = json.filter((user) => {
-          return (
-            value &&
-            user &&
-            user.name &&
-            user.name.toLowerCase().includes(value.toLowerCase())
-          );
-        });
-        setResults(filteredResults);
-      });
+    // fetch("https://jsonplaceholder.typicode.com/users")
+    //   .then((response) => response.json())
+    //   .then((json) => {
+    //     const filteredResults = json.filter((user) => {
+    //       return (
+    //         value &&
+    //         user &&
+    //         user.name &&
+    //         user.name.toLowerCase().includes(value.toLowerCase())
+    //       );
+    //     });
+    //     setResults(filteredResults);
+    //   });
 
 
     try {
       const res = await getTemplatesAPI(token)
       console.log("<><", res.data.Data)
+      const Data = res.data.Data
+      console.log(Data)
+
+      
+      setResults(Data);
     }
     catch (e) {
       console.log("Hello", e)
@@ -48,13 +55,16 @@ const SearchF = () => {
   };
 
   const SearchResult = ({ result }) => {
+console.log("searchRes",result)
+
+
     return (
       <div
         className="search-result"
-      // onClick={() => alert(`You selected ${result.name}!`) }
-      // onClick={()=>{} }
+        // onClick={() => alert(`You selected ${result.img_name}!`) }
+        onClick={() => {navigate(`/Edit Own Page/${result._id}`);}}
       >
-        {result.name}
+        {result.img_name}
       </div>
     );
   };
@@ -63,6 +73,7 @@ const SearchF = () => {
     return (
       <div className="results-list h-[135px]">
         {results.map((result, id) => (
+          // console.log("RR",result.img_name)
           <SearchResult result={result} key={id} />
         ))}
       </div>
@@ -81,7 +92,7 @@ const SearchF = () => {
           className="ms-2"
         />
       </div>
-      {/* {results && results.length > 0 && <SearchResultsList results={results} />} */}
+      {results && results.length > 0 && <SearchResultsList results={results} />}
     </div>
 
   );

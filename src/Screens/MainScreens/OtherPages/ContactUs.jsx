@@ -40,8 +40,8 @@ function ContactUs() {
       </div>
       <div className='w-[100vw] h-[100vh] max-h-auto'>
         <div className='my-5 font-bold text-xl text-center'>Contact Us </div>
-        <div className=' mx-10 px-10 '>
-         {ContactUsData?<ul className='mx-10'>
+        <div className=' mx-10 sm:mx-2 px-10 '>
+         {ContactUsData?<ul className='mx-10 sm:mx-2'>
             <li><strong>Address:</strong> {ContactUsData.adress}</li>
             <li><strong>Email:</strong> {ContactUsData.email}</li>
             <li><strong>Phone:</strong> {ContactUsData.phone}</li>

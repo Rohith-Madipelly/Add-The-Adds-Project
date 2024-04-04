@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useNavigate,useLocation } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 
 import { useDispatch } from "react-redux";
 import { setToken } from "../../redux/actions/loginAction";
@@ -24,17 +24,26 @@ const Login = () => {
 
   const location = useLocation();
 
-   // Check if there's a state with a message
-   if (location.state && location.state.message) {
-    // Show toaster notification with the message
-    showToastMessage_warn(location.state.message);
+  const Checker = () => {
+    // Check if there's a state with a message
+    if (location.state && location.state.message) {
+      // Show toaster notification with the message
+      showToastMessage_warn(location.state.message);
+    }
+
   }
+
 
   const [emailOrPhoneApiErr, setEmailOrPhoneApiErr] = useState("");
   const [passwordApiErr, setPasswordApiErr] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+
+  useEffect(() => {
+    Checker()
+  }, [])
+  
   const onSubmit = async () => {
     setIsLoading(true);
     try {
@@ -57,15 +66,15 @@ const Login = () => {
         showToastMessage_success(res.data.message)
         setEmailOrPhoneApiErr("");
         setPasswordApiErr("");
-        dispatch(setToken(res.data.token,res.data.userName));
-        setTimeout(()=>{
+        dispatch(setToken(res.data.token, res.data.userName));
+        setTimeout(() => {
           navigate('/');
 
-        },200)
+        }, 200)
       }
       else {
-        
-      } 
+
+      }
 
     } catch (error) {
 
@@ -175,7 +184,7 @@ const Login = () => {
                   name="emailOrPhone"
                   id="emailOrPhone"
                   className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 
-                  ${(errors.emailOrPhone && touched.emailOrPhone) || (emailOrPhoneApiErr)? "border-red-500!important": ""}`}
+                  ${(errors.emailOrPhone && touched.emailOrPhone) || (emailOrPhoneApiErr) ? "border-red-500!important" : ""}`}
                   placeholder="Enter your email or phone number"
                 />
                 {errors.emailOrPhone && touched.emailOrPhone && (
@@ -209,9 +218,9 @@ const Login = () => {
                     id="password"
                     placeholder="Enter your password"
                     className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 relative 
-                    ${(errors.password && touched.password)||(passwordApiErr)
-                      ? "border-red-500"
-                      : ""
+                    ${(errors.password && touched.password) || (passwordApiErr)
+                        ? "border-red-500"
+                        : ""
                       }`}
                     required=""
                   />
