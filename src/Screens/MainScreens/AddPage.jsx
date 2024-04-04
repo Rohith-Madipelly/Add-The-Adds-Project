@@ -5,9 +5,10 @@ import NDShare from '../../Components/NavBar/NavDropDown/NDShare';
 import { ProfileAPI, UserPageAPI } from '../../utils/APIcall';
 import { useSelector } from 'react-redux';
 import LinksDisplay from '../../Components/LinksDisplay';
-import { showToastMessage_success } from '../../shared/Toaster';
+import { showToastMessage_success, showToastMessage_warn } from '../../shared/Toaster';
 import CarouselComponent from './CreatePage/CarouselComponent';
 import CarouselComponentAddPage from './AddPage/CarouselComponentAddPage';
+import { useLocation } from 'react-router-dom';
 
 function AddPage() {
   const [LinkList, setLinkList] = useState([{ service: "" }]);
@@ -17,6 +18,15 @@ function AddPage() {
   const [OtherUser, setOtherUser] = useState([])
 
   const [isLoading, setIsLoading] = useState(false);
+  
+  const location = useLocation();
+
+  // Check if there's a state with a message
+  if (location.state && location.state.message) {
+   // Show toaster notification with the message
+   showToastMessage_warn(location.state.message);
+ }
+
 
   const Apicaller = async (userName) => {
 

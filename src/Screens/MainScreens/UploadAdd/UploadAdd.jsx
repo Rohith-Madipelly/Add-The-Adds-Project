@@ -5,12 +5,20 @@ import AdvertisingComponents from '../../../Components/Funca/AdvertisingComponen
 import { Button } from 'flowbite-react'
 import { useSelector } from 'react-redux'
 import { GetPlanInfo } from '../../../utils/APIcall'
+import { useLocation } from 'react-router-dom'
+import { showToastMessage_warn } from '../../../shared/Toaster'
 function UploadPage() {
 
   const [PlanData, SetPlanData] = useState([])
   const [benefitsData, SetBenefitsData] = useState([])
   const token = useSelector((state) => state.token);
+  const location = useLocation();
 
+  // Check if there's a state with a message
+  if (location.state && location.state.message) {
+   // Show toaster notification with the message
+   showToastMessage_warn(location.state.message);
+ }
   const ApiCaller = async () => {
     try {
       const res = await GetPlanInfo(token)

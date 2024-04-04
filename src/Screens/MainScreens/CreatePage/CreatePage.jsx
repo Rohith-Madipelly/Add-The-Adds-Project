@@ -7,13 +7,13 @@ import { useSelector } from 'react-redux'
 import { Add_Image_In_HeadersAPI, Add_Video_In_HeadersAPI, DeleteHeadersAPI, ProfileAPI } from '../../../utils/APIcall'
 import { MdDelete, MdThumbUp } from 'react-icons/md'
 import { IoAddCircleSharp } from 'react-icons/io5'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import LinksDisplay from '../../../Components/LinksDisplay'
 import LinkCreatePage from './LinkCreatePage'
 import CarouselComponent from './CarouselComponent'
 import { YouTubeModal } from './YouTubeModel'
 import { ImageUploadModel } from './ImageUploadModel'
-import { showToastMessage_error, showToastMessage_success } from '../../../shared/Toaster'
+import { showToastMessage_error, showToastMessage_success, showToastMessage_warn } from '../../../shared/Toaster'
 import { DeleteHeadersModel } from './DeleteHeadersModel'
 import LikeButton from '../../../utils/LikeButton'
 import { AddPagetoUser } from './AddPagetoUser'
@@ -26,7 +26,13 @@ function CreatePage() {
   const [headerData, setHeadersData] = useState([])
 
   const token = useSelector((state) => state.token);
+  const location = useLocation();
 
+  // Check if there's a state with a message
+  if (location.state && location.state.message) {
+   // Show toaster notification with the message
+   showToastMessage_warn(location.state.message);
+ }
   const Apicaller = async () => {
     console.log(token)
     const res = await ProfileAPI(token)

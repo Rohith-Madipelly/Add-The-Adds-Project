@@ -24,3 +24,15 @@ export const showToastMessage_error=(ToasterMessage)=> {
 
     toast.error(ToasterMessage);
 }
+
+
+export const showToastMessage_warn=(ToasterMessage)=> {
+  // const showToastMessage = () => {
+  //   console.log("kjdskj")
+  //   toast.success("Success Notification !", {
+  //     position: toast.POSITION.TOP_RIGHT,
+  //   });
+  // };
+
+    toast.warn(ToasterMessage);
+}

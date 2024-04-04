@@ -16,8 +16,8 @@ import { useSelector } from 'react-redux'
 import './css/OwnStatus.css'
 import { Button, Carousel } from 'flowbite-react'
 
-import { Link, Navigate, useNavigate } from 'react-router-dom'
-import { showToastMessage_error } from '../shared/Toaster';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
+import { showToastMessage_error, showToastMessage_warn } from '../shared/Toaster';
 import CopyToClipBoard from '../utils/CopyToClipBoard';
 
 
@@ -30,7 +30,13 @@ function OwnStatus() {
     const prependNumber = useRef(1);
     // Create array with 500 slides
 
+    const location = useLocation();
 
+    // Check if there's a state with a message
+    if (location.state && location.state.message) {
+     // Show toaster notification with the message
+     showToastMessage_warn(location.state.message);
+   }
     const APICaller = async () => {
         console.log("sdad")
         try {

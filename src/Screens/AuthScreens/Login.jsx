@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router";
+import { useNavigate,useLocation } from "react-router";
 
 import { useDispatch } from "react-redux";
 import { setToken } from "../../redux/actions/loginAction";
@@ -13,7 +13,7 @@ import { loginValidationSchema } from "./validationSchemas/LoginValidations.jsx"
 
 
 import { UserLoginAPI } from "../../utils/APIcall.jsx";
-import { showToastMessage_error, showToastMessage_success } from "../../shared/Toaster.jsx";
+import { showToastMessage_error, showToastMessage_success, showToastMessage_warn } from "../../shared/Toaster.jsx";
 // import Loader2 from "../../shared/Loaders/Loader2.jsx";
 
 
@@ -21,6 +21,14 @@ import { showToastMessage_error, showToastMessage_success } from "../../shared/T
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const location = useLocation();
+
+   // Check if there's a state with a message
+   if (location.state && location.state.message) {
+    // Show toaster notification with the message
+    showToastMessage_warn(location.state.message);
+  }
 
   const [emailOrPhoneApiErr, setEmailOrPhoneApiErr] = useState("");
   const [passwordApiErr, setPasswordApiErr] = useState("");
@@ -50,7 +58,10 @@ const Login = () => {
         setEmailOrPhoneApiErr("");
         setPasswordApiErr("");
         dispatch(setToken(res.data.token,res.data.userName));
-        navigate('/');
+        setTimeout(()=>{
+          navigate('/');
+
+        },200)
       }
       else {
         

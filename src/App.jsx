@@ -1,29 +1,17 @@
-import React, { lazy, Suspense, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { useSelector } from "react-redux";
-
-
+import React, { lazy, Suspense } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 // Pages
-
-
-
-// Auth Pages
 import Login from './Screens/AuthScreens/Login';
-// import Register from './Screens/AuthScreens/Register';
-
-
-// Main Pages
-import Home from './Screens/MainScreens/Home/Home'
+import Home from './Screens/MainScreens/Home/Home';
 import OwnStatus from './Screens/OwnStatus';
 import EditOwnPage from './Screens/MainScreens/EditOwnPage/EditOwnPage';
 import AddPage from './Screens/MainScreens/AddPage';
-
 import NotFoundPage from './Screens/NotFoundPage';
-import CreatePage from './Screens/MainScreens/CreatePage/CreatePage'
+import CreatePage from './Screens/MainScreens/CreatePage/CreatePage';
 import ContactUs from './Screens/MainScreens/OtherPages/ContactUs';
 import Services from './Screens/MainScreens/OtherPages/Services';
-
 import About from './Screens/MainScreens/OtherPages/About';
 import FAQ from './Screens/MainScreens/OtherPages/FAQ';
 import TermsandCondition from './Screens/MainScreens/OtherPages/TermsandCondition';
@@ -36,83 +24,55 @@ import UploadPage from './Screens/MainScreens/UploadAdd/UploadAdd';
 import Trending from './Screens/MainScreens/OtherPages/Trending';
 import Festivals from './Screens/MainScreens/OtherPages/Festivals';
 import Register from './Screens/AuthScreens/Register';
-import Test1 from './Screens/TestingScreens/Test1';
-import Test2 from './Screens/TestingScreens/Test2';
-import SearchF from './Screens/MainScreens/EditOwnPage/SearchF';
-import CopyToClipboard from './Screens/TestingScreens/CopyToClipboard';
 import Tester from './Screens/MainScreens/Tester';
 import Profile from './Screens/MainScreens/Profile/Profile';
 
-
-
 const Loader = lazy(() => import('./shared/Loaders/Loader1'));
-
 const LoadingFallback = () => <Loader />;
 
-
 function App() {
-  const loginSelector = useSelector((state) => state.isLogin);
-  const userName = useSelector((state) => state.userName);
-
-  console.log("data here is login or not ", loginSelector,"kjskdfjhksf",userName)
-
+  const isLogin = useSelector((state) => state.isLogin);
 
   return (
     <div>
       <ToastContainer />
       <Suspense fallback={<LoadingFallback />}>
-      
         <Routes>
-          <Route exact path='/' element={<Home />} />
-          <Route exact path='/Home' element={<Home />} />
-          <Route exact path='/Own Status' element={<OwnStatus />} />
-          <Route exact path='/Edit Own Page' element={<EditOwnPage />} />
-          <Route exact path='/Add Page' element={<AddPage />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/Home" element={<Home />} />
+          <Route path="/Own Status"  element={isLogin ? <OwnStatus /> : <Navigate to="/login" state={{ from: "Own Status", message: "Login is required" }}/>} />
+          <Route path="/Edit Own Page" element={<EditOwnPage />} />
+          <Route path="/Add Page" element={isLogin ? <AddPage /> : <Navigate to="/login" state={{ from: "Add Page", message: "Login is required" }}/>} />
+          <Route path="/Profile" element={isLogin ? <Profile /> : <Navigate to="/login" state={{ from: "Profile", message: "Login is required" }}/>} />
 
-          <Route exact path='/Profile' element={<Profile />} />
-
-
-          <Route exact path='/Add Page/:userName' element={< AddPage/>} />
-
-
-
-          <Route exact path='/Create Page' element={<CreatePage />} />
-          <Route exact path='/Upload add' element={<UploadPage />} />
-          <Route exact path='/d' element={<Desktop />} />
-
-
-          <Route exact path='/About us' element={<About />} />
-          <Route exact path='/Blog' element={<Blog />} />
-          <Route exact path='/Festivals' element={<Festivals />} />
-
-          <Route exact path='/Trending' element={<Trending />} />
-          <Route exact path='/License' element={<License />} />
-          <Route exact path='/Services' element={<Services />} />
-          <Route exact path='/Contact us' element={<ContactUs />} />
-          <Route exact path='/FAQ' element={<FAQ />} />
-          <Route exact path='/Terms of use' element={<TermsandCondition />} />
-          <Route exact path='/Privacy Policy' element={<PrivacyPolicy />} />
-
-
-          {/* <Route exact path='/Test' element={<CopyToClipboard />} />*/}
-          <Route exact path='/Test2' element={<Tester />} /> 
-         
-         
-      
-
-
-          <Route path='/Login' element={!loginSelector ? <Login /> : <NotFoundPage />} />
-          <Route path='/signup' element={<Register />} />
+          <Route path="/Add Page/:userName" element={<AddPage />} />
+          <Route path="/Create Page" element={isLogin ? <CreatePage /> : <Navigate to="/login"  state={{ from: "Create Page", message: "Login is required" }}/>} />
+          <Route path="/Upload add" element={isLogin ? <UploadPage /> : <Navigate to="/login" state={{ from: "Upload add", message: "Login is required" }}  />} />
 
 
 
-          <Route path='*' element={<NotFoundPage />} />
+
+ 
+
+
+          <Route path="/d" element={<Desktop />} />
+          <Route path="/About us" element={<About />} />
+          <Route path="/Blog" element={<Blog />} />
+          <Route path="/Festivals" element={<Festivals />} />
+          <Route path="/Trending" element={<Trending />} />
+          <Route path="/License" element={<License />} />
+          <Route path="/Services" element={<Services />} />
+          <Route path="/Contact us" element={<ContactUs />} />
+          <Route path="/FAQ" element={<FAQ />} />
+          <Route path="/Terms of use" element={<TermsandCondition />} />
+          <Route path="/Privacy Policy" element={<PrivacyPolicy />} />
+          <Route path="/Login" element={!isLogin ? <Login /> : <Navigate to="/profile" />} />
+          <Route path="/signup" element={<Register />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
-
       </Suspense>
-
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

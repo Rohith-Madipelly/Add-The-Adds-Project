@@ -2,14 +2,23 @@ import React, { useEffect, useState } from 'react'
 import '../CreatePage/CreatePage.css'
 import '../Home/Home.css'
 import { UserPageAPI } from '../../../utils/APIcall'
-import { showToastMessage_success } from '../../../shared/Toaster'
+import { showToastMessage_success, showToastMessage_warn } from '../../../shared/Toaster'
 import { useSelector } from 'react-redux'
+import { useLocation } from 'react-router-dom'
 
 
 function Profile() {
   const userName = useSelector((state) => state.userName);
   const [ProfileData,setProfileData]=useState()
   const [isLoading, setIsLoading] = useState(false);
+  const location = useLocation();
+
+  // Check if there's a state with a message
+  if (location.state && location.state.message) {
+   // Show toaster notification with the message
+   showToastMessage_warn(location.state.message);
+ }
+
   const Apicaller = async (userName) => {
 
     try {
@@ -17,7 +26,7 @@ function Profile() {
       if (responsed) {
         // if (res.status === 200) {
         setIsLoading(false)
-        showToastMessage_success("responsed.data.message")
+        // showToastMessage_success("responsed.data.message")
 
         // setTimeout(() => {
         //   navigate('/Contests');
