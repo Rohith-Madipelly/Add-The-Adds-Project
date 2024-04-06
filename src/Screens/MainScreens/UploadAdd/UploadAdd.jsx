@@ -70,14 +70,7 @@ function UploadPage() {
       <div className=' w-full flex justify-center mt-8'>
         <div className='w-[70vw] h-[auto]'>
           <div className='grid grid-cols-4 md:grid-flow-col-3 sm:grid-cols-2 gap-8 gap-y-3'>
-            <a href='Home'>
-              <CustomButton
-                classStyle='text-blue-950 font-bold  text-xs'
-                Linkurl='/Home'
-              >
-                My Page <img src='/images/icons2/Frame (1).png' className='inline ps-2' />
-              </CustomButton>
-            </a>
+       
             <CustomButton
               classStyle='text-blue-950 font-bold text-xs'
             // Linkurl='/Share'

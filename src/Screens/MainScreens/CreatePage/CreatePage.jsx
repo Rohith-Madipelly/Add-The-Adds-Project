@@ -4,7 +4,7 @@ import CustomButton from '../../../Components/UI/Button/CustomButton'
 import '../Home/Home.css'
 import NDShare from '../../../Components/NavBar/NavDropDown/NDShare'
 import { useSelector } from 'react-redux'
-import { Add_Image_In_HeadersAPI, Add_Video_In_HeadersAPI, DeleteHeadersAPI, ProfileAPI } from '../../../utils/APIcall'
+import { Add_Image_In_HeadersAPI, Add_Video_In_HeadersAPI, DeleteHeadersAPI, LIKEAPI, ProfileAPI } from '../../../utils/APIcall'
 import { MdDelete, MdThumbUp } from 'react-icons/md'
 import { IoAddCircleSharp } from 'react-icons/io5'
 import { Link, useLocation } from 'react-router-dom'
@@ -21,11 +21,13 @@ import Loading from '../../../utils/Loadings/Loading'
 function CreatePage() {
 
   const [Data, setData] = useState("")
+  const [userPage, setUserPage] = useState("")
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [isLoading, setIsLoading] = useState(false);
 
   const [headerData, setHeadersData] = useState([])
+  const [Like, setLike] = useState(0)
 
   const token = useSelector((state) => state.token);
   const location = useLocation();
@@ -42,16 +44,18 @@ function CreatePage() {
       const ResData = await res.data;
 
       console.log(">>>>", res.data)
+      setUserPage(res.data.pagename)
       setData(res.data)
       setHeadersData(ResData.ownHeaders)
       console.log("da", Data.likes)
+      setLike(Data.likes)
 
       console.log("cdas", headerData)
     }
     catch (e) {
       console.log(e);
     }
-    finally{
+    finally {
       setIsLoading(false)
     }
 
@@ -75,6 +79,8 @@ function CreatePage() {
   };
 
   const handleSubmit = async (youtubeUrl) => {
+
+   
     // You can do something with the YouTube URL here
     console.log('Submitted YouTube URL:', youtubeUrl);
     setIsModalOpen(false);
@@ -82,10 +88,8 @@ function CreatePage() {
       const res = await Add_Video_In_HeadersAPI(token, youtubeUrl)
       console.log(res.data.message)
       showToastMessage_success(res.data.message)
-      setTimeout(() => {
-        Apicaller()
-      }, 200)
-
+    
+      window.location.reload();
 
     } catch (e) {
       console.log(e)
@@ -181,11 +185,26 @@ function CreatePage() {
   const [liked, setLiked] = useState(false);
 
   const toggleLike = () => {
-    Apicaller()
     setLiked(!liked);
+    LikeAPICall()
+    
+    console.log("hvhd")
   }
 
+  const LikeAPICall = async () => {
+    try {
+      const res = await LIKEAPI(token, userPage)
+      if (res) {
+        console.log("like inda", res.data)
+        setLike(prevPage => prevPage + 1)
+        
+      }
+    } catch (e) {
+      console.log("hjsbkdf", e)
+    } finally {
 
+    }
+  }
 
 
 
@@ -206,18 +225,19 @@ function CreatePage() {
 
             <div className=''>
               <CarouselComponent data={Data} />
-              <div className='my-4  flex justify-end'>
-                <div className='grid grid-flow-col gap-2 sm:w-[90vw]'>
+              <div className='my-4  flex justify-between sm:flex-col'>
+                <div className='grid grid-flow-col gap-2 sm:text-xs '>
+
+
+
                   <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={toggleLike}>
                     {liked ? <MdThumbUp color="blue" size={25} /> : <MdThumbUp size={25} />}
-                    {liked ? <p className='ms-2'>{Data.likes} Likes</p> : <p className='ms-2'>{Data.likes} Likes</p>}
+                    {liked ? <p className='ms-2'>{Like} Likes</p> : <p className='ms-2'>{Like} Likes</p>}
                   </CustomButton>
-
                   <CustomButton classStyle={'my-3 bg-white h-auto'}>{Data.views} Views</CustomButton>
-                  <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handleOpenModal() }}>Upload Video </CustomButton>
-                  <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handleImageOpenModal() }}>Image</CustomButton>
-                  <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handlePageOpenModal() }}>Add Page</CustomButton>
-                  <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handleDeleteOpenModal() }}>Delete </CustomButton>
+
+
+                  <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handleDeleteOpenModal() }}>Delete Content</CustomButton>
 
 
                   <YouTubeModal isOpen={isModalOpen} onClose={handleCloseModal} onSubmit={handleSubmit} />
@@ -230,13 +250,24 @@ function CreatePage() {
 
 
                 </div>
+                {/* </div>
+              <div className='my-4  flex justify-end'> */}
+                <div className='grid grid-flow-col gap-2 sm:text-xs '>
+                  <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handleOpenModal() }}>Upload Video </CustomButton>
+                  <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handleImageOpenModal() }}>Image</CustomButton>
+                  <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handlePageOpenModal() }}>Add Page</CustomButton>
+
+
+                </div>
               </div>
             </div>
 
 
           </div>
         </div>
+        <div className='flex justify-center'><p>Add your Links</p></div>
         <div className='my-5 flex justify-center'>
+          
           <div className='w-[60%] sm:w-[95%]'>
             {/* {Data?<LinksDisplay DataLinks={Data}/>:""} */}
             <LinkCreatePage />

@@ -110,7 +110,7 @@ function AddPage() {
 
             <div className='col-span-2 bg-red border-b border-r p-[40px] mx-5 sm:hidden'>
               {NavDropsOption.map((Data, index) => (
-                <CustomButton classStyle={'mt-2 bg-white h-auto'} key={index}>{Data.name}</CustomButton>
+               <a href={Data.link}><CustomButton classStyle={'mt-2 bg-white h-auto'} key={index}>{Data.name}</CustomButton></a> 
               ))}
             </div>
 

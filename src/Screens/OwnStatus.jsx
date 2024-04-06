@@ -121,6 +121,10 @@ function OwnStatus() {
                         className="w-full h-full"
                         modules={[ Navigation, Pagination]}
                         breakpoints={{
+                            390: {
+                                slidesPerView: 1,
+                                spaceBetween: 10,
+                            },
                             480: {
                                 slidesPerView: 1,
                                 spaceBetween: 10,

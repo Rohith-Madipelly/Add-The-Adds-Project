@@ -129,6 +129,15 @@ export const ProfileAPI = async (token) => {
   });
 };
 
+
+
+//LIKE API 
+export const LIKEAPI = async (token,userPage) => {
+  return await axios.get(`${BASE_URL}/user/likepage/${userPage}`, {
+    headers: { Authorization: "Bearer " + token }
+  });
+};
+
 //UserPageAPI
 export const UserPageAPI= async (userName) => {
 
