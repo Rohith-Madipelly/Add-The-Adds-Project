@@ -8,6 +8,8 @@ import { GetPlanInfo } from '../../../utils/APIcall'
 import { useLocation } from 'react-router-dom'
 import { showToastMessage_warn } from '../../../shared/Toaster'
 import Loading from '../../../utils/Loadings/Loading'
+import RightTrue from './RightTrue'
+import WrongFalse from './WrongFalse'
 function UploadPage() {
 
   const [PlanData, SetPlanData] = useState([])
@@ -17,15 +19,21 @@ function UploadPage() {
   const [isLoading, setIsLoading] = useState(true);
   // Check if there's a state with a message
   if (location.state && location.state.message) {
-   // Show toaster notification with the message
-   showToastMessage_warn(location.state.message);
- }
+    // Show toaster notification with the message
+    showToastMessage_warn(location.state.message);
+  }
   const ApiCaller = async () => {
     try {
       const res = await GetPlanInfo(token)
-      console.log(res.data.plans)
-      SetPlanData(res.data.plans)
-      console.log("Data Page >", PlanData)
+
+      if (res) {
+        console.log(res.data.plans)
+        SetPlanData(res.data.plans)
+        console.log("Data Page >", PlanData)
+        console.log(res.data.plans)
+        SetBenefitsData(res.data.plans.benefits)
+        console.log("benefits>>>>>>", benefitsData)
+      }
 
 
     } catch (e) {
@@ -62,7 +70,7 @@ function UploadPage() {
   }
   return (
     <div className='h-auto'>
-      
+
       <div className='h-[70px]'>
 
       </div>
@@ -70,7 +78,7 @@ function UploadPage() {
       <div className=' w-full flex justify-center mt-8'>
         <div className='w-[70vw] h-[auto]'>
           <div className='grid grid-cols-4 md:grid-flow-col-3 sm:grid-cols-2 gap-8 gap-y-3'>
-       
+
             <CustomButton
               classStyle='text-blue-950 font-bold text-xs'
             // Linkurl='/Share'
@@ -174,19 +182,18 @@ function UploadPage() {
                     </div>
 
                     <div className='text-white text-center mt-5'>
-                      {/* {data.benefits.map((benefit, index) => ( // Changed parameter name to avoid conflict
-                        <div key={index}>{benefit}</div> // Assuming benefits is an array of strings
-                      ))} */}
-
                       <div className='my-6'>
-                        <img className='inline-block' src="images/dd/img_frame_green_a700.svg" alt="image_three" /> Lorem Ipsum is simply dummy
+                        {data.benefits.length > 0 ? (
+                          data.benefits.map((item, index) => (
+                            item.status ? <RightTrue benefitsName={item.name} key={index} /> : <WrongFalse benefitsName={item.name} key={index} />
+                          ))
+                        ) : (
+                          <p>No benefits available</p>
+                        )}
+
                       </div>
-                      <div className='my-5'>
-                        <img className='inline-block' src="images/dd/img_frame_deep_orange_a400.svg" alt="image_three" /> Lorem Ipsum is simply dummy
-                      </div>
-                      <div className='my-5'>
-                        <img className='inline-block' src="images/dd/img_frame_green_a700.svg" alt="image_three" /> Lorem Ipsum is simply dummy
-                      </div>
+
+
                     </div>
                     <div className='flex justify-center'><Button>Get this plan</Button></div>
                   </div>

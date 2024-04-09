@@ -159,6 +159,7 @@ function LinkCreatePage() {
                                             name={`service-${index}`}
                                             type="text"
                                             id={`service-${index}`}
+                                            placeholder='Add Live Like Here'
                                             value={link}
                                             onChange={(e) => {
                                                 const updatedLinks = [...LiveLinkURLS];
@@ -236,6 +237,8 @@ function LinkCreatePage() {
                                     type="text"
                                     id={`service-0`}
                                     value=""
+                                    placeholder='Add Live Like Here'
+
                                     onChange={(e) => {
                                         const updatedLinks = [...LiveLinkURLS];
                                         updatedLinks[0] = e.target.value.toLowerCase();
@@ -263,6 +266,8 @@ function LinkCreatePage() {
                                             name={`service-${index}`}
                                             type="text"
                                             id={`service-${index}`}
+                                            placeholder='Add General Like Here'
+
                                             value={link}
                                             onChange={(e) => {
                                                 const updatedLinks = [...GeneralLinkURLS];
@@ -295,6 +300,8 @@ function LinkCreatePage() {
                                 <input
                                     name={`service-0`}
                                     type="text"
+                                    placeholder='Add General Like Here'
+
                                     id={`service-0`}
                                     value=""
                                     onChange={(e) => {
@@ -322,6 +329,8 @@ function LinkCreatePage() {
                                     <div key={index} className={`flex w-[95%] border-2 rounded-lg bg-white ${error ? 'bg-black' : 'bg-black'} h-[55px] mb-2`}>
                                         <input
                                             name={`service-${index}`}
+                                            placeholder='Add Channel Like Here'
+
                                             type="text"
                                             id={`service-${index}`}
                                             value={link}
@@ -357,6 +366,8 @@ function LinkCreatePage() {
                                     name={`service-0`}
                                     type="text"
                                     id={`service-0`}
+                                    placeholder='Add Channel Like Here'
+
                                     value=""
                                     onChange={(e) => {
                                         const updatedLinks = [...ChanelLinkURLS];

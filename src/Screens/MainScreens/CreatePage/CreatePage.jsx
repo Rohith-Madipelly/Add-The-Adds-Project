@@ -2,32 +2,34 @@ import React, { useEffect, useState } from 'react'
 import './CreatePage.css'
 import CustomButton from '../../../Components/UI/Button/CustomButton'
 import '../Home/Home.css'
-import NDShare from '../../../Components/NavBar/NavDropDown/NDShare'
-import { useSelector } from 'react-redux'
-import { Add_Image_In_HeadersAPI, Add_Video_In_HeadersAPI, DeleteHeadersAPI, LIKEAPI, ProfileAPI } from '../../../utils/APIcall'
-import { MdDelete, MdThumbUp } from 'react-icons/md'
-import { IoAddCircleSharp } from 'react-icons/io5'
-import { Link, useLocation } from 'react-router-dom'
-import LinksDisplay from '../../../Components/LinksDisplay'
+
 import LinkCreatePage from './LinkCreatePage'
 import CarouselComponent from './CarouselComponent'
 import { YouTubeModal } from './YouTubeModel'
 import { ImageUploadModel } from './ImageUploadModel'
-import { showToastMessage_error, showToastMessage_success, showToastMessage_warn } from '../../../shared/Toaster'
 import { DeleteHeadersModel } from './DeleteHeadersModel'
-import LikeButton from '../../../utils/LikeButton'
+
 import { AddPagetoUser } from './AddPagetoUser'
+
+import { useSelector } from 'react-redux'
+import { MdDelete, MdThumbUp } from 'react-icons/md'
+
+import { Link, useLocation } from 'react-router-dom'
+import { Add_Image_In_HeadersAPI, Add_Video_In_HeadersAPI, DeleteHeadersAPI, LIKEAPI, ProfileAPI } from '../../../utils/APIcall'
+import { showToastMessage_error, showToastMessage_success, showToastMessage_warn } from '../../../shared/Toaster'
+
+
+
 import Loading from '../../../utils/Loadings/Loading'
 function CreatePage() {
-
+  const [isLoading, setIsLoading] = useState(false);
   const [Data, setData] = useState("")
   const [userPage, setUserPage] = useState("")
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const [isLoading, setIsLoading] = useState(false);
-
   const [headerData, setHeadersData] = useState([])
   const [Like, setLike] = useState(0)
+  const [liked, setLiked] = useState(false);
+
 
   const token = useSelector((state) => state.token);
   const location = useLocation();
@@ -37,20 +39,32 @@ function CreatePage() {
     // Show toaster notification with the message
     showToastMessage_warn(location.state.message);
   }
+
+  
   const Apicaller = async () => {
     setIsLoading(true)
+
     try {
       const res = await ProfileAPI(token)
-      const ResData = await res.data;
 
-      console.log(">>>>", res.data)
-      setUserPage(res.data.pagename)
-      setData(res.data)
-      setHeadersData(ResData.ownHeaders)
-      console.log("da", Data.likes)
-      setLike(Data.likes)
+      if(res)
+      {
+        const ResData = await res.data;
+        console.log(">>>>", res.data)
+        setUserPage(res.data.pagename)
+        setData(res.data)
+        setHeadersData(ResData.ownHeaders)
+        if(ResData.ownHeaders.length===0)
+        {
+          showToastMessage_warn("No Data Found, You can add here");
+        }
+        console.log("da", Data.likes)
+        setLike(Data.likes)
+        
+        console.log("cdas", headerData)
+      }
 
-      console.log("cdas", headerData)
+
     }
     catch (e) {
       console.log(e);
@@ -70,7 +84,6 @@ function CreatePage() {
 
 
   const handleOpenModal = () => {
-    console.log("asjbja")
     setIsModalOpen(true);
   };
 
@@ -79,8 +92,6 @@ function CreatePage() {
   };
 
   const handleSubmit = async (youtubeUrl) => {
-
-   
     // You can do something with the YouTube URL here
     console.log('Submitted YouTube URL:', youtubeUrl);
     setIsModalOpen(false);
@@ -120,16 +131,15 @@ function CreatePage() {
     setIsImageModalOpen(false);
 
     try {
-
       const res = await Add_Image_In_HeadersAPI(token, imageFile)
-      console.log(res.data.message)
-      console.log(res.data)
+      if(res)
+      {
 
-      showToastMessage_success(res.data.message)
-
-      window.location.reload();
-
-
+        console.log(res.data.message)
+        console.log(res.data)
+        showToastMessage_success(res.data.message)
+        window.location.reload();
+      }
 
     } catch (e) {
       console.log("error", e)
@@ -149,7 +159,7 @@ function CreatePage() {
   const [isPageModalOpen, setIsPageModalOpen] = useState(false);
 
   const handlePageOpenModal = () => {
-    handlePageOpenModal
+    // handlePageOpenModal
     setIsPageModalOpen(true);
   };
 
@@ -182,12 +192,10 @@ function CreatePage() {
     window.location.reload();
   };
 
-  const [liked, setLiked] = useState(false);
 
   const toggleLike = () => {
     setLiked(!liked);
     LikeAPICall()
-    
     console.log("hvhd")
   }
 
@@ -205,12 +213,15 @@ function CreatePage() {
 
     }
   }
-
+if(isLoading)
+{
+  return <Loading/>
+}
 
 
   return (
     <div className='new_Page_GroundImage'>
-      {isLoading && <Loading />}
+      {/* {isLoading && <Loading />} */}
       <div className='h-[70px]'></div>
 
       <div className='w-full px-8 sm:px-2 py-5'>

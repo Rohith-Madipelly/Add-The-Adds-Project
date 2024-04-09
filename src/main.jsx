@@ -20,7 +20,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <NavBar />
         <App />
         <Footter />
-        <ScreenSizeDisplayer123 />
+        {/* <ScreenSizeDisplayer123 /> */}
       </BrowserRouter>
     </Provider>
 

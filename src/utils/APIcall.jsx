@@ -144,7 +144,10 @@ export const UserPageAPI= async (userName) => {
   const reqData={
     userPageName:userName
   }
+
+
   return await axios.post(`${BASE_URL}/userpage`,reqData);
+
 };
 
 // DeleteLinkAPI

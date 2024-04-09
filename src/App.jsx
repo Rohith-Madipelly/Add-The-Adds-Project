@@ -27,6 +27,7 @@ import Register from './Screens/AuthScreens/Register';
 import Tester from './Screens/MainScreens/Tester';
 import Profile from './Screens/MainScreens/Profile/Profile';
 import EditOwnPageC from './Screens/MainScreens/EditOwnPage/EditOwnPageC';
+import ShareButton from './Screens/TestingScreens/ShareButton';
 
 const Loader = lazy(() => import('./shared/Loaders/Loader1'));
 const LoadingFallback = () => <Loader />;
@@ -47,7 +48,7 @@ function App() {
           <Route path="/Add Page" element={isLogin ? <AddPage /> : <Navigate to="/login" state={{ from: "Add Page", message: "Login is required" }}/>} />
           <Route path="/Profile" element={isLogin ? <Profile /> : <Navigate to="/login" state={{ from: "Profile", message: "Login is required" }}/>} />
 
-          <Route path="/Add Page/:userName" element={<AddPage />} />
+          <Route path="/Add Page/:userNameParams" element={<AddPage />} />
           <Route path="/Create Page" element={isLogin ? <CreatePage /> : <Navigate to="/login"  state={{ from: "Create Page", message: "Login is required" }}/>} />
           <Route path="/Upload add" element={isLogin ? <UploadPage /> : <Navigate to="/login" state={{ from: "Upload add", message: "Login is required" }}  />} />
 
@@ -55,6 +56,9 @@ function App() {
 
 
  
+
+
+          <Route path="/d123" element={<ShareButton />} />
 
 
           <Route path="/d" element={<Desktop />} />
