@@ -28,14 +28,13 @@ const Login = () => {
 
   const onSubmit = async () => {
     try {
-      console.log(values)
-      const res = await UserRegisterAPI(values)
-      showToastMessage_success(res.data.message)
+      console.log(values);
+      const res = await UserRegisterAPI(values);
+      showToastMessage_success(res.data.message);
       dispatch(setToken(res.data.token));
-        navigate('/');
-      console.log(res)
-    }catch (error) {
-
+      navigate("/");
+      console.log(res);
+    } catch (error) {
       if (error.response) {
         if (error.response.status === 401) {
           // setPasswordApiErr("Incorrect Password")
@@ -43,19 +42,20 @@ const Login = () => {
           // setEmailOrPhoneApiErr("Account does not exist with the provided email or phone number")
         } else if (error.response.status === 409) {
           // console.log("HEllo")
-          setEmailOrPhoneApiErr("")
+          setEmailOrPhoneApiErr("");
         } else if (error.response.status === 500) {
           // console.log("Data Error Internal server error 500 ", error)
-          showToastMessage_error("Internal server error 500")
+          showToastMessage_error("Internal server error 500");
         } else {
-          console.log("Error else ?? ")
+          console.log("Error else ?? ");
         }
       } else if (error.request) {
-        showToastMessage_error(`No response received from the server. ${error.message} . Please Try Again `)
+        showToastMessage_error(
+          `No response received from the server. ${error.message} . Please Try Again `
+        );
       } else {
-        showToastMessage_error('Error setting up the request.')
+        showToastMessage_error("Error setting up the request.");
       }
-
     } finally {
       setIsLoading(false);
     }
@@ -83,12 +83,14 @@ const Login = () => {
     setFieldValue,
   } = useFormik({
     initialValues: {
-      username: "rohith",
-      phone_number: "9951072005",
-      email: "madipellyrohith@gmail.com",
-      password: "Rohith@7",
-      confirmPassword: "Rohith@7",
-      pagename: "HelloUser",
+      firstname: "",
+      lastname: "",
+      username: "",
+      phone_number: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      pagename: "",
     },
     validationSchema: signUpValidationSchema,
     onSubmit,
@@ -104,7 +106,7 @@ const Login = () => {
             className="object-cover rounded-r-0 rounded-l-full h-full shadow-[-10px_0px_300px_0px_#6fd9ff] brightness-25"
           />
         </div>
-        <div className=" sm:w-full md:w-full mdl:w-full w-[50%] h-full sm:shadow-[-10px_0px_300px_0px_#fbd38d] md:shadow-[-10px_0px_300px_0px_#fbd38d] mdl:shadow-[-10px_0px_300px_0px_#fbd38d] bg-white rounded-xl border-[0.2px]  lg:-ml-2 xl:-m-2 2xl:-m-2 z-10">
+        <div className=" sm:w-full md:w-full mdl:w-full w-[50%] h-full sm:shadow-[-10px_0px_300px_0px_#6fd9ff] md:shadow-[-10px_0px_300px_0px_#6fd9ff] mdl:shadow-[-10px_0px_300px_0px_#6fd9ff] bg-white rounded-xl border-[0.2px]  lg:-ml-2 xl:-m-2 2xl:-m-2 z-10">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <div className="text-center mb-8">
               <h1 className="text-[24px]">Sign Up</h1>
@@ -115,8 +117,62 @@ const Login = () => {
             <form
               onSubmit={handleSubmit}
               className="space-y-4 md:space-y-6"
-            // action="#"
+              // action="#"
             >
+              <div className="flex items-center gap-2 w-full">
+                <div className="w-[50%]">
+                  <label
+                    htmlFor="firstname"
+                    className="block mb-1 text-sm font-medium text-gray-900"
+                  >
+                    First name<span className="text-red-600">*</span>
+                  </label>
+                  <input
+                    value={values.firstname}
+                    onChange={handleInputChange}
+                    onBlur={handleBlur}
+                    type="firstname"
+                    name="firstname"
+                    id="firstname"
+                    className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ${
+                      errors.firstname && touched.firstname
+                        ? "border-red-500"
+                        : ""
+                    }`}
+                    placeholder="First name"
+                    required=""
+                  />
+                  {errors.firstname && touched.firstname && (
+                    <small className="text-red-500 ">{errors.firstname}</small>
+                  )}
+                </div>
+                <div className="w-[50%]">
+                  <label
+                    htmlFor="lastname"
+                    className="block mb-1 text-sm font-medium text-gray-900"
+                  >
+                    Last name<span className="text-red-600">*</span>
+                  </label>
+                  <input
+                    value={values.lastname}
+                    onChange={handleInputChange}
+                    onBlur={handleBlur}
+                    type="lastname"
+                    name="lastname"
+                    id="lastname"
+                    className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ${
+                      errors.lastname && touched.lastname
+                        ? "border-red-500"
+                        : ""
+                    }`}
+                    placeholder="Last name"
+                    required=""
+                  />
+                  {errors.lastname && touched.lastname && (
+                    <small className="text-red-500 ">{errors.lastname}</small>
+                  )}
+                </div>
+              </div>
               <div>
                 <label
                   htmlFor="username"
@@ -131,8 +187,9 @@ const Login = () => {
                   type="username"
                   name="username"
                   id="username"
-                  className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ${errors.username && touched.username ? "border-red-500" : ""
-                    }`}
+                  className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ${
+                    errors.username && touched.username ? "border-red-500" : ""
+                  }`}
                   placeholder="Enter your name"
                   required=""
                 />
@@ -161,8 +218,9 @@ const Login = () => {
                   type="email"
                   name="email"
                   id="email"
-                  className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ${errors.email && touched.email ? "border-red-500" : ""
-                    }`}
+                  className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ${
+                    errors.email && touched.email ? "border-red-500" : ""
+                  }`}
                   placeholder="Enter your email"
                   required=""
                 />
@@ -193,10 +251,11 @@ const Login = () => {
                   type="tel"
                   name="phone_number"
                   id="phone_number"
-                  className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ${errors.phone_number && touched.phone_number
-                    ? "border-red-500"
-                    : ""
-                    }`}
+                  className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ${
+                    errors.phone_number && touched.phone_number
+                      ? "border-red-500"
+                      : ""
+                  }`}
                   placeholder="Enter your phone number"
                   required=""
                 />
@@ -224,10 +283,11 @@ const Login = () => {
                       name="password"
                       id="password"
                       placeholder="Enter your password"
-                      className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 relative ${errors.password && touched.password
-                        ? "border-red-500"
-                        : ""
-                        }`}
+                      className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 relative ${
+                        errors.password && touched.password
+                          ? "border-red-500"
+                          : ""
+                      }`}
                       required=""
                     />
                     {isPasswordVisible ? (
@@ -269,10 +329,11 @@ const Login = () => {
                       name="confirmPassword"
                       id="confirmPassword"
                       placeholder="Re-enter your password"
-                      className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 relative ${errors.confirmPassword && touched.confirmPassword
-                        ? "border-red-500"
-                        : ""
-                        }`}
+                      className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 relative ${
+                        errors.confirmPassword && touched.confirmPassword
+                          ? "border-red-500"
+                          : ""
+                      }`}
                       required=""
                     />
                     {isPasswordVisible ? (
@@ -313,8 +374,9 @@ const Login = () => {
                   type="pagename"
                   name="pagename"
                   id="pagename"
-                  className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  ${errors.pagename && touched.pagename ? "border-red-500" : ""
-                    }`}
+                  className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  ${
+                    errors.pagename && touched.pagename ? "border-red-500" : ""
+                  }`}
                   placeholder="Page Name"
                 />
                 {errors.pagename && touched.pagename && (

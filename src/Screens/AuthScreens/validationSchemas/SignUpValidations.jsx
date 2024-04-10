@@ -1,6 +1,10 @@
 import * as Yup from "yup";
 
 export const signUpValidationSchema = Yup.object({
+  firstname: Yup.string().required("Your first name is required"),
+
+  lastname: Yup.string().required("Your last name is required"),
+
   username: Yup.string()
     .min(4, "Must be at least 4 characters")
     .max(25, "Must not exceed 25 characters")

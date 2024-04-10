@@ -10,13 +10,13 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useFormik } from "formik";
 import { loginValidationSchema } from "./validationSchemas/LoginValidations.jsx";
 
-
-
 import { UserLoginAPI } from "../../utils/APIcall.jsx";
-import { showToastMessage_error, showToastMessage_success, showToastMessage_warn } from "../../shared/Toaster.jsx";
+import {
+  showToastMessage_error,
+  showToastMessage_success,
+  showToastMessage_warn,
+} from "../../shared/Toaster.jsx";
 // import Loader2 from "../../shared/Loaders/Loader2.jsx";
-
-
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -30,24 +30,20 @@ const Login = () => {
       // Show toaster notification with the message
       showToastMessage_warn(location.state.message);
     }
-
-  }
-
+  };
 
   const [emailOrPhoneApiErr, setEmailOrPhoneApiErr] = useState("");
   const [passwordApiErr, setPasswordApiErr] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-
   useEffect(() => {
-    Checker()
-  }, [])
-  
+    Checker();
+  }, []);
+
   const onSubmit = async () => {
     setIsLoading(true);
     try {
-
       let loginFormData;
 
       // Verify whether the entered field is a phone number or an email address.
@@ -60,47 +56,43 @@ const Login = () => {
       loginFormData.password = values.password;
 
       // API Call
-      const res = await UserLoginAPI(loginFormData)
+      const res = await UserLoginAPI(loginFormData);
 
       if (res.status === 200) {
-        showToastMessage_success(res.data.message)
+        showToastMessage_success(res.data.message);
         setEmailOrPhoneApiErr("");
         setPasswordApiErr("");
         dispatch(setToken(res.data.token, res.data.userName));
         setTimeout(() => {
-          navigate('/');
-
-        }, 200)
+          navigate("/");
+        }, 200);
+      } else {
       }
-      else {
-
-      }
-
     } catch (error) {
-
       if (error.response) {
         if (error.response.status === 401) {
-          setPasswordApiErr("Incorrect Password")
+          setPasswordApiErr("Incorrect Password");
         } else if (error.response.status === 404) {
-          setEmailOrPhoneApiErr("Account does not exist with the provided email or phone number")
+          setEmailOrPhoneApiErr(
+            "Account does not exist with the provided email or phone number"
+          );
         } else if (error.response.status === 500) {
-          console.log("Data Error Internal server error 500 ", error)
-          showToastMessage_error("Internal server error 500")
+          console.log("Data Error Internal server error 500 ", error);
+          showToastMessage_error("Internal server error 500");
         } else {
-          console.log("Error else ?? ")
+          console.log("Error else ?? ");
         }
       } else if (error.request) {
-        showToastMessage_error(`No response received from the server. ${error.message} . Please Try Again `)
+        showToastMessage_error(
+          `No response received from the server. ${error.message} . Please Try Again `
+        );
       } else {
-        showToastMessage_error('Error setting up the request.')
+        showToastMessage_error("Error setting up the request.");
       }
-
     } finally {
       setIsLoading(false);
     }
-
   };
-
 
   const handleInputChange = (e) => {
     // Resetting error states when input value changes
@@ -109,12 +101,9 @@ const Login = () => {
     handleChange(e);
   };
 
-
   function togglePasswordVisibility() {
     setIsPasswordVisible((prevState) => !prevState);
   }
-
-
 
   const {
     values,
@@ -134,15 +123,12 @@ const Login = () => {
     onSubmit,
   });
 
-
   return (
     <section className="font-mainFont">
-
-
       <div className="flex items-center justify-center pt-[5%] sm:mx-5 md:mx-5 mdl:w-[769px] mx-auto lg:w-[895px] xl:w-[900px] 2xl:w-[1000px] h-[600px] sm:h-[480px] sm:mt-20">
         <div className="hidden lg:block xl:block 2xl:block w-[50%] h-full">
           <img
-            src={'/images/AuthBanner/AuthBanner.jpeg'}
+            src={"/images/AuthBanner/AuthBanner.jpeg"}
             alt="login hero img"
             className="object-cover rounded-r-0 rounded-l-lg  h-full w-full brightness-25"
           />
@@ -160,9 +146,6 @@ const Login = () => {
               className="space-y-4 md:space-y-6"
               action="#"
             >
-
-
-
               <div>
                 <label
                   htmlFor="emailOrPhone"
@@ -184,7 +167,12 @@ const Login = () => {
                   name="emailOrPhone"
                   id="emailOrPhone"
                   className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 
-                  ${(errors.emailOrPhone && touched.emailOrPhone) || (emailOrPhoneApiErr) ? "border-red-500!important" : ""}`}
+                  ${
+                    (errors.emailOrPhone && touched.emailOrPhone) ||
+                    emailOrPhoneApiErr
+                      ? "border-red-500!important"
+                      : ""
+                  }`}
                   placeholder="Enter your email or phone number"
                 />
                 {errors.emailOrPhone && touched.emailOrPhone && (
@@ -198,8 +186,6 @@ const Login = () => {
                   </small>
                 )}
               </div>
-
-
 
               <div>
                 <label
@@ -218,10 +204,11 @@ const Login = () => {
                     id="password"
                     placeholder="Enter your password"
                     className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 relative 
-                    ${(errors.password && touched.password) || (passwordApiErr)
+                    ${
+                      (errors.password && touched.password) || passwordApiErr
                         ? "border-red-500"
                         : ""
-                      }`}
+                    }`}
                     required=""
                   />
                   {isPasswordVisible ? (
@@ -246,17 +233,14 @@ const Login = () => {
                 )}
               </div>
 
-
-
               <div className="pt-4">
                 <button
                   type="submit"
                   disabled={isSubmitting}
                   className={`w-full text-white rounded-lg px-5 py-2.5 text-center
-                bg-blue-700 ${isSubmitting ? "opacity-35" : ""
-                    }`}
+                bg-blue-700 ${isSubmitting ? "opacity-35" : ""}`}
                 >
-                  Log in
+                  {isSubmitting ? "Logging In..." : "Login"}
                 </button>
               </div>
 
