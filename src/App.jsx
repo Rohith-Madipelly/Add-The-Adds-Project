@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 // Pages
+
 import Login from "./Screens/AuthScreens/Login";
 import Home from "./Screens/MainScreens/Home/Home";
 import OwnStatus from "./Screens/OwnStatus";
@@ -30,6 +31,32 @@ import EditOwnPageC from "./Screens/MainScreens/EditOwnPage/EditOwnPageC";
 import ForgotPass from "./Screens/AuthScreens/ForgotPassword";
 import VerifyOtp from "./Screens/AuthScreens/VerifyOtp";
 import ChangePassword from "./Screens/AuthScreens/ChangePassword,";
+
+import Login from "./Screens/AuthScreens/Login";
+import Home from "./Screens/MainScreens/Home/Home";
+import OwnStatus from "./Screens/OwnStatus";
+import EditOwnPage from "./Screens/MainScreens/EditOwnPage/EditOwnPage";
+import AddPage from "./Screens/MainScreens/AddPage";
+import NotFoundPage from "./Screens/NotFoundPage";
+import CreatePage from "./Screens/MainScreens/CreatePage/CreatePage";
+import ContactUs from "./Screens/MainScreens/OtherPages/ContactUs";
+import Services from "./Screens/MainScreens/OtherPages/Services";
+import About from "./Screens/MainScreens/OtherPages/About";
+import FAQ from "./Screens/MainScreens/OtherPages/FAQ";
+import TermsandCondition from "./Screens/MainScreens/OtherPages/TermsandCondition";
+import PrivacyPolicy from "./Screens/MainScreens/OtherPages/PrivacyPolicy";
+import Desktop from "./Screens/Desktop";
+import License from "./Screens/MainScreens/OtherPages/License";
+import Blog from "./Screens/MainScreens/OtherPages/Blog";
+import { ToastContainer } from "react-toastify";
+import UploadPage from "./Screens/MainScreens/UploadAdd/UploadAdd";
+import Trending from "./Screens/MainScreens/OtherPages/Trending";
+import Festivals from "./Screens/MainScreens/OtherPages/Festivals";
+import Register from "./Screens/AuthScreens/Register";
+import Tester from "./Screens/MainScreens/Tester";
+import Profile from "./Screens/MainScreens/Profile/Profile";
+import EditOwnPageC from "./Screens/MainScreens/EditOwnPage/EditOwnPageC";
+import ShareButton from "./Screens/TestingScreens/ShareButton";
 
 const Loader = lazy(() => import("./shared/Loaders/Loader1"));
 const LoadingFallback = () => <Loader />;
@@ -113,6 +140,36 @@ function App() {
               )
             }
           />
+
+          <Route path="/Add Page/:userNameParams" element={<AddPage />} />
+          <Route
+            path="/Create Page"
+            element={
+              isLogin ? (
+                <CreatePage />
+              ) : (
+                <Navigate
+                  to="/login"
+                  state={{ from: "Create Page", message: "Login is required" }}
+                />
+              )
+            }
+          />
+          <Route
+            path="/Upload add"
+            element={
+              isLogin ? (
+                <UploadPage />
+              ) : (
+                <Navigate
+                  to="/login"
+                  state={{ from: "Upload add", message: "Login is required" }}
+                />
+              )
+            }
+          />
+
+          <Route path="/d123" element={<ShareButton />} />
 
           <Route path="/d" element={<Desktop />} />
           <Route path="/About us" element={<About />} />

@@ -100,11 +100,23 @@ export const LIKEAPI = async (token, userPage) => {
 };
 
 //UserPageAPI
+
 export const UserPageAPI = async (userName) => {
   const reqData = {
     userPageName: userName,
   };
   return await axios.post(`${BASE_URL}/userpage`, reqData);
+
+export const UserPageAPI= async (userName) => {
+
+  const reqData={
+    userPageName:userName
+  }
+
+
+  return await axios.post(`${BASE_URL}/userpage`,reqData);
+
+
 };
 
 // DeleteLinkAPI
