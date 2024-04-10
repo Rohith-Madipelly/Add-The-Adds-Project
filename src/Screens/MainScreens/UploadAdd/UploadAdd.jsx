@@ -140,19 +140,28 @@ function UploadPage() {
         <div className='grid grid-cols-6 sm:grid-cols-2 my-10 gap-10 '>
           <div className='col-span-2 sm:col-span-9 '>
             <div className='flex flex-col items-start  border-b border-r p-[40px] mx-5'>
+              <a href='Own%20Status'>
+
               <CustomButton classStyle={'my-3 bg-white h-auto'}>Upload My Page</CustomButton>
+              </a>
+              <a href="/Create Page">
+
               <CustomButton classStyle={'my-3 bg-white h-auto'}>Add Ads Links</CustomButton>
-              <CustomButton classStyle={'my-3 bg-white h-auto'}>Gift Ads</CustomButton>
-              <CustomButton classStyle={'my-3 bg-white h-auto'}>Delete</CustomButton>
+              </a>
+              <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={()=>{console.log("ascjhavs")}}>Gift Ads</CustomButton>
+              {/* <CustomButton classStyle={'my-3 bg-white h-auto'}>Delete</CustomButton> */}
             </div>
           </div>
 
           <div className='col-span-4 sm:col-span-10 sm:ms-10 '>
             <div className='w-full h-full flex  items-center'>
               <div className='backGroundGradinatecss w-full xl:h-auto rounded-xl flex flex-col py-10 justify-center items-center max-w-[80%] max-h-[100%]'>
+                <a href='/Create Page'>
                 <CustomButton classStyle={'my-4 bg-white font-bold'}>My Page</CustomButton>
-                <CustomButton classStyle={'my-4 bg-white font-bold'}>Add Page</CustomButton>
-                <CustomButton classStyle={'my-4 bg-white font-bold'}>Add the Adds</CustomButton>
+
+                </a>
+                <a href='/Add Page'><CustomButton classStyle={'my-4 bg-white font-bold'}>Add Page</CustomButton></a>
+                <a href='/Create Page'><CustomButton classStyle={'my-4 bg-white font-bold'}>Add the Adds</CustomButton></a>
               </div>
             </div>
           </div>
@@ -162,7 +171,7 @@ function UploadPage() {
         <div className='grid grid-row-2'>
           <h2 className='text-center font-bold text-2xl leading-31 tracking-5 my-5'>Choose a plan that’s right for you</h2>
 
-          <div className='grid grid-cols-3 sm:grid-cols-1 ,mdl:grid-cols-2 w-full  gap-7 '>
+          <div className='grid grid-cols-3 sm:grid-cols-1 ,mdl:grid-cols-2 w-full  gap-7 justify-center'>
             {PlanData.length === 0 ? (
               <div className='text-center text-black font-bold'>No plans available</div>
             ) : (
