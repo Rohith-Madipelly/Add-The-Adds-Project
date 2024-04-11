@@ -28,7 +28,7 @@ const Login = () => {
 
   const onSubmit = async () => {
     try {
-      console.log(values);
+      console.log("Value vachaya",values);
       const res = await UserRegisterAPI(values);
       showToastMessage_success(res.data.message);
       dispatch(setToken(res.data.token));

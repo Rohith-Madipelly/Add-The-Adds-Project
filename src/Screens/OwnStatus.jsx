@@ -51,6 +51,7 @@ function OwnStatus() {
                 if (error.response.status === 401) {
 
                     showToastMessage_error(`${error.response.statusText} Please Login again`)
+
                     if(error.response.statusText==="Unauthorized")
                     {
                         dispatch(setToken("")); // Dispatch action to clear token
@@ -81,8 +82,6 @@ function OwnStatus() {
 
     useEffect(() => {
         APICaller()
-
-
     }, [])
 
 

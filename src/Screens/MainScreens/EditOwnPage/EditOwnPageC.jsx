@@ -18,11 +18,11 @@ function EditOwnPageC() {
     const { id } = useParams();
     useEffect(() => {
         Apicaller(id)
-    }, [])
+    }, [id])
 
     const Apicaller = async (id) => {
         try {
-            const res = await getSingleTemplatesAPI(token, id)
+            const res = await getSingleTemplatesAPI( id)
             console.log("Fincall Call",res.data)
             setDataImage(res.data)
         }

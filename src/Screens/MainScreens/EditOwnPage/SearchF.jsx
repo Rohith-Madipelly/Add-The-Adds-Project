@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import "./SearchCSS.css";
 import { getTemplatesAPI } from "../../../utils/APIcall";
@@ -11,27 +11,17 @@ import { useNavigate } from "react-router-dom";
 const SearchF = () => {
   const [results, setResults] = useState([]);
   const [input, setInput] = useState("");
-  const token = useSelector((state) => state.token)
+  const [toDisplay, setToDisplay] = useState();
   const navigate = useNavigate();
   const fetchData = async (value) => {
 
-    // fetch("https://jsonplaceholder.typicode.com/users")
-    //   .then((response) => response.json())
-    //   .then((json) => {
-    //     const filteredResults = json.filter((user) => {
-    //       return (
-    //         value &&
-    //         user &&
-    //         user.name &&
-    //         user.name.toLowerCase().includes(value.toLowerCase())
-    //       );
-    //     });
-    //     setResults(filteredResults);
-    //   });
+  
 
 
     try {
-      const res = await getTemplatesAPI(token)
+      setToDisplay(true)
+
+      const res = await getTemplatesAPI()
       console.log("<><", res.data.Data)
       const Data = res.data.Data
       console.log(Data)
@@ -43,7 +33,7 @@ const SearchF = () => {
           user.img_name.toLowerCase().includes(value.toLowerCase())
         );
       });
-      console.log("msdhgf",filteredResults)
+      console.log("msdhgf", filteredResults)
       setResults(filteredResults);
     }
     catch (e) {
@@ -63,17 +53,17 @@ const SearchF = () => {
 
   const SearchResult = ({ result }) => {
     console.log("searchRes", result)
-   if(result.length===0){
-    console.log("avunu anta ga")
-    return (
-      <div
-        className="search-result"
+    if (result.length === 0) {
+      console.log("avunu anta ga")
+      return (
+        <div
+          className="search-result"
 
-      >
-        No Data Found
-      </div>
-    );
-   }
+        >
+          No Data Found
+        </div>
+      );
+    }
 
     return (
       <div
@@ -86,18 +76,27 @@ const SearchF = () => {
     );
   };
 
-  const SearchResultsList = ({ results }) => {
-    console.log("Asalu data unda sir",results)
 
-    if (results.length === 0) {
-      console.log("No data found");
-      return (
-        <div className="results-list h-[50px]">
-          <SearchResult result={results}/>
-        </div>
-      );
+
+  useEffect(() => {
+    setToDisplay(false)
+  }, [])
+
+  const SearchResultsList = ({ results }) => {
+    console.log("Asalu data unda sir", results)
+    if (toDisplay) {
+      if (results.length === 0) {
+        console.log("No data found");
+        return (
+          <div className="results-list h-[50px]">
+            <SearchResult result={results} />
+          </div>
+        );
+      }
     }
-   
+
+
+    if (toDisplay) {
     return (
       <div className="results-list h-[135px]">
         {results.map((result, id) => (
@@ -106,6 +105,7 @@ const SearchF = () => {
         ))}
       </div>
     );
+  }
   };
 
 
@@ -123,7 +123,7 @@ const SearchF = () => {
           className="ms-2"
         />
       </div>
-      {results &&  <SearchResultsList results={results} />}
+      {results && <SearchResultsList results={results} />}
       {/* {results && results.length > 0 ?<SearchResultsListNODATA />:""} */}
     </div>
 

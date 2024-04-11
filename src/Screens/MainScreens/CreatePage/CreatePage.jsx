@@ -53,6 +53,8 @@ function CreatePage() {
         console.log(">>>>", res.data)
         setUserPage(res.data.pagename)
         setData(res.data)
+        // console.log("<><><>",res.data.isLiked)
+        setLiked(res.data.isLiked)
         setHeadersData(ResData.ownHeaders)
         if(ResData.ownHeaders.length===0)
         {
@@ -138,6 +140,7 @@ function CreatePage() {
         console.log(res.data.message)
         console.log(res.data)
         showToastMessage_success(res.data.message)
+
         window.location.reload();
       }
 
@@ -196,7 +199,6 @@ function CreatePage() {
   const toggleLike = () => {
     setLiked(!liked);
     LikeAPICall()
-    console.log("hvhd")
   }
 
   const LikeAPICall = async () => {
@@ -204,7 +206,15 @@ function CreatePage() {
       const res = await LIKEAPI(token, userPage)
       if (res) {
         console.log("like inda", res.data)
-        setLike(prevPage => prevPage + 1)
+        if (res.data.message === "liked") {
+          setLike(prevPage => prevPage + 1)
+          setLiked(true)
+
+        }
+        else {
+          setLike(prevPage => prevPage - 1)
+          setLiked(false)
+        }
         
       }
     } catch (e) {
@@ -243,7 +253,10 @@ if(isLoading)
 
                   <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={toggleLike}>
                     {liked ? <MdThumbUp color="blue" size={25} /> : <MdThumbUp size={25} />}
-                    {liked ? <p className='ms-2'>{Like} Likes</p> : <p className='ms-2'>{Like} Likes</p>}
+                    {/* {liked ?  */}
+
+                    <p className='ms-2'>{Like} Likes</p>
+                    {/* //  */}
                   </CustomButton>
                   <CustomButton classStyle={'my-3 bg-white h-auto'}>{Data.views} Views</CustomButton>
 

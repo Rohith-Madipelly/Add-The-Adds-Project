@@ -64,6 +64,7 @@ function AddPage() {
 
   const APIHandler = async (userName) => {
     setIsLoading(true)
+    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>",userName)
     try {
       const responsed = await UserPageAPI(userName)
       if (responsed) {
@@ -76,6 +77,8 @@ function AddPage() {
 
         setOtherUser(resData.userPages)
         console.log("OtherUserDaat>>>>",OtherUser)
+        console.log("Hello",Dataapi.Likes)
+        setLike(Dataapi.Likes)
       }
       else {
         console.log("No Responsed")
@@ -232,7 +235,7 @@ function AddPage() {
           {/* {isLoading && <Loading />} */}
           <div className='grid grid-cols-12 py-4'>
             <div className='sm:col-span-3'><div className='hidden sm:block'><NDShare /></div></div>
-            <div className='col-span-12 sm:col-span-9'><div className='font-bold text-xl mb-2 text-center sm:text-start'>Add Page {userName}</div>
+            <div className='col-span-12 sm:col-span-9'><div className='font-bold text-xl mb-2 text-center sm:text-start'>Add Page </div>
             </div>
           </div>
 
