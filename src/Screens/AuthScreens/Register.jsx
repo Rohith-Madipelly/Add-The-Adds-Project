@@ -21,7 +21,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [emailOrPhoneApiErr, setEmailOrPhoneApiErr] = useState("");
+  const [emailApiErr, setEmailApiErr] = useState("");
   const [passwordApiErr, setPasswordApiErr] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -42,8 +42,7 @@ const Login = () => {
         } else if (error.response.status === 404) {
           // setEmailOrPhoneApiErr("Account does not exist with the provided email or phone number")
         } else if (error.response.status === 409) {
-          // console.log("HEllo")
-          setEmailOrPhoneApiErr("");
+          setEmailApiErr(error.response.data.message)
         } else if (error.response.status === 500) {
           // console.log("Data Error Internal server error 500 ", error)
           showToastMessage_error("Internal server error 500");
@@ -64,7 +63,7 @@ const Login = () => {
 
   const handleInputChange = (e) => {
     // Resetting error states when input value changes
-    setEmailOrPhoneApiErr("");
+    setEmailApiErr("");
     setPasswordApiErr("");
     handleChange(e);
   };
@@ -147,6 +146,7 @@ const Login = () => {
                     <small className="text-red-500 ">{errors.firstname}</small>
                   )}
                 </div>
+
                 <div className="w-[50%]">
                   <label
                     htmlFor="lastname"
@@ -221,16 +221,19 @@ const Login = () => {
                   id="email"
                   className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ${
                     errors.email && touched.email ? "border-red-500" : ""
-                  }`}
+                } ${
+                    emailApiErr ? "border-red-500" : ""
+                }`}
+                
                   placeholder="Enter your email"
                   required=""
                 />
                 {errors.email && touched.email && (
                   <small className="text-red-500 ">{errors.email}</small>
                 )}
-                {/* {emailApiErr && (
+                {emailApiErr && (
                   <small className="text-red-500 ">{emailApiErr}</small>
-                )} */}
+                )}
               </div>
 
               <div>

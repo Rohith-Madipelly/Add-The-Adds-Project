@@ -8,29 +8,29 @@ export const DeleteHeadersModel = ({ datares, isOpen, onClose, onSubmit }) => {
 
     const handleSubmit = () => {
         onSubmit("d");
-  
-      };
 
-      
+    };
+
+
     const token = useSelector((state) => state.token);
 
-const handleDelete = async (ID) => {
-    console.log("Delete Method ")
+    const handleDelete = async (ID) => {
+        console.log("Delete Method ")
 
-    try {
-      const res = await DeleteHeadersAPI(token, ID)
-      console.log(res.data)
-      showToastMessage_success(res.data.message)
-      handleSubmit()
+        try {
+            const res = await DeleteHeadersAPI(token, ID)
+            console.log(res.data)
+            showToastMessage_success(res.data.message)
+            handleSubmit()
 
-    }
-    catch (e) {
-      console.log("Error in Delete Header API ", e)
-    }
-    finally {
+        }
+        catch (e) {
+            console.log("Error in Delete Header API ", e)
+        }
+        finally {
 
+        }
     }
-  }
     if (!isOpen) {
         return null;
     }
@@ -43,13 +43,17 @@ const handleDelete = async (ID) => {
                 </span>
                 <h2 className="text-2xl font-semibold mb-4">Image and Video Headers</h2>
 
-                {datares.map((dataMap) => (
-                    <div key={dataMap._id} className='flex justify-between py-2 mb-1 hover:bg-slate-500'>
-                        <span>{dataMap._id}</span>
-                        <MdDelete size={25} color='red' onClick={() => { handleDelete(dataMap._id) }} />
-                        
-                    </div>
-                ))}
+                {datares.length === 0 ? (
+                    <div className='flex justify-center my-3'>No content found</div>
+                ) : (
+                    datares.map((dataMap) => (
+                        <div key={dataMap._id} className='flex justify-between py-2 mb-1 hover:bg-slate-500'>
+                            <span>{dataMap._id}</span>
+                            <MdDelete size={25} color='red' onClick={() => { handleDelete(dataMap._id) }} />
+                        </div>
+                    ))
+                )}
+
 
                 <div className="flex justify-end">
                     {/* <button

@@ -283,12 +283,12 @@ function AddPage() {
           <div className='w-[100%] flex justify-center items-center"'>
 
 
-            <div className='w-[90%] mt-10  gap-1 gap-y-2 grid grid-flow-col grid-col-2 sm:grid-rows-2 sm:mx-0 sm:justify-center'>
+            <div className='w-[90%] mt-10  gap-1 gap-y-2 grid grid-flow-col grid-col-2 sm:grid-rows-2 sm:mx-0 sm:justify-center rounded-lg'>
               {OtherUser.map((MapData, index) => (
-                <div key={index} className="flex justify-center relative w-[100%] px-auto">
+                <div key={index} className="flex justify-center relative w-[100%] px-auto rounded-lg">
                   <a href={MapData.username}>
-                    <img src={MapData.recentHeader.headLinkPic} className='h-[100%] ' />
-                    <div className="absolute inset-0 bg-black opacity-0 hover:opacity-70 flex items-center justify-center">
+                    <img src={MapData.recentHeader.headLinkPic} className='h-[100%] max-h-100 rounded-lg' />
+                    <div className="absolute inset-0 bg-black opacity-0 hover:opacity-70 flex items-center justify-center rounded-lg">
                       <span className="text-white text-xl">Click to view full page</span>
                     </div>
                   </a>
@@ -296,7 +296,7 @@ function AddPage() {
 
               ))}
 
-              {OtherUser.map((MapData, index) => (
+              {/* {OtherUser.map((MapData, index) => (
                 <div key={index} className="flex justify-center relative w-[100%] px-auto">
                   <a href={MapData.username}>
                     <img src={MapData.recentHeader.headLinkPic} className='h-[100%] ' />
@@ -306,7 +306,7 @@ function AddPage() {
                   </a>
                 </div>
 
-              ))}
+              ))} */}
             </div>
           </div>
 

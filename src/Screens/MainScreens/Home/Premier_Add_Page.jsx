@@ -116,8 +116,8 @@ function Premier_Add_Page() {
         >
             {Data.map((slideContent, index) => (
                 <SwiperSlide key={slideContent} className="z-40 items-center justify-center h-full sm:flex sm:items-center sm:justify-center relative">
-                    <Link to={{ pathname: '/Edit Own Page' }} state={{ slideContent }}>
-                        <img onLoad={(e) => { e.target.closest('.swiper-slide').style.height = `${e.target.clientHeight}px`; }} src={slideContent.imageUrl} className='max-w-full h-auto flex justify-center' />
+                    <Link to={{ pathname: '/Edit Own Page' }} state={{ slideContent }} className='px-5'>
+                        <img onLoad={(e) => { e.target.closest('.swiper-slide').style.height = `${e.target.clientHeight}px`; }} src={slideContent.imageUrl} className='max-w-full h-auto flex justify-center px-10' />
                     </Link>
                 </SwiperSlide>
             ))}
