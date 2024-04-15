@@ -36,6 +36,7 @@ const Login = () => {
       console.log(res);
     } catch (error) {
       if (error.response) {
+        console.log(error.response.status)
         if (error.response.status === 401) {
           // setPasswordApiErr("Incorrect Password")
         } else if (error.response.status === 404) {
