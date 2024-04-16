@@ -10,8 +10,63 @@ import { showToastMessage_warn } from '../../../shared/Toaster'
 import Loading from '../../../utils/Loadings/Loading'
 import RightTrue from './RightTrue'
 import WrongFalse from './WrongFalse'
+import { ShareModel } from '../../../utils/ShareModel'
+import { GiftCard } from './GiftCard'
 function UploadPage() {
+  const [isShareModelOpen, setIsShareModelOpen] = useState(false);
+  const [currentURl, setCurrentURl] = useState(true);
 
+  const openShareModel = () => {
+    setIsShareModelOpen(true);
+  };
+
+  const closeShareModel = () => {
+    setIsShareModelOpen(false);
+  };
+  useEffect(() => {
+
+    const currentUrl = window.location.href;
+    setCurrentURl(currentUrl)
+  }, [])
+
+  const handleShare = (link, platform) => {
+    if (platform === "whatsapp") {
+      const linkMessage = "Vist My Page";
+      const image = "https://analogueitsolutions.com/assets/img/Logo%20white%20background.png";
+
+      // Encode message, image URL, and link
+      const encodedMessage = encodeURIComponent(linkMessage);
+      const encodedImage = encodeURIComponent(image);
+      const encodedLink = encodeURIComponent(link);
+
+      // Compose the message with link, additional text, and image
+      const message = `${encodedMessage}%0A%0AWebsite: Your additional text here.%0A%0AUser Page: ${encodedLink}`;
+
+      // Open WhatsApp with the composed message
+      window.open(`https://api.whatsapp.com/send?text=${message}`);
+    }
+
+    else if (platform === "instagram") {
+      const linkMessage = "Visit My Page";
+      const image = "https://analogueitsolutions.com/assets/img/Logo%20white%20background.png";
+      const link = "https://yourpage.com"; // Replace this with your actual link
+
+      // Compose the caption with link, additional text, and image
+      const caption = `${linkMessage}%0A%0AWebsite: Your additional text here.%0A%0AUser Page: ${link}`;
+
+      // Construct the Instagram post URL
+      const instagramPostUrl = `instagram://library?AssetPath=${image}&Caption=${caption}`;
+
+      // Open Instagram with the pre-filled caption
+      window.open(instagramPostUrl);
+    }
+
+    // Implement logic to share the link through various platforms
+    console.log('Sharing link:', link);
+    // You can use libraries like react-share to implement sharing functionalities
+    // Example: share on WhatsApp
+    // window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(link)}`);
+  };
   const [PlanData, SetPlanData] = useState([])
   const [benefitsData, SetBenefitsData] = useState([])
   const token = useSelector((state) => state.token);
@@ -77,9 +132,10 @@ function UploadPage() {
 
       <div className=' w-full flex justify-center mt-8'>
         <div className='w-[70vw] h-[auto]'>
-          <div className='grid grid-cols-4 md:grid-flow-col-3 sm:grid-cols-2 gap-8 gap-y-3'>
+          {/* <div className='grid grid-cols-4 md:grid-flow-col-3 sm:grid-cols-2 gap-8 gap-y-3'>
 
             <CustomButton
+              onClick={() => { openShareModel() }}
               classStyle='text-blue-950 font-bold text-xs'
             // Linkurl='/Share'
             >
@@ -87,13 +143,17 @@ function UploadPage() {
             </CustomButton>
 
 
-            <CustomButton
-              classStyle='text-blue-950 font-bold text-xs '
-              Linkurl='/Add'
-            >
-              Add <img src='/images/icons2/Vector.png' className='inline ps-2' />
-            </CustomButton>
+            <ShareModel isOpen={isShareModelOpen} onClose={closeShareModel} onSubmit={handleShare} linkData={currentURl} />
+            <a href='/Create Page' classStyle='text-blue-950 font-bold text-xs '>
 
+
+              <CustomButton
+                classStyle='text-blue-950 font-bold text-xs '
+                Linkurl='/Add'
+              >
+                Add <img src='/images/icons2/Vector.png' className='inline ps-2' />
+              </CustomButton>
+            </a>
 
             <a href='Home'>
               <CustomButton
@@ -103,7 +163,7 @@ function UploadPage() {
                 cancel
               </CustomButton>
             </a>
-          </div>
+          </div> */}
 
 
 
@@ -142,13 +202,15 @@ function UploadPage() {
             <div className='flex flex-col items-start  border-b border-r p-[40px] mx-5'>
               <a href='Own%20Status'>
 
-              <CustomButton classStyle={'my-3 bg-white h-auto'}>Upload My Page</CustomButton>
+                <CustomButton classStyle={'my-3 bg-white h-auto'}>Upload My Page</CustomButton>
               </a>
               <a href="/Create Page">
 
-              <CustomButton classStyle={'my-3 bg-white h-auto'}>Add Ads Links</CustomButton>
+                <CustomButton classStyle={'my-3 bg-white h-auto'}>Add Ads Links</CustomButton>
               </a>
-              <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={()=>{console.log("ascjhavs")}}>Gift Ads</CustomButton>
+            {/* <GiftCard isOpen={isShareModelOpen} onClose={closeShareModel} onSubmit={handleShare} linkData={currentURl} /> */}
+
+              <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { console.log("ascjhavs") }}>Gift Ads</CustomButton>
               {/* <CustomButton classStyle={'my-3 bg-white h-auto'}>Delete</CustomButton> */}
             </div>
           </div>
@@ -157,7 +219,7 @@ function UploadPage() {
             <div className='w-full h-full flex  items-center'>
               <div className='backGroundGradinatecss w-full xl:h-auto rounded-xl flex flex-col py-10 justify-center items-center max-w-[80%] max-h-[100%]'>
                 <a href='/Create Page'>
-                <CustomButton classStyle={'my-4 bg-white font-bold'}>My Page</CustomButton>
+                  <CustomButton classStyle={'my-4 bg-white font-bold'}>My Page</CustomButton>
 
                 </a>
                 <a href='/Add Page'><CustomButton classStyle={'my-4 bg-white font-bold'}>Add Page</CustomButton></a>

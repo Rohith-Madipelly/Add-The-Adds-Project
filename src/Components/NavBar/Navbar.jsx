@@ -52,25 +52,20 @@ const NavBar = () => {
     dispatch(setToken(""));
     localStorage.removeItem("token");
   };
-  
+
 
   return (
     <div
-      className={`w-full px-[5em] sm:px-0 mdl:px-[2.5em] md:px-[1em] fixed z-50 ${
-        PageName ? "bg-white" : "bg-black"
-      } ${NavBarDisplay ? "hidden" : "block"}`}
+      className={`w-full px-[5em] sm:px-0 mdl:px-[2.5em] md:px-[1em] fixed z-50 ${PageName ? "bg-white" : "bg-black"
+        } ${NavBarDisplay ? "hidden" : "block"}`}
     >
       <div className="flex items-center justify-between h-[60px]">
         <h2
-          className={`cursor-pointer sm:text-lg  ${
-            PageName ? "text-black" : "text-white"
-          }  !text-black-900 text-xl !font-balootamma text-white-A700 font-dmsans text-white-A700 font-dmsans w-[40%] sm:w-[70%] !text-black-900  !font-balootamma font-bold ps-1`}
+          className={`cursor-pointer sm:text-lg  ${PageName ? "text-black" : "text-white"
+            }  !text-black-900 text-xl !font-balootamma text-white-A700 font-dmsans text-white-A700 font-dmsans w-[40%] sm:w-[70%] !text-black-900  !font-balootamma font-bold ps-1`}
         >
-          {/* <Link to={"/"}>Add the Adds.com</Link> */}
-          <Link to={"/"}>
-          <img src="public\images\Logo.png" alt="React Image" width={50} 
-          style={{marginTop:5,marginLeft:30}}
-          /></Link>
+<Link to={"/"} className="inline"><div className="inline flex" style={{ textAlign: 'center' }}><img src="public\images\Logo.png" alt="React Image" width={50} style={{ marginTop: 5, marginLeft: 30 }} /> <p className="m-2">Add the Adds.com</p></div></Link>
+
         </h2>
         <div className="flex justify-end  gap-0 ">
           <ul className="sm:hidden mdl:hidden md:hidden flex  mdl:gap-8 lg:gap-5 xl:gap-5 2xl:gap-5 me-5 mt-0 ">
@@ -79,9 +74,8 @@ const NavBar = () => {
                 {/* <p>{linkBtns.name}</p> */}
                 <Link
                   to={linkBtns.link}
-                  className={`!text-black-900 tracking-[1.00px] !font-normal text-shadow-ts1  ${
-                    PageName ? "text-black" : "text-white"
-                  }`}
+                  className={`!text-black-900 tracking-[1.00px] !font-normal text-shadow-ts1  ${PageName ? "text-black" : "text-white"
+                    }`}
                 >
                   {linkBtns.name}
                 </Link>
@@ -94,9 +88,8 @@ const NavBar = () => {
               <div className="relative inline-block">
                 <button
                   id="dropdownHoverButton"
-                  className={` focus:outline-none font-medium  inline-flex items-center !text-black-900 tracking-[1.00px] !font-normal text-shadow-ts1 ${
-                    PageName ? "text-black" : "text-white"
-                  }`}
+                  className={` focus:outline-none font-medium  inline-flex items-center !text-black-900 tracking-[1.00px] !font-normal text-shadow-ts1 ${PageName ? "text-black" : "text-white"
+                    }`}
                   type="button"
                   onClick={toggleDropdown}
                 >
@@ -187,9 +180,8 @@ const NavBar = () => {
             <button
               className={`shadow font-[Poppins] rounded md:ml-8 
         hover: duration-500 flex items-center justify-center h-9 text-black-900 tracking-[1.00px] 
-        text-center text-xl border-black-900_33 border border-solid bg-white-A700 shadow-xs min-w-[103px] rounded-[10px] ${
-          PageName ? "text-black" : "text-white"
-        } mx-0`}
+        text-center text-xl border-black-900_33 border border-solid bg-white-A700 shadow-xs min-w-[103px] rounded-[10px] ${PageName ? "text-black" : "text-white"
+                } mx-0`}
             >
               <Link to={"/login"}>Login</Link>
             </button>
@@ -197,9 +189,8 @@ const NavBar = () => {
             <button
               className={`shadow font-[Poppins] rounded md:ml-8 
         hover: duration-500 flex items-center justify-center h-9 text-black-900 tracking-[1.00px] 
-        text-center text-xl border-black-900_33 border border-solid bg-white-A700 shadow-xs min-w-[103px] rounded-[10px] ${
-          PageName ? "text-black" : "text-white"
-        } mx-0`}
+        text-center text-xl border-black-900_33 border border-solid bg-white-A700 shadow-xs min-w-[103px] rounded-[10px] ${PageName ? "text-black" : "text-white"
+                } mx-0`}
             >
               <Link onClick={handleLogout}>Logout</Link>
             </button>

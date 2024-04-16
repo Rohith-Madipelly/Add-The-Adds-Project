@@ -14,9 +14,10 @@ import { MdThumbUp } from 'react-icons/md';
 import { NotInLogin } from './AddPage/NotInLogin';
 import { useNavigate } from "react-router";
 import { useParams } from 'react-router-dom';
+import { ShareModel } from '../../utils/ShareModel';
 
 function AddPage() {
-  
+
   const [userName, setUserName] = useState("")
   const userName11 = useSelector((state) => state.userName);
   let { userNameParams } = useParams();
@@ -64,7 +65,7 @@ function AddPage() {
 
   const APIHandler = async (userName) => {
     setIsLoading(true)
-    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>",userName)
+    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", userName)
     try {
       const responsed = await UserPageAPI(userName)
       if (responsed) {
@@ -76,8 +77,8 @@ function AddPage() {
         setChanel_links(resData.Links.chanel_links)
 
         setOtherUser(resData.userPages)
-        console.log("OtherUserDaat>>>>",OtherUser)
-        console.log("Hello",Dataapi.Likes)
+        console.log("OtherUserDaat>>>>", OtherUser)
+        console.log("Hello", Dataapi.Likes)
         setLike(Dataapi.Likes)
       }
       else {
@@ -92,9 +93,9 @@ function AddPage() {
 
         } else if (error.response.status === 404) {
           showToastMessage_error(error.response.data.message)
-          setTimeout(()=>{
+          setTimeout(() => {
             navigate("/")
-          },2000)
+          }, 2000)
 
         } else if (error.response.status === 500) {
         } else {
@@ -209,7 +210,7 @@ function AddPage() {
 
   let NavDropsOption = [
     { name: "My Page", link: "/Create Page" },
-    { name: "Share", link: "/Share" },
+    // { name: "Share", link: "/Share" },
     // { name: "Share Add Link", link: "/Share Add Link" },
     // { name: "Page Add", link: "/Page Add" },
     // { name: "Save", link: "/Save" },
@@ -217,7 +218,54 @@ function AddPage() {
     // { name: "Delete", link: "/Delete" }
   ];
 
+  const [isShareModelOpen, setIsShareModelOpen] = useState(false);
 
+  const openShareModel = () => {
+    setIsShareModelOpen(true);
+  };
+
+  const closeShareModel = () => {
+    setIsShareModelOpen(false);
+  };
+
+  const handleShare = (link, platform) => {
+    if (platform === "whatsapp") {
+      const linkMessage = "Vist My Page";
+      const image = "https://analogueitsolutions.com/assets/img/Logo%20white%20background.png";
+
+      // Encode message, image URL, and link
+      const encodedMessage = encodeURIComponent(linkMessage);
+      const encodedImage = encodeURIComponent(image);
+      const encodedLink = encodeURIComponent(link);
+
+      // Compose the message with link, additional text, and image
+      const message = `${encodedMessage}%0A%0AWebsite: Your additional text here.%0A%0AUser Page: ${encodedLink}`;
+
+      // Open WhatsApp with the composed message
+      window.open(`https://api.whatsapp.com/send?text=${message}`);
+    }
+
+    else if (platform === "instagram") {
+      const linkMessage = "Visit My Page";
+      const image = "https://analogueitsolutions.com/assets/img/Logo%20white%20background.png";
+      const link = "https://yourpage.com"; // Replace this with your actual link
+  
+      // Compose the caption with link, additional text, and image
+      const caption = `${linkMessage}%0A%0AWebsite: Your additional text here.%0A%0AUser Page: ${link}`;
+  
+      // Construct the Instagram post URL
+      const instagramPostUrl = `instagram://library?AssetPath=${image}&Caption=${caption}`;
+  
+      // Open Instagram with the pre-filled caption
+      window.open(instagramPostUrl);
+  }
+  
+    // Implement logic to share the link through various platforms
+    console.log('Sharing link:', link);
+    // You can use libraries like react-share to implement sharing functionalities
+    // Example: share on WhatsApp
+    // window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(link)}`);
+  };
 
   if (isLoading) {
     return <Loading />
@@ -235,7 +283,7 @@ function AddPage() {
           {/* {isLoading && <Loading />} */}
           <div className='grid grid-cols-12 py-4'>
             <div className='sm:col-span-3'><div className='hidden sm:block'><NDShare /></div></div>
-            <div className='col-span-12 sm:col-span-9'><div className='font-bold text-xl mb-2 text-center sm:text-start'>Add Page </div>
+            <div className='col-span-12 sm:col-span-9'><div className='font-bold text-xl mb-2 text-center sm:text-start'>Its {userName}'s Page</div>
             </div>
           </div>
 
@@ -247,7 +295,15 @@ function AddPage() {
                 {NavDropsOption.map((Data, index) => (
                   <a href={Data.link}><CustomButton classStyle={'mt-2 bg-white h-auto'} key={index}>{Data.name}</CustomButton></a>
                 ))}
+
+                <CustomButton classStyle={'mt-2 bg-white h-auto'} onClick={() => { openShareModel() }}>Share</CustomButton>
+
+                {/* <button onClick={openShareModel}>Open Share Model</button> */}
+
+                <ShareModel isOpen={isShareModelOpen} onClose={closeShareModel} onSubmit={handleShare} linkData={currentURl} />
+
               </div>
+
 
               <div className='col-span-5 sm:col-span-10 '>
 

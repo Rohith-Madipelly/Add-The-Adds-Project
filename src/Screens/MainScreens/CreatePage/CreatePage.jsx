@@ -53,7 +53,7 @@ function CreatePage() {
         console.log(">>>>", res.data)
         setUserPage(res.data.pagename)
         setData(res.data)
-        // console.log("<><><>",res.data.isLiked)
+        console.log("<><><>",res.data)
         setLiked(res.data.isLiked)
         setHeadersData(ResData.ownHeaders)
         if(ResData.ownHeaders.length===0)
@@ -251,7 +251,7 @@ if(isLoading)
 
       <div className='w-full px-8 sm:px-2 py-5'>
         <div className='grid grid-cols-12 '>
-          <div className='col-span-12 sm:col-span-9'><div className='font-bold text-xl mb-5 text-center sm:text-start'>Create a new Page </div>
+          <div className='col-span-12 sm:col-span-9'><div className='font-bold text-xl mb-5 text-center sm:text-start'> Hey {Data.pagename} ! Create Your Page here</div>
           </div>
         </div>
 

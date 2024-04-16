@@ -8,7 +8,7 @@ function Servicecards() {
     let tryOptions = [
         { name: "Own Status", imageLink: "images/img_rectangle_2.png", routes: "Own Status" },
         { name: "Create Page", imageLink: "images/img_rectangle_6.png", routes: "Create Page" },
-        { name: "Add Page", imageLink: "images/img_rectangle_7.png", routes: `Add Page/${userName}` },
+        { name: `${userName}'s Page`, imageLink: "images/img_rectangle_7.png", routes: `Add Page/${userName}` },
         { name: "Upload Add", imageLink: "images/img_rectangle_8.png", routes: "Upload Add" },
     ]
 

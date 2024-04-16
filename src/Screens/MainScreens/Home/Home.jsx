@@ -19,7 +19,7 @@ function Home() {
 
         </div>
 
-        <div className='HomeBackGroundImage'>
+        <div className='HomeBackGroundImage pb-6'>
 
           <Searchbox />
           <Servicecards />
