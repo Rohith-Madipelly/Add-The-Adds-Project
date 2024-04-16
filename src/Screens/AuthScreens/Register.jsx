@@ -22,6 +22,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const [emailApiErr, setEmailApiErr] = useState("");
+  const [PhoneApiErr, setPhoneApiErr] = useState("");
   const [passwordApiErr, setPasswordApiErr] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -43,6 +44,9 @@ const Login = () => {
           // setEmailOrPhoneApiErr("Account does not exist with the provided email or phone number")
         } else if (error.response.status === 409) {
           setEmailApiErr(error.response.data.message)
+        }
+        else if (error.response.status === 408) {
+          setPhoneApiErr(error.response.data.message)
         } else if (error.response.status === 500) {
           // console.log("Data Error Internal server error 500 ", error)
           showToastMessage_error("Internal server error 500");
@@ -266,9 +270,9 @@ const Login = () => {
                 {errors.phone_number && touched.phone_number && (
                   <small className="text-red-500">{errors.phone_number}</small>
                 )}
-                {/* {PhoneApiErr && (
+                {PhoneApiErr && (
                   <small className="text-red-500">{PhoneApiErr}</small>
-                )} */}
+                )}
               </div>
               <div className="flex gap-2">
                 <div className="w-2/4">

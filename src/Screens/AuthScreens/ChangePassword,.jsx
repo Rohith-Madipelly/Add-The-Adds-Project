@@ -8,6 +8,7 @@ import { changePasswordValidation } from "./validationSchemas/changePasswordVali
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { BASE_URL } from "../../Enviornment";
 
 const ChangePassword = () => {
   const location = useLocation();
@@ -29,12 +30,17 @@ const ChangePassword = () => {
       if (location.state && location.state.email) {
         setEmail(location.state.email);
       }
+      console.log(email,"s",values.confirmPassword)
       const response = await axios.post(
-        "https://admin.addtheadd.com/forgotPassword",
-        { password: values.confirmPassword, email: email }
+        `${BASE_URL}/user/forgotPassword`,
+        { password: values.confirmPassword, email: email }, {
+          headers: { Authorization: "Bearer " + token }
+        }
+
       );
       console.log(response);
       if (response.status === 200) {
+
         toast.success("Password changed successfully!");
         // Redirects user to home page upon successful registration
         navigate("/login");

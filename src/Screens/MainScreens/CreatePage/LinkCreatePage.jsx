@@ -163,7 +163,7 @@ function LinkCreatePage() {
                                             value={link}
                                             onChange={(e) => {
                                                 const updatedLinks = [...LiveLinkURLS];
-                                                updatedLinks[index] = e.target.value.toLowerCase();
+                                                updatedLinks[index] = e.target.value;
                                                 setLiveLinkURLS(updatedLinks);
                                             }}
 
@@ -241,7 +241,7 @@ function LinkCreatePage() {
 
                                     onChange={(e) => {
                                         const updatedLinks = [...LiveLinkURLS];
-                                        updatedLinks[0] = e.target.value.toLowerCase();
+                                        updatedLinks[0] = e.target.value;
                                         setLiveLinkURLS(updatedLinks);
                                     }}
                                     required
@@ -271,7 +271,7 @@ function LinkCreatePage() {
                                             value={link}
                                             onChange={(e) => {
                                                 const updatedLinks = [...GeneralLinkURLS];
-                                                updatedLinks[index] = e.target.value.toLowerCase();
+                                                updatedLinks[index] = e.target.value;
                                                 setGeneralLinkURLS(updatedLinks);
                                             }}
                                             required
@@ -306,7 +306,7 @@ function LinkCreatePage() {
                                     value=""
                                     onChange={(e) => {
                                         const updatedLinks = [...GeneralLinkURLS];
-                                        updatedLinks[0] = e.target.value.toLowerCase();
+                                        updatedLinks[0] = e.target.value;
                                         setGeneralLinkURLS(updatedLinks);
                                     }}
                                     required
@@ -336,7 +336,7 @@ function LinkCreatePage() {
                                             value={link}
                                             onChange={(e) => {
                                                 const updatedLinks = [...ChanelLinkURLS];
-                                                updatedLinks[index] = e.target.value.toLowerCase();
+                                                updatedLinks[index] = e.target.value;
                                                 setChanelLinkURLS(updatedLinks);
                                             }}
                                             required
@@ -371,7 +371,7 @@ function LinkCreatePage() {
                                     value=""
                                     onChange={(e) => {
                                         const updatedLinks = [...ChanelLinkURLS];
-                                        updatedLinks[0] = e.target.value.toLowerCase();
+                                        updatedLinks[0] = e.target.value;
                                         setChanelLinkURLS(updatedLinks);
                                     }}
                                     required

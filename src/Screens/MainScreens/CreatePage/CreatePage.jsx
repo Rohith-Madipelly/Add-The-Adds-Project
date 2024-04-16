@@ -205,19 +205,34 @@ function CreatePage() {
     try {
       const res = await LIKEAPI(token, userPage)
       if (res) {
-        console.log("like inda", res.data)
+   
         if (res.data.message === "liked") {
           setLike(prevPage => prevPage + 1)
+   
           setLiked(true)
 
         }
         else {
-          setLike(prevPage => prevPage - 1)
+          console.log(Link)
+   
+          if(Like =>0)
+          {
+            setLike(prevPage => prevPage - 1)
+
+          }else
+          {
+            setLike(prevPage => prevPage - 1)
+ 
+
+          }
+     
           setLiked(false)
         }
         
       }
     } catch (e) {
+    
+
       console.log("hjsbkdf", e)
     } finally {
 
