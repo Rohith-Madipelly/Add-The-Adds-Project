@@ -15,7 +15,21 @@ import { GiftCard } from './GiftCard'
 function UploadPage() {
   const [isShareModelOpen, setIsShareModelOpen] = useState(false);
   const [currentURl, setCurrentURl] = useState(true);
+  const [isGiftModalOpen, setIsGiftModalOpen] = useState(false);
 
+  const handleImageOpenModal = () => {
+
+    setIsGiftModalOpen(true);
+  };
+
+  const handleGiftCloseModal = () => {
+    setIsGiftModalOpen(false);
+  };
+
+  const handleGiftSubmit = async () => {
+
+
+  };
   const openShareModel = () => {
     setIsShareModelOpen(true);
   };
@@ -208,10 +222,14 @@ function UploadPage() {
 
                 <CustomButton classStyle={'my-3 bg-white h-auto'}>Add Ads Links</CustomButton>
               </a>
-            {/* <GiftCard isOpen={isShareModelOpen} onClose={closeShareModel} onSubmit={handleShare} linkData={currentURl} /> */}
+              {/* <GiftCard isOpen={isShareModelOpen} onClose={closeShareModel} onSubmit={handleShare} linkData={currentURl} /> */}
 
-              <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { console.log("ascjhavs") }}>Gift Ads</CustomButton>
+              <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handleImageOpenModal()}}>Gift Ads</CustomButton>
               {/* <CustomButton classStyle={'my-3 bg-white h-auto'}>Delete</CustomButton> */}
+              {/* <GiftCard */}
+
+              <GiftCard isOpen={isGiftModalOpen} onClose={handleGiftCloseModal} onSubmit={handleGiftSubmit} />
+
             </div>
           </div>
 

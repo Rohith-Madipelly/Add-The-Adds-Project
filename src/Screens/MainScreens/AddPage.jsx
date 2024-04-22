@@ -249,17 +249,17 @@ function AddPage() {
       const linkMessage = "Visit My Page";
       const image = "https://analogueitsolutions.com/assets/img/Logo%20white%20background.png";
       const link = "https://yourpage.com"; // Replace this with your actual link
-  
+
       // Compose the caption with link, additional text, and image
       const caption = `${linkMessage}%0A%0AWebsite: Your additional text here.%0A%0AUser Page: ${link}`;
-  
+
       // Construct the Instagram post URL
       const instagramPostUrl = `instagram://library?AssetPath=${image}&Caption=${caption}`;
-  
+
       // Open Instagram with the pre-filled caption
       window.open(instagramPostUrl);
-  }
-  
+    }
+
     // Implement logic to share the link through various platforms
     console.log('Sharing link:', link);
     // You can use libraries like react-share to implement sharing functionalities
@@ -340,6 +340,18 @@ function AddPage() {
 
 
             <div className='w-[90%] mt-10  gap-1 gap-y-2 grid grid-flow-col grid-col-2 sm:grid-rows-2 sm:mx-0 sm:justify-center rounded-lg'>
+              {OtherUser.map((MapData, index) => (
+                <div key={index} className="flex justify-center relative w-[100%] px-auto rounded-lg">
+                  <a href={MapData.username}>
+                    <img src={MapData.recentHeader.headLinkPic} className='h-[100%] max-h-100 rounded-lg' />
+                    <div className="absolute inset-0 bg-black opacity-0 hover:opacity-70 flex items-center justify-center rounded-lg">
+                      <span className="text-white text-xl">Click to view full page</span>
+                    </div>
+                  </a>
+                </div>
+
+              ))}
+
               {OtherUser.map((MapData, index) => (
                 <div key={index} className="flex justify-center relative w-[100%] px-auto rounded-lg">
                   <a href={MapData.username}>

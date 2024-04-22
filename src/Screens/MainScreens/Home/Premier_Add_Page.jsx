@@ -68,62 +68,68 @@ function Premier_Add_Page() {
 
     return (
         // <Link to={`/screen`} className='w-[100%] '>
-        <div className='px-[5em] sm:px-0 mdl:px-[2.5em] md:px-[1em] mt-[2em]'>
+        <div className='mt-5'>
             <div>
                 <div className='flex flex-col items-center justify-center  w-full h-full mx-auto '>
                     <h1>GET A PLAN BECOME A CUSTOMER</h1>
-                    <div className='flex w-[644px] items-center justify-center '>
 
-                    {/* <div className='bg-black flex w-[644px] items-center justify-center sm:w-[350px] md:h-auto md:w-[500px] content-center  my-5'> */}
-    {Data ? (
-        <Swiper
-            onSwiper={setSwiperRef}
-            slidesPerView={1}
-            centeredSlides={false}
-            spaceBetween={10}
-            navigation={true}
-            autoplay={{
-                delay: 2500,
-                disableOnInteraction: false,
-            }}
-            pagination={{
-                clickable: true,
-            }}
-            className='w-full h-full items-center justify-center'
-            modules={[Navigation, Pagination]}
-            breakpoints={{
-                390: {
-                    slidesPerView: 1,
-                    spaceBetween: 10,
-                },
-                480: {
-                    slidesPerView: 1,
-                    spaceBetween: 10,
-                },
-                768: {
-                    slidesPerView: 1,
-                    spaceBetween: 10,
-                },
-                1023: {
-                    slidesPerView: 1,
-                    spaceBetween: 10,
-                },
-                1280: {
-                    slidesPerView: 1,
-                    spaceBetween: 10,
-                },
-            }}
-        >
-            {Data.map((slideContent, index) => (
-                <SwiperSlide key={slideContent} className="z-40 items-center justify-center h-full sm:flex sm:items-center sm:justify-center relative">
-                    <Link to={{ pathname: '/Edit Own Page' }} state={{ slideContent }} className='px-5'>
-                        <img onLoad={(e) => { e.target.closest('.swiper-slide').style.height = `${e.target.clientHeight}px`; }} src={slideContent.imageUrl} className='max-w-full h-auto flex justify-center px-10' />
-                    </Link>
-                </SwiperSlide>
-            ))}
-        </Swiper>
-    ) : ""}
-</div>
+
+                    <div className='flex w-[644px] items-center justify-center sm:w-[350px] '>
+                        {Data ? (
+                            <Swiper
+                                onSwiper={setSwiperRef}
+                                slidesPerView={1}
+                                centeredSlides={false}
+                                spaceBetween={10}
+                                navigation={true}
+                                autoplay={{
+                                    delay: 2500,
+                                    disableOnInteraction: false,
+                                }}
+                                pagination={{
+                                    clickable: true,
+                                }}
+                                className='w-full h-full flex items-center justify-center bg-black'
+                                modules={[Navigation, Pagination]}
+                                breakpoints={{
+                                    390: {
+                                        slidesPerView: 1,
+                                        spaceBetween: 10,
+                                    },
+                                    480: {
+                                        slidesPerView: 1,
+                                        spaceBetween: 10,
+                                    },
+                                    768: {
+                                        slidesPerView: 1,
+                                        spaceBetween: 10,
+                                    },
+                                    1023: {
+                                        slidesPerView: 1,
+                                        spaceBetween: 10,
+                                    },
+                                    1280: {
+                                        slidesPerView: 1,
+                                        spaceBetween: 10,
+                                    },
+                                }}
+                            >
+                                <div className='bg-white h-full w-full flex justify-center'>
+
+
+                                    {Data.map((slideContent, index) => (
+                                        <SwiperSlide key={slideContent} className="z-40 ">
+                                            <Link to={{ pathname: '/Edit Own Page' }} state={{ slideContent }} >
+                                                {/* <img onLoad={(e) => { e.target.closest('.swiper-slide').style.height = `${e.target.clientHeight}px`; }} src={slideContent.imageUrl} className='max-w-full h-auto flex justify-center px-10' /> */}
+                                                <img src={slideContent.imageUrl} className='max-w-full h-auto flex justify-center px-10 border-8 border-sky-500' />
+                                            </Link>
+                                        </SwiperSlide>
+                                    ))}
+                                </div>
+                            </Swiper>
+                        ) : ""}
+
+                    </div>
 
                 </div>
             </div>

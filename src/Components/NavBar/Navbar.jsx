@@ -64,7 +64,7 @@ const NavBar = () => {
           className={`cursor-pointer sm:text-lg  ${PageName ? "text-black" : "text-white"
             }  !text-black-900 text-xl !font-balootamma text-white-A700 font-dmsans text-white-A700 font-dmsans w-[40%] sm:w-[70%] !text-black-900  !font-balootamma font-bold ps-1`}
         >
-<Link to={"/"} className="inline"><div className="inline flex" style={{ textAlign: 'center' }}><img src="public\images\Logo.png" alt="React Image" width={50} style={{ marginTop: 5, marginLeft: 30 }} /> <p className="m-2">Add the Adds.com</p></div></Link>
+<Link to={"/"} className="inline"><div className="inline flex" style={{ textAlign: 'center' }}><img src="public\images\Logo.png" alt="React Image" width={50} style={{ marginTop: 5, marginLeft: 30 }} /> <p className="m-3">Add the Adds.com</p></div></Link>
 
         </h2>
         <div className="flex justify-end  gap-0 ">

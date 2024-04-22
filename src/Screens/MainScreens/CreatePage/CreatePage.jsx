@@ -207,7 +207,8 @@ function CreatePage() {
       if (res) {
    
         if (res.data.message === "liked") {
-          setLike(prevPage => prevPage + 1)
+   
+          setLike(Like+1)
    
           setLiked(true)
 
@@ -217,11 +218,11 @@ function CreatePage() {
    
           if(Like =>0)
           {
-            setLike(prevPage => prevPage - 1)
+            setLike(0)
 
           }else
           {
-            setLike(prevPage => prevPage - 1)
+            setLike(Like-1)
  
 
           }

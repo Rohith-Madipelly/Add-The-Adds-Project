@@ -40,6 +40,9 @@ const Login = () => {
         console.log(error.response.status)
         if (error.response.status === 401) {
           // setPasswordApiErr("Incorrect Password")
+        }else if (error.response.status === 403) {
+          // console.log("Data Error Internal server error 500 ", error)
+          showToastMessage_error(error.response.data.message);
         } else if (error.response.status === 404) {
           // setEmailOrPhoneApiErr("Account does not exist with the provided email or phone number")
         } else if (error.response.status === 409) {
