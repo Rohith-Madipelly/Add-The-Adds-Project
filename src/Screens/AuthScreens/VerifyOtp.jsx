@@ -81,9 +81,9 @@ const VerifyOtp = () => {
         <div className=" sm:w-full md:w-full mdl:w-full w-[50%] h-full sm:shadow-[-10px_0px_300px_0px_#6fd9ff] md:shadow-[-10px_0px_300px_0px_#6fd9ff] mdl:shadow-[-10px_0px_300px_0px_#6fd9ff] bg-white rounded-lg border-[0.5px] lg:-ml-2 xl:-m-2 2xl:-m-2 z-10">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <div className="text-center mb-8">
-              <h1 className="text-[24px]">OTP Verification</h1>
+              <h1 className="text-[24px]">Otp Verification</h1>
               <p className="sm:text-[14px] text-slate-500">
-                Enter the OTP that is sent to your mail
+                Enter the Otp that is sent to your mail
               </p>
             </div>
             <form
@@ -110,7 +110,7 @@ const VerifyOtp = () => {
                   className={`[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-[110px] p-2.5 tracking-[5px] text-center ${
                     errors.otp && touched.otp ? "border-red-500" : ""
                   }`}
-                  placeholder="OTP"
+                  placeholder="Otp"
                   required=""
                 />
                 {errors.otp && touched.otp && (
@@ -131,7 +131,7 @@ const VerifyOtp = () => {
                 className={`w-full text-white  rounded-lg px-5 py-2.5 text-center
                 bg-[#1A56DB] ${isSubmitting ? "opacity-35" : ""}`}
               >
-                {isSubmitting ? "Verifying..." : "verify"}
+                {isSubmitting ? "verifying..." : "verify"}
               </button>
               {serverErr && (
                 <small className="text-red-500 mt-1">{serverErr}</small>

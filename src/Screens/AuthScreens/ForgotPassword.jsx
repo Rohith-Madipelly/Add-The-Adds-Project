@@ -29,9 +29,9 @@ const ForgotPass = () => {
     } catch (error) {
       console.log(error);
       if (error.response.status === 404) {
-        setEmailApiErr("email does not exist");
+        setEmailApiErr("Email does not exist");
       } else if (error.response.status === 429) {
-        setOtpApiErr("email does not exist");
+        setOtpApiErr("Email does not exist");
       }
     } finally {
       resetForm();

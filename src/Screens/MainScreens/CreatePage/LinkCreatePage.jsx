@@ -147,7 +147,7 @@ function LinkCreatePage() {
                     <div className='mb-3'>
                         <div className='flex justify-between w-[95%]'>
                             <p className='my-1'>Live Links</p>
-                            <p onClick={() => { addLinkToArray() }}>Add more Links</p>
+                            <p onClick={() => { addLinkToArray() }}>Add More Links</p>
                         </div>
                         {LiveLinkURLS.length > 0 ? (
                             LiveLinkURLS.map((link, index) => (
@@ -237,7 +237,7 @@ function LinkCreatePage() {
                                     type="text"
                                     id={`service-0`}
                                     value=""
-                                    placeholder='Add Live Like Here'
+                                    placeholder='Add Live Link Here'
 
                                     onChange={(e) => {
                                         const updatedLinks = [...LiveLinkURLS];
@@ -256,7 +256,7 @@ function LinkCreatePage() {
                     <div className='mb-3'>
                         <div className='flex justify-between w-[95%]'>
                             <p className='my-1'>General Links</p>
-                            <p onClick={() => { addsetGeneralLinkURLSToArray() }}>Add more Links</p>
+                            <p onClick={() => { addsetGeneralLinkURLSToArray() }}>Add More Links</p>
                         </div>
                         {GeneralLinkURLS.length > 0 ? (
                             GeneralLinkURLS.map((link, index) => (
@@ -266,7 +266,7 @@ function LinkCreatePage() {
                                             name={`service-${index}`}
                                             type="text"
                                             id={`service-${index}`}
-                                            placeholder='Add General Like Here'
+                                            placeholder='Add General Link Here'
 
                                             value={link}
                                             onChange={(e) => {
@@ -300,7 +300,7 @@ function LinkCreatePage() {
                                 <input
                                     name={`service-0`}
                                     type="text"
-                                    placeholder='Add General Like Here'
+                                    placeholder='Add General Link Here'
 
                                     id={`service-0`}
                                     value=""
@@ -321,7 +321,7 @@ function LinkCreatePage() {
                     <div className='mb-3'>
                         <div className='flex justify-between w-[95%]'>
                             <p className='my-1'>Channel Links</p>
-                            <p onClick={() => { addsetChanelLinkURLSToArray() }}>Add more Links</p>
+                            <p onClick={() => { addsetChanelLinkURLSToArray() }}>Add More Links</p>
                         </div>
                         {ChanelLinkURLS.length > 0 ? (
                             ChanelLinkURLS.map((link, index) => (

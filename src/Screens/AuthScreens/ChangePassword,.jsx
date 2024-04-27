@@ -93,7 +93,7 @@ const ChangePassword = () => {
         <div className=" sm:w-full md:w-full mdl:w-full w-[50%] h-full sm:shadow-[-10px_0px_300px_0px_#6fd9ff] md:shadow-[-10px_0px_300px_0px_#6fd9ff] mdl:shadow-[-10px_0px_300px_0px_#6fd9ff] bg-white rounded-lg border-[0.5px] lg:-ml-2 xl:-m-2 2xl:-m-2 z-10">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <div className="text-center mb-8">
-              <h1 className="text-[24px]">Change Password</h1>
+              <h1 className="text-[24px]">Change password</h1>
             </div>
             <form
               onSubmit={handleSubmit}
@@ -105,7 +105,7 @@ const ChangePassword = () => {
                   htmlFor="password"
                   className="block mb-2 text-sm font-medium text-gray-900"
                 >
-                  Create new Password
+                  Create new password
                 </label>
                 <div className="relative">
                   <input

@@ -60,7 +60,7 @@ function App() {
 
           <Route path="/Add Page/:userNameParams" element={<AddPage />} />
           <Route path="/Create Page" element={isLogin ? <CreatePage /> : <Navigate to="/login"  state={{ from: "Create Page", message: "Login is required" }}/>} />
-          <Route path="/Upload add" element={isLogin ? <UploadPage /> : <Navigate to="/login" state={{ from: "Upload add", message: "Login is required" }}  />} />
+          <Route path="/Upload ads" element={isLogin ? <UploadPage /> : <Navigate to="/login" state={{ from: "Upload add", message: "Login is required" }}  />} />
 
 
 

@@ -190,7 +190,7 @@ function UploadPage() {
 
       <div className='mx-[80px] sm:mx-[10px] my-9'>
         <div className='mt-10'>
-          <h1 className='text-3xl font-bold'>Upload Add</h1>
+          <h1 className='text-3xl font-bold'>Upload Ads</h1>
           {/* <div className='mt-5'>
             <div className='grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1  gap-5 justify-center'>
               {PlanData.length === 0 ? (
@@ -241,7 +241,7 @@ function UploadPage() {
 
                 </a>
                 <a href='/Add Page'><CustomButton classStyle={'my-4 bg-white font-bold'}>Add Page</CustomButton></a>
-                <a href='/Create Page'><CustomButton classStyle={'my-4 bg-white font-bold'}>Add the Adds</CustomButton></a>
+                <a href='/Create Page'><CustomButton classStyle={'my-4 bg-white font-bold'}>Add The Adds</CustomButton></a>
               </div>
             </div>
           </div>

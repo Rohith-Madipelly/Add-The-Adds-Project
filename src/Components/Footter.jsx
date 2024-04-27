@@ -61,7 +61,7 @@ function Footter() {
                   to={"/Privacy Policy"}
                   className="p-2 text-xl sm:text-base block"
                 >
-                  Privacy Policy
+                  Privacy policy
                 </Link>
               </div>
               <div className="">

@@ -252,7 +252,7 @@ if(isLoading)
 
       <div className='w-full px-8 sm:px-2 py-5'>
         <div className='grid grid-cols-12 '>
-          <div className='col-span-12 sm:col-span-9'><div className='font-bold text-xl mb-5 text-center sm:text-start'> Hey {Data.pagename} ! Create Your Page here</div>
+          <div className='col-span-12 sm:col-span-9'><div className='font-bold text-xl mb-5 text-center sm:text-start'> Hey {Data.pagename}! Create Your Page Here</div>
           </div>
         </div>
 
@@ -295,7 +295,7 @@ if(isLoading)
                 <div className='grid grid-flow-col gap-2 sm:text-xs '>
                   <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handleOpenModal() }}>Upload Video </CustomButton>
                   <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handleImageOpenModal() }}>Image</CustomButton>
-                  <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handlePageOpenModal() }}>Add Page</CustomButton>
+                  <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handlePageOpenModal() }}>Upload Ads</CustomButton>
 
 
                 </div>
@@ -305,7 +305,7 @@ if(isLoading)
 
           </div>
         </div>
-        <div className='flex justify-center'><p>Add your Links</p></div>
+        <div className='flex justify-center'><p>Add Your Links</p></div>
         <div className='my-5 flex justify-center'>
           
           <div className='w-[60%] sm:w-[95%]'>

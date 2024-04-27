@@ -10,6 +10,6 @@ export const changePasswordValidation = Yup.object({
     .min(8, "Password must be at least 8 characters"),
 
   confirmPassword: Yup.string()
-    .required("Confirm Password required")
+    .required("Confirm password required")
     .oneOf([Yup.ref("password"), null], "Passwords must match"),
 });

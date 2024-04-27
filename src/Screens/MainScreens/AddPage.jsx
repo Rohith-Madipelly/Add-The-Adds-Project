@@ -283,7 +283,7 @@ function AddPage() {
           {/* {isLoading && <Loading />} */}
           <div className='grid grid-cols-12 py-4'>
             <div className='sm:col-span-3'><div className='hidden sm:block'><NDShare /></div></div>
-            <div className='col-span-12 sm:col-span-9'><div className='font-bold text-xl mb-2 text-center sm:text-start'>Its {userName}'s Page</div>
+            <div className='col-span-12 sm:col-span-9'><div className='font-bold text-xl mb-2 text-center sm:text-start'> {userName?<>Its {userName}'s Page</>:"Page View"}</div>
             </div>
           </div>
 
@@ -381,10 +381,10 @@ function AddPage() {
           {/* Section 3 */}
           <div className='my-5 flex justify-center'>
             <div className='w-[70%] sm:w-[100%]'>
-              <h2 class="text-lg font-bold mb-4 decoration-8">Links</h2>
+              <h2 class="text-lg font-bold mb-4 decoration-8">Links Section</h2>
 
               <div>
-                <h2 class="text-lg font-bold mb-2 decoration-1">live links</h2>
+                <h2 class="text-lg font-bold mb-2 decoration-1">Live Links</h2>
                 {live_links.length === 0 ? (
                   <div class="flex w-[95%] h-min-[45px] h-max-auto border-2 py-2 px-3 rounded-lg bg-white mb-2">
                     <a target="_blank" class="text-blue-600 hover:underline my-3"></a>
@@ -403,7 +403,7 @@ function AddPage() {
 
 
               <div>
-                <h2 class="text-lg font-bold mb-2 decoration-1">General links</h2>
+                <h2 class="text-lg font-bold mb-2 decoration-1">General Links</h2>
                 {general_links.length === 0 ? (
                   <div class="flex w-[95%] h-min-[45px] h-max-auto border-2 py-2 px-3 rounded-lg bg-white mb-2">
                     <a target="_blank" class="text-blue-600 hover:underline my-3"></a>
@@ -419,7 +419,7 @@ function AddPage() {
               </div>
 
               <div>
-                <h2 class="text-lg font-bold mb-2 decoration-1">Chanel links</h2>
+                <h2 class="text-lg font-bold mb-2 decoration-1">Chanel Links</h2>
                 {chanel_links.length === 0 ? (
                   <div class="flex w-[95%] h-min-[45px] h-max-auto border-2 py-2 px-3 rounded-lg bg-white mb-2">
                     <a target="_blank" class="text-blue-600 hover:underline my-3"></a>

@@ -59,7 +59,7 @@ export const AddPagetoUser = ({ isOpen, onClose, onSubmit }) => {
                 </span>
 
                 <h2 className="text-2xl font-semibold mb-4">Add User Page</h2>
-                <p className="text-gray-700 mb-4">Please provide User Name</p>
+                <p className="text-gray-700 mb-4">Please Provide User Name</p>
                 <input
                     className="w-full border border-gray-300 rounded-md px-3 py-2 mb-4 focus:outline-none focus:border-blue-500"
                     type="text"
