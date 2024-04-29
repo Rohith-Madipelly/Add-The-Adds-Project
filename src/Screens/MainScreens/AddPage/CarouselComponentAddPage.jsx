@@ -9,7 +9,7 @@ import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons
 
 function CarouselComponentAddPage({ userName }) {
     console.log("CarouselData >>>", userName)
-    const [CarouselData, setCarouselData] = useState([])
+
     const [Data, setData] = useState([])
 
 
@@ -22,8 +22,8 @@ function CarouselComponentAddPage({ userName }) {
                 // if (res.status === 200) {
                 let resData = await responsed.data
                 // console.log("Hello CarComponep", resData)
-                console.log("Hello CarComponep", resData.ownHeaders)
-                
+                console.log("", resData.ownHeaders)
+
                 // setCarouselData(resData.ownHeaders)
                 setData(resData.ownHeaders)
                 // setTimeout(() => {
@@ -54,24 +54,22 @@ function CarouselComponentAddPage({ userName }) {
     }, [])
 
     return (
-        <div>
-        <div className="h-[60vh] sm-w-[100%] sm-h-[100%]  d-flex justify-center">
-            <Carousel className='d-flex justify-center'
+
+        <div className="Carousel-wapper d-flex justify-center">
+            <Carousel className='d-flex justify-center  carousel-arrow'
                 slideInterval={5000000}
                 style={{ color: 'black' }}
-                leftControl={<FontAwesomeIcon icon={faChevronLeft} style={{ color: 'black',fontSize:30 }}  />} 
-                rightControl={<FontAwesomeIcon icon={faChevronRight} style={{ color: 'black',fontSize:30 }} />} 
+                leftControl={<FontAwesomeIcon icon={faChevronLeft} style={{ color: 'black', fontSize: 30 }} />}
+                rightControl={<FontAwesomeIcon icon={faChevronRight} style={{ color: 'black', fontSize: 30 }} />}
             >
 
 
 
                 {Data.length === 0 ? (
                     <div className='justify-center h-full w-full bg-black'>
-                      
                         <div class="flex justify-center items-center h-full w-full bg-black text-white">
                             <p>No Data Uploaded</p>
                         </div>
-
                     </div>
 
                 ) : (
@@ -80,27 +78,24 @@ function CarouselComponentAddPage({ userName }) {
                             {!data.status ? (
 
                                 <iframe
-                                    className='w-[100%] h-[100%] sm-h-[200px]'
+                                    className='w-[80%] iframeResponsevi'
                                     // src={data.headLink}
                                     src={`https://www.youtube.com/embed/${data.headerData.headLink}`}
                                     title="YouTube video player"
                                     frameborder="0"
-                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                     referrerpolicy="strict-origin-when-cross-origin"
                                     allowfullscreen
                                 ></iframe>
                             ) : (
-                                <img src={data.headLinkPic} className='w-[100%] h-[700px] sm-h-[1000px]' alt="Image" />
+                                <img src={data.headLinkPic} className='w-[80%] iframeResponsevi' alt="Image" />
                             )}
                         </div>
                     ))
                 )}
-
-
-
             </Carousel>
         </div>
-    </div>
+
     )
 }
 

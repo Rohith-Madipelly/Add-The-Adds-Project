@@ -9,10 +9,6 @@ import { showToastMessage_error, showToastMessage_success } from '../../../share
 function LinkCreatePage() {
 
     const token = useSelector((state) => state.token);
-
-
-    const [APIDATA, setAPIDATA] = useState([""])
-
     const [LiveLinkURLS, setLiveLinkURLS] = useState([""])
     const [GeneralLinkURLS, setGeneralLinkURLS] = useState([""])
     const [ChanelLinkURLS, setChanelLinkURLS] = useState([""])
@@ -102,12 +98,6 @@ function LinkCreatePage() {
 
     const DeleteLinkCaller = async (LinkName, LinkURL) => {
 
-
-        // if(linksData_Number.live_DataNumber){
-        //     console.log("sajbaj")
-        // }
-
-
         if (LinkURL) {
 
             const res = await DeleteLinkAPI(token, LinkName, LinkURL)
@@ -140,19 +130,18 @@ function LinkCreatePage() {
     return (
         <div>
             <div>
-
                 {/*<<<<<< Links >>>>>>>*/}
                 <div>
                     {/* Live Links */}
                     <div className='mb-3'>
-                        <div className='flex justify-between w-[95%]'>
+                        <div className='flex justify-between w-[95%] mx-auto'>
                             <p className='my-1'>Live Links</p>
                             <p onClick={() => { addLinkToArray() }}>Add More Links</p>
                         </div>
                         {LiveLinkURLS.length > 0 ? (
                             LiveLinkURLS.map((link, index) => (
                                 <div >
-                                    <div key={index} className={`flex w-[95%] border-2 rounded-lg bg-white ${error ? 'bg-black' : 'bg-black'} h-[55px] mb-2`}>
+                                    <div key={index} className={`flex w-[95%]  mx-auto border-2 rounded-lg bg-white ${error ? 'bg-black' : 'bg-black'} h-[55px] mb-2`}>
 
 
                                         <input
@@ -254,14 +243,14 @@ function LinkCreatePage() {
 
                     {/* General Links */}
                     <div className='mb-3'>
-                        <div className='flex justify-between w-[95%]'>
+                        <div className='flex justify-between w-[95%] mx-auto'>
                             <p className='my-1'>General Links</p>
                             <p onClick={() => { addsetGeneralLinkURLSToArray() }}>Add More Links</p>
                         </div>
                         {GeneralLinkURLS.length > 0 ? (
                             GeneralLinkURLS.map((link, index) => (
                                 <div>
-                                    <div key={index} className={`flex w-[95%] border-2 rounded-lg bg-white ${error ? 'bg-black' : 'bg-black'} h-[55px] mb-2`}>
+                                    <div key={index} className={`flex w-[95%] mx-auto border-2 rounded-lg bg-white ${error ? 'bg-black' : 'bg-black'} h-[55px] mb-2`}>
                                         <input
                                             name={`service-${index}`}
                                             type="text"
@@ -319,14 +308,14 @@ function LinkCreatePage() {
 
                     {/* Channel Links */}
                     <div className='mb-3'>
-                        <div className='flex justify-between w-[95%]'>
+                        <div className='flex justify-between w-[95%] mx-auto'>
                             <p className='my-1'>Channel Links</p>
                             <p onClick={() => { addsetChanelLinkURLSToArray() }}>Add More Links</p>
                         </div>
                         {ChanelLinkURLS.length > 0 ? (
                             ChanelLinkURLS.map((link, index) => (
                                 <div>
-                                    <div key={index} className={`flex w-[95%] border-2 rounded-lg bg-white ${error ? 'bg-black' : 'bg-black'} h-[55px] mb-2`}>
+                                    <div key={index} className={`flex w-[95%] mx-auto border-2 rounded-lg bg-white ${error ? 'bg-black' : 'bg-black'} h-[55px] mb-2`}>
                                         <input
                                             name={`service-${index}`}
                                             placeholder='Add Channel Like Here'
@@ -381,33 +370,6 @@ function LinkCreatePage() {
                         )}
                         <p className='text-red-500'>{error}</p>
                     </div>
-
-
-      
-                </div>
-
-            </div>
-            {/* Section 2 */}
-            <div className='my-5 flex justify-center'>
-                <div className='w-[60%] sm:w-[95%]'>
-                    {/* <div className='flex flex-col'>
-                            <label htmlFor="Live Link">Live Link</label>
-                            <input name='Live Link' placeholder='Upload Live Link' />
-                        </div>
-                        <div className='flex flex-col my-5'>
-                            <label htmlFor="Live Link">Live Link</label>
-                            <input name='Live Link' placeholder='Upload Live Link' />
-                        </div>
-                        <div className='flex flex-col'>
-                            <label htmlFor="Live Link">Live Link</label>
-                            <input name='Live Link' placeholder='Upload Live Link' />
-                        </div> */}
-
-
-
-                    {/* <div className='flex justify-center'>
-                        <button className='rounded-lg bg-red-500 items-center p-3 py-2 m-2' onClick={() => { SubmitData() }}>Submit</button>
-                    </div> */}
                 </div>
             </div>
         </div>

@@ -1,12 +1,9 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CustomButton from '../../Components/UI/Button/CustomButton'
 
-import NDShare from '../../Components/NavBar/NavDropDown/NDShare';
-import { LIKEAPI, ProfileAPI, UserPageAPI } from '../../utils/APIcall';
+import { LIKEAPI, UserPageAPI } from '../../utils/APIcall';
 import { useSelector } from 'react-redux';
-import LinksDisplay from '../../Components/LinksDisplay';
-import { showToastMessage_error, showToastMessage_success, showToastMessage_warn } from '../../shared/Toaster';
-import CarouselComponent from './CreatePage/CarouselComponent';
+import { showToastMessage_error, showToastMessage_warn } from '../../shared/Toaster';
 import CarouselComponentAddPage from './AddPage/CarouselComponentAddPage';
 import { useLocation } from 'react-router-dom';
 import Loading from '../../utils/Loadings/Loading';
@@ -22,7 +19,7 @@ function AddPage() {
 
   const userName11 = useSelector((state) => state.userName);
 
-  
+
   let { userNameParams } = useParams();
 
 
@@ -108,10 +105,7 @@ function AddPage() {
       }
     }
     finally {
-      // setTimeout(()=>{
       setIsLoading(false)
-
-      // },9000)
     }
   }
 
@@ -211,15 +205,7 @@ function AddPage() {
   }, [userName])
 
 
-  let NavDropsOption = [
-    { name: "My Page", link: "/Create Page" },
-    // { name: "Share", link: "/Share" },
-    // { name: "Share Add Link", link: "/Share Add Link" },
-    // { name: "Page Add", link: "/Page Add" },
-    // { name: "Save", link: "/Save" },
-    // { name: "Upload New", link: "/Upload New" },
-    // { name: "Delete", link: "/Delete" }
-  ];
+
 
   const [isShareModelOpen, setIsShareModelOpen] = useState(false);
 
@@ -278,42 +264,19 @@ function AddPage() {
     return (
       <div className='w-full px-8 new_Page_GroundImage'>
         <div >
+          <div className='h-[70px]'> </div>
 
-
-          <div className='h-[70px]'>
-
-          </div>
-          {/* {isLoading && <Loading />} */}
           <div className='grid grid-cols-12 py-4'>
-            {/* <div className='sm:col-span-3'><div className='hidden sm:block'><NDShare /></div></div> */}
             <div className='col-span-12 sm:col-span-12'>
-              <div className='font-bold text-xl mb-2 text-center sm:text-center'> {userName?<>Its {userName}'s Page</>:"Page View"}</div>
+              <div className='font-bold text-xl mb-2 text-center sm:text-center'> {userName ? <>Its {userName}'s Page</> : "Page View"}</div>
             </div>
           </div>
 
-          <div className='flex justify-center items-center w-[100%]'>
-            {/* Section 1 */}
-            <div className='grid grid-flow-col grid-cols-8 w-full m-5 sm:m-0'>
-
-              <div className='col-span-2 bg-red border-b border-r p-[40px] mx-5 sm:hidden'>
-                {/* {NavDropsOption.map((Data, index) => (
-                  <a href={Data.link}><CustomButton classStyle={'mt-2 bg-white h-auto'} key={index}>{Data.name}</CustomButton></a>
-                ))} */}
-
-                <CustomButton classStyle={'mt-2 bg-white h-auto'} onClick={() => { openShareModel() }}>Share</CustomButton>
-
-                {/* <button onClick={openShareModel}>Open Share Model</button> */}
-
-                <ShareModel isOpen={isShareModelOpen} onClose={closeShareModel} onSubmit={handleShare} linkData={currentURl} />
-
-              </div>
-
-
-              <div className='col-span-5 sm:col-span-10 '>
-
-                <CarouselComponentAddPage userName={userName} />
-
-                <div className='my-4  flex justify-end'>
+          <div className=' flex justify-center'>
+          <div className='w-[60%] mdl-w-[80%]  sm:w-[150%]'>
+          <CarouselComponentAddPage userName={userName} />
+          
+          <div className='my-4  flex justify-end'>
                   <div className='grid grid-flow-col gap-2 sm:w-[90vw]'>
                     {/* <CustomButton classStyle={'my-3 bg-white h-auto'}>
                       {Dataapi.Likes} Likes
@@ -327,13 +290,18 @@ function AddPage() {
 
                     <NotInLogin isOpen={isLOGINModalOpen} onClose={handleisLOGINCloseModal} onSubmit={handleisLOGINSubmit} />
                     <CustomButton classStyle={'my-3 bg-white h-auto'}>{Dataapi.views} Views </CustomButton>
+                    <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { openShareModel() }}>Share</CustomButton>
 
+
+
+                    <ShareModel isOpen={isShareModelOpen} onClose={closeShareModel} onSubmit={handleShare} linkData={currentURl} />
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
 
+                </div>
+                </div>
+
+        
 
 
 

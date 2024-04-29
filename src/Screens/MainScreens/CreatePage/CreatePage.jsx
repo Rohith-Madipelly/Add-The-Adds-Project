@@ -40,29 +40,27 @@ function CreatePage() {
     showToastMessage_warn(location.state.message);
   }
 
-  
+
   const Apicaller = async () => {
     setIsLoading(true)
 
     try {
       const res = await ProfileAPI(token)
 
-      if(res)
-      {
+      if (res) {
         const ResData = await res.data;
         console.log(">>>>", res.data)
         setUserPage(res.data.pagename)
         setData(res.data)
-        console.log("<><><>",res.data)
+        console.log("<><><>", res.data)
         setLiked(res.data.isLiked)
         setHeadersData(ResData.ownHeaders)
-        if(ResData.ownHeaders.length===0)
-        {
+        if (ResData.ownHeaders.length === 0) {
           showToastMessage_warn("No Data Found, You can add here");
         }
         console.log("da", Data.likes)
         setLike(Data.likes)
-        
+
         console.log("cdas", headerData)
       }
 
@@ -101,7 +99,7 @@ function CreatePage() {
       const res = await Add_Video_In_HeadersAPI(token, youtubeUrl)
       console.log(res.data.message)
       showToastMessage_success(res.data.message)
-    
+
       window.location.reload();
 
     } catch (e) {
@@ -134,8 +132,7 @@ function CreatePage() {
 
     try {
       const res = await Add_Image_In_HeadersAPI(token, imageFile)
-      if(res)
-      {
+      if (res) {
 
         console.log(res.data.message)
         console.log(res.data)
@@ -205,119 +202,108 @@ function CreatePage() {
     try {
       const res = await LIKEAPI(token, userPage)
       if (res) {
-   
+
         if (res.data.message === "liked") {
-   
-          setLike(Like+1)
-   
+
+          setLike(Like + 1)
+
           setLiked(true)
 
         }
         else {
           console.log(Link)
-   
-          if(Like =>0)
-          {
+
+          if (Like => 0) {
             setLike(0)
 
-          }else
-          {
-            setLike(Like-1)
- 
+          } else {
+            setLike(Like - 1)
+
 
           }
-     
+
           setLiked(false)
         }
-        
+
       }
     } catch (e) {
-    
+
 
       console.log("hjsbkdf", e)
     } finally {
 
     }
   }
-if(isLoading)
-{
-  return <Loading/>
-}
+  if (isLoading) {
+    return <Loading />
+  }
 
 
   return (
     <div className='new_Page_GroundImage'>
-      {/* {isLoading && <Loading />} */}
       <div className='h-[70px]'></div>
 
-      <div className='w-full px-8 sm:px-2 py-5'>
-        <div className='grid grid-cols-12 '>
-          <div className='col-span-12 sm:col-span-12'><div className='font-bold text-xl mb-5 text-center sm:text-center'> Hey {Data.pagename}! Create Your Page Here</div>
+      <div className='w-full  py-3'>
+
+        <div className='grid grid-cols-12 sm:px-1'>
+          <div className='col-span-12 sm:col-span-12'>
+            <div className='font-bold text-xl mb-5 text-center sm:text-center'> Hey {Data.pagename}! Create Your Page Here</div>
           </div>
         </div>
 
-        <div className='my-5 flex justify-center'>
-          <div className='w-[60%] sm:w-[95%]'>
 
 
-            <div className=''>
-              <CarouselComponent data={Data} />
-              <div className='my-4  flex justify-between sm:flex-col'>
-                <div className='grid grid-flow-col gap-2 sm:text-xs '>
+        <div className=' flex justify-center'>
+          <div className='2xl-w-[60%] mdl-w-[80%] sm:w-[150%]'>
 
+            {/* Carsousel Section */}
+            <CarouselComponent data={Data} />
 
+            <div className='my-4 flex justify-between sm:flex-col  mdl:flex-col'>
+              <div className='grid grid-flow-col gap-2    sm:text-xs'>
+                <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={toggleLike}>
+                  {liked ? <MdThumbUp color="blue" size={25} /> : <MdThumbUp size={25} />}
+                  <p className='ms-2'>{Like} Likes</p>
+                </CustomButton>
 
-                  <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={toggleLike}>
-                    {liked ? <MdThumbUp color="blue" size={25} /> : <MdThumbUp size={25} />}
-                    {/* {liked ?  */}
+                <CustomButton classStyle={'my-3 bg-white h-auto'}>{Data.views} Views</CustomButton>
 
-                    <p className='ms-2'>{Like} Likes</p>
-                 
-                  </CustomButton>
-                  <CustomButton classStyle={'my-3 bg-white h-auto'}>{Data.views} Views</CustomButton>
+                <CustomButton classStyle={'my-3 bg-white h-auto me-2'} onClick={() => { handleDeleteOpenModal() }}>
+                  Delete Content
+                </CustomButton>
 
+                <YouTubeModal isOpen={isModalOpen} onClose={handleCloseModal} onSubmit={handleSubmit} />
 
-                  <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handleDeleteOpenModal() }}>Delete Content</CustomButton>
+                <ImageUploadModel isOpen={isImageModalOpen} onClose={handleImageCloseModal} onSubmit={handleImageSubmit} />
 
+                <AddPagetoUser isOpen={isPageModalOpen} onClose={handlePageCloseModal} onSubmit={handlePageSubmit} />
 
-                  <YouTubeModal isOpen={isModalOpen} onClose={handleCloseModal} onSubmit={handleSubmit} />
+                <DeleteHeadersModel datares={headerData} isOpen={isDeleteModalOpen} onClose={handleDeleteCloseModal} onSubmit={handleDeleteSubmit} />
+              </div>
 
-                  <ImageUploadModel isOpen={isImageModalOpen} onClose={handleImageCloseModal} onSubmit={handleImageSubmit} />
-
-                  <AddPagetoUser isOpen={isPageModalOpen} onClose={handlePageCloseModal} onSubmit={handlePageSubmit} />
-
-                  <DeleteHeadersModel datares={headerData} isOpen={isDeleteModalOpen} onClose={handleDeleteCloseModal} onSubmit={handleDeleteSubmit} />
-
-
-                </div>
-                {/* </div>
-              <div className='my-4  flex justify-end'> */}
-                <div className='grid grid-flow-col gap-2 sm:text-xs '>
-                  <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handleOpenModal() }}>Upload Video </CustomButton>
-                  <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handleImageOpenModal() }}>Image</CustomButton>
-                  <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handlePageOpenModal() }}>Upload Ads</CustomButton>
-
-
-                </div>
+              <div className='grid grid-flow-col gap-2 sm:text-xs'>
+                <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handleOpenModal() }}>
+                  Upload Video
+                </CustomButton>
+                <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handleImageOpenModal() }}>
+                  Image
+                </CustomButton>
+                <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handlePageOpenModal() }}>
+                  Upload Ads
+                </CustomButton>
               </div>
             </div>
 
-
           </div>
         </div>
+
+        {/* section 3 */}
         <div className='flex justify-center'><p>Add Your Links</p></div>
-        <div className='my-5 flex justify-center'>
-          
-          <div className='w-[60%] sm:w-[95%]'>
-            {/* {Data?<LinksDisplay DataLinks={Data}/>:""} */}
+        <div className='my-5 flex justify-center item-center'>
+          <div className='w-[60%] sm:w-[90%]'>
             <LinkCreatePage />
-
           </div>
         </div>
-
-        <div></div>
-
-
       </div>
     </div>
   )

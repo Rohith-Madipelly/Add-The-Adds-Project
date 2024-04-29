@@ -1,0 +1,24 @@
+
+
+/* styles.scss */
+.iframeResponsevi {
+    height: 350px;
+    margin: 0 auto;
+}
+
+
+.Carousel-wapper {
+    height: 40px;
+    min-height: 400px;
+}
+
+@media (max-width: 768px) {
+    .iframeResponsevi {
+        height: 20vh;
+    }
+
+    .Carousel-wapper {
+        height: 180px;
+        min-height: 40px;
+    }
+}
