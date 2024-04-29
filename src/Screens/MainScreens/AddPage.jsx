@@ -19,7 +19,10 @@ import { ShareModel } from '../../utils/ShareModel';
 function AddPage() {
 
   const [userName, setUserName] = useState("")
+
   const userName11 = useSelector((state) => state.userName);
+
+  
   let { userNameParams } = useParams();
 
 
@@ -282,8 +285,9 @@ function AddPage() {
           </div>
           {/* {isLoading && <Loading />} */}
           <div className='grid grid-cols-12 py-4'>
-            <div className='sm:col-span-3'><div className='hidden sm:block'><NDShare /></div></div>
-            <div className='col-span-12 sm:col-span-9'><div className='font-bold text-xl mb-2 text-center sm:text-start'> {userName?<>Its {userName}'s Page</>:"Page View"}</div>
+            {/* <div className='sm:col-span-3'><div className='hidden sm:block'><NDShare /></div></div> */}
+            <div className='col-span-12 sm:col-span-12'>
+              <div className='font-bold text-xl mb-2 text-center sm:text-center'> {userName?<>Its {userName}'s Page</>:"Page View"}</div>
             </div>
           </div>
 
@@ -292,9 +296,9 @@ function AddPage() {
             <div className='grid grid-flow-col grid-cols-8 w-full m-5 sm:m-0'>
 
               <div className='col-span-2 bg-red border-b border-r p-[40px] mx-5 sm:hidden'>
-                {NavDropsOption.map((Data, index) => (
+                {/* {NavDropsOption.map((Data, index) => (
                   <a href={Data.link}><CustomButton classStyle={'mt-2 bg-white h-auto'} key={index}>{Data.name}</CustomButton></a>
-                ))}
+                ))} */}
 
                 <CustomButton classStyle={'mt-2 bg-white h-auto'} onClick={() => { openShareModel() }}>Share</CustomButton>
 
@@ -322,7 +326,7 @@ function AddPage() {
                     </CustomButton>
 
                     <NotInLogin isOpen={isLOGINModalOpen} onClose={handleisLOGINCloseModal} onSubmit={handleisLOGINSubmit} />
-                    <CustomButton classStyle={'my-3 bg-white h-auto'}>{Dataapi.views} Views</CustomButton>
+                    <CustomButton classStyle={'my-3 bg-white h-auto'}>{Dataapi.views} Views </CustomButton>
 
                   </div>
                 </div>

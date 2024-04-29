@@ -22,6 +22,10 @@ const ShareButton = () => {
       <p>Share this URL:</p>
       <input type="text" value={shareUrl} readOnly />
       <button onClick={() => copyToClipboard(shareUrl)}>Copy URL</button>
+
+      <div>
+        
+      </div>
     </div>
   );
 };

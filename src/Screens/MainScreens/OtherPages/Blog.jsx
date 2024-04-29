@@ -41,8 +41,8 @@ function Blog() {
       <div className='w-[100vw] h-[100vh] max-h-auto'>
         <div className='my-5 font-bold text-xl text-center'>Blog Page</div>
         <div className=' mx-10 px-10 '>
-          {BlogData ? <div>
-            {BlogData}
+          {BlogData ? <div   dangerouslySetInnerHTML={{__html: BlogData}}>
+            {/* {BlogData} */}
           </div> : ""}
 
 

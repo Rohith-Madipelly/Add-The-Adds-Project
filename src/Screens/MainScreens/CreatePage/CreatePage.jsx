@@ -252,7 +252,7 @@ if(isLoading)
 
       <div className='w-full px-8 sm:px-2 py-5'>
         <div className='grid grid-cols-12 '>
-          <div className='col-span-12 sm:col-span-9'><div className='font-bold text-xl mb-5 text-center sm:text-start'> Hey {Data.pagename}! Create Your Page Here</div>
+          <div className='col-span-12 sm:col-span-12'><div className='font-bold text-xl mb-5 text-center sm:text-center'> Hey {Data.pagename}! Create Your Page Here</div>
           </div>
         </div>
 
@@ -272,7 +272,7 @@ if(isLoading)
                     {/* {liked ?  */}
 
                     <p className='ms-2'>{Like} Likes</p>
-                    {/* //  */}
+                 
                   </CustomButton>
                   <CustomButton classStyle={'my-3 bg-white h-auto'}>{Data.views} Views</CustomButton>
 

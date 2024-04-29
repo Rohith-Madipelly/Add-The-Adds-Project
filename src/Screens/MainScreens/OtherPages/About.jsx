@@ -45,8 +45,9 @@ function About() {
         <div className='my-5 font-bold text-xl text-center'>About us</div>
         <div className=' mx-10 px-10 sm:mx-2 '>
 
-          {AboutUsData ? <div>
-            {AboutUsData}
+          {AboutUsData ? <div   dangerouslySetInnerHTML={{__html: AboutUsData}}>
+            {/* {AboutUsData} */}
+            
           </div> : ""}
 
         </div>

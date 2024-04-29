@@ -3,6 +3,9 @@ import { Carousel } from "flowbite-react";
 import { useSelector } from 'react-redux';
 import { ProfileAPI, UserPageAPI } from '../../../utils/APIcall';
 import CustomButton from '../../../Components/UI/Button/CustomButton';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+
 
 function CarouselComponentAddPage({ userName }) {
     console.log("CarouselData >>>", userName)
@@ -55,6 +58,9 @@ function CarouselComponentAddPage({ userName }) {
         <div className="h-[60vh] sm-w-[100%] sm-h-[100%]  d-flex justify-center">
             <Carousel className='d-flex justify-center'
                 slideInterval={5000000}
+                style={{ color: 'black' }}
+                leftControl={<FontAwesomeIcon icon={faChevronLeft} style={{ color: 'black',fontSize:30 }}  />} 
+                rightControl={<FontAwesomeIcon icon={faChevronRight} style={{ color: 'black',fontSize:30 }} />} 
             >
 
 

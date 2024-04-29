@@ -35,14 +35,14 @@ function PrivacyPolicy() {
   }, [])
 
   return (
-    <div>
+    <div className='new_Page_GroundImage'>
       <div className='h-[70px]'>
       </div>
       <div className='w-[100vw] h-[100vh] max-h-auto'>
         <div className='my-5 font-bold text-xl text-center'>Privacy Policy</div>
         <div className=' mx-10 px-10 '>
-          {privacyPolicyData ? <div>
-            {privacyPolicyData}
+          {privacyPolicyData ? <div   dangerouslySetInnerHTML={{__html: privacyPolicyData}}>
+            {/* {privacyPolicyData} */}
           </div> : ""}
 
         </div>
