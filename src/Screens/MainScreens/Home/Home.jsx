@@ -8,12 +8,12 @@ import { OpenScroll } from '../../../utils/OpenScroller'
 
 
 function Home() {
-  useEffect(()=>{
+  useEffect(() => {
     OpenScroll()
-  },[])
+  }, [])
   return (
     <div>
-         
+
       <div className=' p-1'>
         <div className='h-[70px]'>
 
@@ -23,7 +23,7 @@ function Home() {
 
           <Searchbox />
           <Servicecards />
-          
+
           <Premier_Add_Page />
           {/* <div className='h-[70px] sm:h-[0px]'></div> */}
 
@@ -34,7 +34,7 @@ function Home() {
 
       </div>
 
-      
+
     </div>
   )
 }

@@ -14,21 +14,12 @@ function CarouselComponentAddPage({ userName }) {
 
 
     const Apicaller = async (userName) => {
-
         try {
             const responsed = await UserPageAPI(userName)
-            // console.log("bjdb")
             if (responsed) {
-                // if (res.status === 200) {
                 let resData = await responsed.data
-                // console.log("Hello CarComponep", resData)
                 console.log("", resData.ownHeaders)
-
-                // setCarouselData(resData.ownHeaders)
                 setData(resData.ownHeaders)
-                // setTimeout(() => {
-                //   navigate('/Contests');
-                // }, 3000);
             }
             else {
                 console.log("No Responsed")
@@ -55,9 +46,10 @@ function CarouselComponentAddPage({ userName }) {
 
     return (
 
-        <div className="Carousel-wapper d-flex justify-center">
+        <div className="Carousel-wapper h-[90%] w-[100%] d-flex justify-center mx-auto overflow-hidden">
             <Carousel className='d-flex justify-center  carousel-arrow'
                 slideInterval={5000000}
+                pauseOnHover
                 style={{ color: 'black' }}
                 leftControl={<FontAwesomeIcon icon={faChevronLeft} style={{ color: 'black', fontSize: 30 }} />}
                 rightControl={<FontAwesomeIcon icon={faChevronRight} style={{ color: 'black', fontSize: 30 }} />}
@@ -66,19 +58,19 @@ function CarouselComponentAddPage({ userName }) {
 
 
                 {Data.length === 0 ? (
-                    <div className='justify-center h-full w-full bg-black'>
-                        <div class="flex justify-center items-center h-full w-full bg-black text-white">
+                    <div className='justify-center h-full '>
+                        <div class="flex justify-center items-center h-[80%] w-[70%] bg-black text-white mx-auto">
                             <p>No Data Uploaded</p>
                         </div>
                     </div>
 
                 ) : (
                     Data.map((data, index) => (
-                        <div key={index} className='d-flex justify-center h-[100%] sm-h-[200px]'>
+                        <div key={index} className='d-flex justify-center item-center'>
                             {!data.status ? (
 
                                 <iframe
-                                    className='w-[80%] iframeResponsevi'
+                                    className='w-full h-full px-10 iframeResponsevi'
                                     // src={data.headLink}
                                     src={`https://www.youtube.com/embed/${data.headerData.headLink}`}
                                     title="YouTube video player"
@@ -88,7 +80,7 @@ function CarouselComponentAddPage({ userName }) {
                                     allowfullscreen
                                 ></iframe>
                             ) : (
-                                <img src={data.headLinkPic} className='w-[80%] iframeResponsevi' alt="Image" />
+                                <img src={data.headLinkPic} className='px-10 h-[100%] w-full iframeResponsevi' alt="Image" />
                             )}
                         </div>
                     ))

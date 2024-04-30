@@ -4,17 +4,21 @@ import { Link } from 'react-router-dom'
 
 function Servicecards() {
     const userName = useSelector((state) => state.userName);
-
-
-   
-    const [pageName, setPageName] = useState('View Page');
     console.log(userName); // undefined
+    var userNameData;
+    if(userName==='undefined')
+    {
+        userNameData="View Page"
+    }else{
+
+        userNameData=userName
+    }
     
     let tryOptions = [
         { name: "Own Status", imageLink: "images/img_rectangle_2.png", routes: "Own Status" },
         { name: "Create Page", imageLink: "images/img_rectangle_6.png", routes: "Create Page" },
         // Check if userName is exactly "undefined's" before including `${userName}'s`
-        ...(userName === "undefined's" ? [] : [{ name: `${userName}'s`, imageLink: "images/img_rectangle_7.png", routes: `Add Page/${userName}` }]),
+        ...(userName === "undefined's" ? [] : [{ name: `${userNameData}'s`, imageLink: "images/img_rectangle_7.png", routes: `Add Page/${userName}` }]),
         { name: "Upload Ads", imageLink: "images/img_rectangle_8.png", routes: "Upload Ads" },
     ];
 

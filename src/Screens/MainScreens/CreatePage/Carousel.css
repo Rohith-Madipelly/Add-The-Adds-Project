@@ -14,11 +14,12 @@
 
 @media (max-width: 768px) {
     .iframeResponsevi {
-        height: 20vh;
+        height: 30vh;
     }
 
     .Carousel-wapper {
         height: 180px;
+        height: 250px;
         min-height: 40px;
     }
 }

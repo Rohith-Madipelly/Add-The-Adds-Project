@@ -27,7 +27,7 @@ function CreatePage() {
   const [userPage, setUserPage] = useState("")
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [headerData, setHeadersData] = useState([])
-  const [Like, setLike] = useState(0)
+  const [Like, setLike] = useState(1)
   const [liked, setLiked] = useState(false);
 
 
@@ -47,24 +47,41 @@ function CreatePage() {
     try {
       const res = await ProfileAPI(token)
 
-      if (res) {
+      if (res.status===200) {
         const ResData = await res.data;
         console.log(">>>>", res.data)
+
         setUserPage(res.data.pagename)
         setData(res.data)
+        
         console.log("<><><>", res.data)
+        
         setLiked(res.data.isLiked)
         setHeadersData(ResData.ownHeaders)
         if (ResData.ownHeaders.length === 0) {
           showToastMessage_warn("No Data Found, You can add here");
         }
-        console.log("da", Data.likes)
-        setLike(Data.likes)
+ 
+        setLike(res.data.likes)
 
-        console.log("cdas", headerData)
+
+        setTimeout(()=>{
+          likesData=Data.likes;
+          setLike(likesData)
+        },500)
+        
+        // setTimeout(()=>{
+         
+        //   if(likesData!=1)
+        //   {
+        //     setLike(likesData)
+        //   }else{
+        //     setLike(1)
+        //   }
+        // },500)
+
+      
       }
-
-
     }
     catch (e) {
       console.log(e);
@@ -194,7 +211,7 @@ function CreatePage() {
 
 
   const toggleLike = () => {
-    setLiked(!liked);
+    // setLiked(!liked);
     LikeAPICall()
   }
 
@@ -202,26 +219,21 @@ function CreatePage() {
     try {
       const res = await LIKEAPI(token, userPage)
       if (res) {
+        // setLiked(!liked);
 
         if (res.data.message === "liked") {
-
-          setLike(Like + 1)
-
           setLiked(true)
-
+          // const previousValue = Like;
+          setLike(previousValue => previousValue + 1);
         }
         else {
-          console.log(Link)
+          console.log(Like)
 
-          if (Like => 0) {
+          if (Like === 0) {
             setLike(0)
-
           } else {
-            setLike(Like - 1)
-
-
+            setLike(previousValue=>previousValue - 1)
           }
-
           setLiked(false)
         }
 
@@ -229,7 +241,7 @@ function CreatePage() {
     } catch (e) {
 
 
-      console.log("hjsbkdf", e)
+      console.log("Error in Likes API", e)
     } finally {
 
     }
@@ -247,7 +259,7 @@ function CreatePage() {
 
         <div className='grid grid-cols-12 sm:px-1'>
           <div className='col-span-12 sm:col-span-12'>
-            <div className='font-bold text-xl mb-5 text-center sm:text-center'> Hey {Data.pagename}! Create Your Page Here</div>
+            <div className='font-bold text-xl mb-5 text-center sm:text-center'>  Hey {Data.pagename ? Data.pagename.charAt(0).toUpperCase() + Data.pagename.slice(1) : ''}! Create Your Page Here</div>
           </div>
         </div>
 

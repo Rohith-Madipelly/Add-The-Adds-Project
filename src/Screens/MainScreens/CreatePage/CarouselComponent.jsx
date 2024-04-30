@@ -63,7 +63,7 @@ function CarouselComponent() {
                                     allowfullscreen
                                 ></iframe>
                             ) : (
-                                <img src={data.headLinkPic} className='w-[80%] iframeResponsevi' alt="Image" />
+                                <img src={data.headLinkPic} className='w-[80%] iframeResponsevi' alt="Image"  />
                             )}
                         </div>
 

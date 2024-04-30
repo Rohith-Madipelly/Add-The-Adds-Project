@@ -79,7 +79,7 @@ function AddPage() {
         setOtherUser(resData.userPages)
         console.log("OtherUserDaat>>>>", OtherUser)
         console.log("Hello", Dataapi.Likes)
-        setLike(Dataapi.Likes)
+        setLike(responsed.data.Likes)
       }
       else {
         console.log("No Responsed")
@@ -111,7 +111,6 @@ function AddPage() {
 
   const toggleLike = () => {
     if (token) {
-      setLiked(!liked);
       LikeAPICall()
     } else {
       handleImageOpenModal()
@@ -119,10 +118,11 @@ function AddPage() {
   }
 
   const LikeAPICall = async () => {
-    console.log("calling LIKE API ")
+    console.log("calling LIKE API >>>>>>>>>>>>>>>>>>")
     try {
       const res = await LIKEAPI(token, userName)
       if (res) {
+        setLiked(!liked);
         console.log("like inda", res.data)
         if (res.data.message === "liked") {
           setLike(prevPage => prevPage + 1)
@@ -132,13 +132,14 @@ function AddPage() {
         else {
           setLike(prevPage => prevPage - 1)
           setLiked(false)
+
         }
 
       }
     } catch (e) {
       console.log("hjsbkdf", e)
     } finally {
-
+      console.log("function Ended")
     }
   }
   useEffect(() => {
@@ -262,46 +263,41 @@ function AddPage() {
   else {
 
     return (
-      <div className='w-full px-8 new_Page_GroundImage'>
+      <div className='w-full  new_Page_GroundImage'>
         <div >
           <div className='h-[70px]'> </div>
 
-          <div className='grid grid-cols-12 py-4'>
+          <div className='grid grid-cols-12 py-1'>
             <div className='col-span-12 sm:col-span-12'>
               <div className='font-bold text-xl mb-2 text-center sm:text-center'> {userName ? <>Its {userName}'s Page</> : "Page View"}</div>
             </div>
           </div>
 
-          <div className=' flex justify-center'>
-          <div className='w-[60%] mdl-w-[80%]  sm:w-[150%]'>
-          <CarouselComponentAddPage userName={userName} />
-          
-          <div className='my-4  flex justify-end'>
-                  <div className='grid grid-flow-col gap-2 sm:w-[90vw]'>
-                    {/* <CustomButton classStyle={'my-3 bg-white h-auto'}>
-                      {Dataapi.Likes} Likes
-                    </CustomButton> */}
+          <div className='flex justify-center'>
 
+            <div className='w-[60%] mdl-w-[70%]  sm:w-[160%] h-[450px] sm:h-[350px]'>
+              <CarouselComponentAddPage userName={userName} />
 
-                    <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={toggleLike}>
-                      {liked ? <MdThumbUp color="blue" size={25} /> : <MdThumbUp size={25} />}
-                      {liked ? <p className='ms-2'>{Like} Likes</p> : <p className='ms-2'>{Like} Likes</p>}
-                    </CustomButton>
+              <div className='flex justify-end px-6 '>
+                <div className='grid grid-flow-col gap-2 sm:w-[90vw]'>
 
-                    <NotInLogin isOpen={isLOGINModalOpen} onClose={handleisLOGINCloseModal} onSubmit={handleisLOGINSubmit} />
-                    <CustomButton classStyle={'my-3 bg-white h-auto'}>{Dataapi.views} Views </CustomButton>
-                    <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { openShareModel() }}>Share</CustomButton>
+                  <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={toggleLike}>
+                    {liked ? <MdThumbUp color="blue" size={25} /> : <MdThumbUp size={25} />}
+                    <p className='ms-2'>{Like} Likes</p>
+                  </CustomButton>
 
+                  <NotInLogin isOpen={isLOGINModalOpen} onClose={handleisLOGINCloseModal} onSubmit={handleisLOGINSubmit} />
+                  <CustomButton classStyle={'my-3 bg-white h-auto'}>{Dataapi.views} Views </CustomButton>
+                  <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { openShareModel() }}>Share</CustomButton>
 
-
-                    <ShareModel isOpen={isShareModelOpen} onClose={closeShareModel} onSubmit={handleShare} linkData={currentURl} />
-                  </div>
+                  <ShareModel isOpen={isShareModelOpen} onClose={closeShareModel} onSubmit={handleShare} linkData={currentURl} />
                 </div>
+              </div>
 
-                </div>
-                </div>
+            </div>
+          </div>
 
-        
+
 
 
 
@@ -311,11 +307,11 @@ function AddPage() {
           <div className='w-[100%] flex justify-center items-center"'>
 
 
-            <div className='w-[90%] mt-10  gap-1 gap-y-2 grid grid-flow-col grid-col-2 sm:grid-rows-2 sm:mx-0 sm:justify-center rounded-lg'>
+            <div className='w-[80%] h-[450px] mt-10  gap-1 gap-y-2 grid grid-flow-col grid-col-2 sm:grid-rows-2 sm:mx-0 sm:justify-center rounded-lg'>
               {OtherUser.map((MapData, index) => (
-                <div key={index} className="flex justify-center relative w-[100%] px-auto rounded-lg">
+                <div key={index} className="flex justify-center relative w-[100%]  h-[100%] px-auto rounded-lg">
                   <a href={MapData.username}>
-                    <img src={MapData.recentHeader.headLinkPic} className='h-[100%] max-h-100 rounded-lg' />
+                    <img src={MapData.recentHeader.headLinkPic} className='h-[100%] rounded-lg' />
                     <div className="absolute inset-0 bg-black opacity-0 hover:opacity-70 flex items-center justify-center rounded-lg">
                       <span className="text-white text-xl">Click to view full page</span>
                     </div>
@@ -325,9 +321,9 @@ function AddPage() {
               ))}
 
               {OtherUser.map((MapData, index) => (
-                <div key={index} className="flex justify-center relative w-[100%] px-auto rounded-lg">
+                <div key={index} className="flex justify-center relative w-[100%]  h-[100%] px-auto rounded-lg">
                   <a href={MapData.username}>
-                    <img src={MapData.recentHeader.headLinkPic} className='h-[100%] max-h-100 rounded-lg' />
+                    <img src={MapData.recentHeader.headLinkPic} className=' h-[100%]  rounded-lg' />
                     <div className="absolute inset-0 bg-black opacity-0 hover:opacity-70 flex items-center justify-center rounded-lg">
                       <span className="text-white text-xl">Click to view full page</span>
                     </div>
@@ -335,23 +331,11 @@ function AddPage() {
                 </div>
 
               ))}
-
-              {/* {OtherUser.map((MapData, index) => (
-                <div key={index} className="flex justify-center relative w-[100%] px-auto">
-                  <a href={MapData.username}>
-                    <img src={MapData.recentHeader.headLinkPic} className='h-[100%] ' />
-                    <div className="absolute inset-0 bg-black opacity-0 hover:opacity-70 flex items-center justify-center">
-                      <span className="text-white text-xl">Click to view full page 12</span>
-                    </div>
-                  </a>
-                </div>
-
-              ))} */}
             </div>
           </div>
 
           {/* Section 3 */}
-          <div className='my-5 flex justify-center'>
+          <div className='flex justify-center px-6 mt-2'>
             <div className='w-[70%] sm:w-[100%]'>
               <h2 class="text-lg font-bold mb-4 decoration-8">Links Section</h2>
 

@@ -2,37 +2,48 @@ import React, { lazy, Suspense } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-// Pages
-import Login from "./Screens/AuthScreens/Login";
-import Home from "./Screens/MainScreens/Home/Home";
-import OwnStatus from "./Screens/OwnStatus";
-import EditOwnPage from "./Screens/MainScreens/EditOwnPage/EditOwnPage";
-import AddPage from "./Screens/MainScreens/AddPage";
-import NotFoundPage from "./Screens/NotFoundPage";
+// Pages 
 
-import CreatePage from "./Screens/MainScreens/CreatePage/CreatePage";
-import ContactUs from "./Screens/MainScreens/OtherPages/ContactUs";
-import Services from "./Screens/MainScreens/OtherPages/Services";
-import About from "./Screens/MainScreens/OtherPages/About";
-import FAQ from "./Screens/MainScreens/OtherPages/FAQ";
+const Login = lazy(() => import('./Screens/AuthScreens/Login'));
+const Home = lazy(() => import('./Screens/MainScreens/Home/Home'));
+const OwnStatus = lazy(() => import('./Screens/OwnStatus'));
+const EditOwnPage = lazy(() => import('./Screens/MainScreens/EditOwnPage/EditOwnPage'));
+const AddPage = lazy(() => import('./Screens/MainScreens/AddPage'));
+const NotFoundPage = lazy(() => import('./Screens/NotFoundPage'));
 
-import TermsandCondition from "./Screens/MainScreens/OtherPages/TermsandCondition";
-import PrivacyPolicy from "./Screens/MainScreens/OtherPages/PrivacyPolicy";
-import Desktop from "./Screens/Desktop";
-import License from "./Screens/MainScreens/OtherPages/License";
-import Blog from "./Screens/MainScreens/OtherPages/Blog";
-import { ToastContainer } from "react-toastify";
-import UploadPage from "./Screens/MainScreens/UploadAdd/UploadAdd";
-import Trending from "./Screens/MainScreens/OtherPages/Trending";
-import Festivals from "./Screens/MainScreens/OtherPages/Festivals";
-import Register from "./Screens/AuthScreens/Register";
-import Tester from "./Screens/MainScreens/Tester";
+
+const CreatePage = lazy(() => import('./Screens/MainScreens/CreatePage/CreatePage'));
+const ContactUs = lazy(() => import('./Screens/MainScreens/OtherPages/ContactUs'));
+const Services = lazy(() => import('./Screens/MainScreens/OtherPages/Services'));
+const About = lazy(() => import('./Screens/MainScreens/OtherPages/About'));
+const FAQ = lazy(() => import('./Screens/MainScreens/OtherPages/FAQ'));
+
+
+const TermsandCondition = lazy(() => import('./Screens/MainScreens/OtherPages/TermsandCondition'));
+const PrivacyPolicy = lazy(() => import('./Screens/MainScreens/OtherPages/PrivacyPolicy'));
+const Desktop = lazy(() => import('./Screens/Desktop'));
+const License = lazy(() => import('./Screens/MainScreens/OtherPages/License'));
+const Blog = lazy(() => import('./Screens/MainScreens/OtherPages/Blog'));
+
+
+
+const UploadPage = lazy(() => import('./Screens/MainScreens/UploadAdd/UploadAdd'));
+const Trending = lazy(() => import('./Screens/MainScreens/OtherPages/Trending'));
+const Festivals = lazy(() => import('./Screens/MainScreens/OtherPages/Festivals'));
+const Register = lazy(() => import('./Screens/AuthScreens/Register'));
+
+
+
 import Profile from "./Screens/MainScreens/Profile/Profile";
 import EditOwnPageC from "./Screens/MainScreens/EditOwnPage/EditOwnPageC";
 
-import ForgotPass from "./Screens/AuthScreens/ForgotPassword";
-import VerifyOtp from "./Screens/AuthScreens/VerifyOtp";
-import ChangePassword from "./Screens/AuthScreens/ChangePassword,";
+
+const ForgotPass = lazy(() => import('./Screens/AuthScreens/ForgotPassword'));
+const VerifyOtp = lazy(() => import('./Screens/AuthScreens/VerifyOtp'));
+const ChangePassword = lazy(() => import('./Screens/AuthScreens/ChangePassword,'));
+
+
+import { ToastContainer } from "react-toastify";
 
 
 
@@ -55,7 +66,7 @@ function App() {
           <Route path="/Own Status"  element={<OwnStatus /> } />
           <Route path="/Edit Own Page" element={<EditOwnPage />} />
           <Route path="/Edit Own Page/:id" element={<EditOwnPageC />} />
-          <Route path="/Add Page" element={isLogin ? <AddPage /> : <Navigate to="/login" state={{ from: "Add Page", message: "Login is required" }}/>} />
+          {/* <Route path="/Add Page" element={isLogin ? <AddPage /> : <Navigate to="/login" state={{ from: "Add Page", message: "Login is required" }}/>} /> */}
           <Route path="/Profile" element={isLogin ? <Profile /> : <Navigate to="/login" state={{ from: "Profile", message: "Login is required" }}/>} />
 
           <Route path="/Add Page/:userNameParams" element={<AddPage />} />

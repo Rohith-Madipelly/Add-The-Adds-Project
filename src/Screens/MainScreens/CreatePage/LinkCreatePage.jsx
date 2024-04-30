@@ -134,14 +134,14 @@ function LinkCreatePage() {
                 <div>
                     {/* Live Links */}
                     <div className='mb-3'>
-                        <div className='flex justify-between w-[95%] mx-auto'>
+                        <div className='flex justify-between w-[95%]   mx-auto'>
                             <p className='my-1'>Live Links</p>
                             <p onClick={() => { addLinkToArray() }}>Add More Links</p>
                         </div>
                         {LiveLinkURLS.length > 0 ? (
                             LiveLinkURLS.map((link, index) => (
                                 <div >
-                                    <div key={index} className={`flex w-[95%]  mx-auto border-2 rounded-lg bg-white ${error ? 'bg-black' : 'bg-black'} h-[55px] mb-2`}>
+                                    <div key={index} className={`flex mx-auto w-[95%] border-2 rounded-lg bg-white ${error ? 'bg-black' : 'bg-black'} h-[55px] mb-2`}>
 
 
                                         <input
@@ -175,7 +175,7 @@ function LinkCreatePage() {
 
 
                                             required
-                                            className='border-none focus:outline-none focus:border-none w-full h-[50px]'
+                                            className='border-none focus:outline-none focus:border-none w-full h-[50px]  mx-auto'
                                         />
 
                                         <div>
@@ -220,7 +220,7 @@ function LinkCreatePage() {
                                 </div>
                             ))
                         ) : (
-                            <div className='flex w-[95%] border-2 rounded-lg bg-white h-[55px]'>
+                            <div className='flex w-[95%] border-2 rounded-lg bg-white h-[55px]  mx-auto'>
                                 <input
                                     name={`service-0`}
                                     type="text"
@@ -243,7 +243,7 @@ function LinkCreatePage() {
 
                     {/* General Links */}
                     <div className='mb-3'>
-                        <div className='flex justify-between w-[95%] mx-auto'>
+                        <div className='flex justify-between w-[95%]  mx-auto'>
                             <p className='my-1'>General Links</p>
                             <p onClick={() => { addsetGeneralLinkURLSToArray() }}>Add More Links</p>
                         </div>
@@ -285,7 +285,7 @@ function LinkCreatePage() {
                                 </div>
                             ))
                         ) : (
-                            <div className='flex w-[95%] border-2 rounded-lg bg-white h-[55px]'>
+                            <div className='flex w-[95%] border-2 rounded-lg bg-white h-[55px] mx-auto'>
                                 <input
                                     name={`service-0`}
                                     type="text"
@@ -308,7 +308,7 @@ function LinkCreatePage() {
 
                     {/* Channel Links */}
                     <div className='mb-3'>
-                        <div className='flex justify-between w-[95%] mx-auto'>
+                        <div className='flex justify-between w-[95%]  mx-auto'>
                             <p className='my-1'>Channel Links</p>
                             <p onClick={() => { addsetChanelLinkURLSToArray() }}>Add More Links</p>
                         </div>
@@ -350,7 +350,7 @@ function LinkCreatePage() {
                                 </div>
                             ))
                         ) : (
-                            <div className='flex w-[95%] border-2 rounded-lg bg-white h-[55px]'>
+                            <div className='flex w-[95%] border-2 rounded-lg bg-white h-[55px] mx-auto'>
                                 <input
                                     name={`service-0`}
                                     type="text"
