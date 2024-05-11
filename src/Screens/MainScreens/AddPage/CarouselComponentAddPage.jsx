@@ -71,6 +71,7 @@ function CarouselComponentAddPage({ userName }) {
 
                                 <iframe
                                     className='w-full h-full px-10 iframeResponsevi'
+                                    style={{height:400}}
                                     // src={data.headLink}
                                     src={`https://www.youtube.com/embed/${data.headerData.headLink}`}
                                     title="YouTube video player"
@@ -81,6 +82,7 @@ function CarouselComponentAddPage({ userName }) {
                                 ></iframe>
                             ) : (
                                 <img src={data.headLinkPic} className='px-10 h-[100%] w-full iframeResponsevi' alt="Image" />
+                               
                             )}
                         </div>
                     ))

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import "./SearchCSS.css";
-import { getTemplatesAPI } from "../../../utils/APIcall";
+import { getTemplatesAPI, searchAPI } from "../../../utils/APIcall";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -10,14 +10,11 @@ import { useNavigate } from "react-router-dom";
 
 const SearchF = () => {
   const [results, setResults] = useState([]);
+  const [additional, setAddtional] = useState([]);
   const [input, setInput] = useState("");
   const [toDisplay, setToDisplay] = useState();
   const navigate = useNavigate();
   const fetchData = async (value) => {
-
-  
-
-
     try {
       setToDisplay(true)
 
@@ -44,21 +41,50 @@ const SearchF = () => {
     }
 
 
-  };
+  }
+
+
+
+
+
+
+
+
+  const fetchUserData = async (value) => {
+    try {
+      const res = await searchAPI(value)
+
+      if(res)
+        {
+          const extractedPageNames = res.data.map(item => item.pageName);
+          setAddtional(extractedPageNames)
+          console.log(extractedPageNames)
+        }
+  
+
+
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
   const handleChange = (value) => {
     setInput(value);
     fetchData(value);
+
+    // useEffect(() => {
+    fetchUserData(value)
+    // }, [])
   };
 
-  const SearchResult = ({ result }) => {
-    console.log("searchRes", result)
-    if (result.length === 0) {
-      console.log("avunu anta ga")
+  const SearchResult = ({ result, api }) => {
+    console.log("searchRes", result, ">>>>", api)
+    
+    if (!result) {
+
       return (
         <div
           className="search-result"
-
         >
           No Data Found
         </div>
@@ -68,10 +94,11 @@ const SearchF = () => {
     return (
       <div
         className="search-result"
-        // onClick={() => alert(`You selected ${result.img_name}!`) }
-        onClick={() => { navigate(`/Edit Own Page/${result._id}`); }}
+        // onClick={() => { navigate(`/Edit Own Page/${result._id}`); }}
+        onClick={() => { navigate(`/Add Page/${result}`); }}
       >
-        {result.img_name}
+        {/* {result ? result.img_name : result}cars */}
+        {result}'s  Page
       </div>
     );
   };
@@ -89,27 +116,60 @@ const SearchF = () => {
         console.log("No data found");
         return (
           <div className="results-list h-[50px]">
-            <SearchResult result={results} />
+            <SearchResult result={results} api={additional} />
           </div>
         );
       }
+      // else if (additional.length === 0) {
+      //   console.log("No data found");
+      //   return (
+      //     <div className="results-list h-[50px]">
+      //       <SearchResult result={results} api={additional} />
+      //     </div>
+      //   );
+      // }
     }
 
 
     if (toDisplay) {
-    return (
-      <div className="results-list h-[135px]">
-        {results.map((result, id) => (
-          // console.log("RR",result.img_name)
-          <SearchResult result={result} key={id} />
-        ))}
-      </div>
-    );
-  }
+      return (
+        <div className="results-list h-[135px]">
+          {results.map((result, id) => (
+            // console.log("RR",result.img_name)
+            <SearchResult result={result} key={id} />
+          ))}
+        </div>
+      );
+    }
   };
 
 
+  const SearchResultsListforAPi = ({ results }) => {
+    console.log("madam pai a>>>>>>>>>>>>>>>>>>>>>>", results)
+    if (toDisplay) {
+      if (results.length === 0) {
+        console.log("No data found");
+        return (
+          <div className="results-list h-[50px]">
+            <SearchResult api={results} />
+          </div>
+        );
+      }
 
+    }
+
+
+    if (toDisplay) {
+      return (
+        <div className="results-list h-[135px]">
+          {results.map((result, id) => (
+            // console.log("RR",result.img_name)
+            <SearchResult result={result} key={id} />
+          ))}
+        </div>
+      );
+    }
+  };
 
   return (
 
@@ -117,13 +177,15 @@ const SearchF = () => {
       <div className="input-wrapper">
         <FaSearch id="search-icon" />
         <input
-          placeholder="Type to search..."
+          placeholder="Search here for users page"
           value={input}
           onChange={(e) => handleChange(e.target.value)}
           className="ms-2"
         />
       </div>
-      {results && <SearchResultsList results={results} />}
+      {/* {results && <SearchResultsList results={results} />} */}
+      {additional && <SearchResultsListforAPi results={additional} />}
+
       {/* {results && results.length > 0 ?<SearchResultsListNODATA />:""} */}
     </div>
 

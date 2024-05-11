@@ -7,10 +7,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { setToken } from "../../redux/actions/loginAction";
 import { CgProfile } from "react-icons/cg";
 
+import '../../Screens/MainScreens/CreatePage/Carousel.css'
+
+import Logo from './../../assets/Logo.png'
+
 const NavBar = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const loginSelector = useSelector((state) => state.isLogin);
+  const userName = useSelector((state) => state.userName);
   console.log("Hello user Token is ", loginSelector);
   const PageName =
     location.pathname === "/" ||
@@ -64,7 +69,16 @@ const NavBar = () => {
           className={`cursor-pointer sm:text-lg  ${PageName ? "text-black" : "text-white"
             }  !text-black-900 text-xl !font-balootamma text-white-A700 font-dmsans text-white-A700 font-dmsans w-[40%] sm:w-[70%] !text-black-900  !font-balootamma font-bold ps-1`}
         >
-          <Link to={"/"} className="inline"><div className="inline flex" style={{ textAlign: 'center' }}><img src="images\Logo.png" alt="React Image"  style={{ marginTop: 5, marginLeft: 30,width:45 }} /> <p className="m-3">Add The Adds.com</p></div></Link>
+          <Link to={"/"} className="inline w-100"><div className="inline flex" style={{ textAlign: 'center' }}>
+            <img src={Logo} alt="logo" style={{
+              width: 45, marginTop: 5, marginLeft: 30, 
+              '@media (min-width: 730px)': {
+                marginTop: 25, // Adjust as needed
+                // Additional styles for smaller screens
+              }
+            }} className="logoCss" />
+            {/* <p className="m-3">Add The Adds.com</p> */}
+            </div></Link>
 
         </h2>
         <div className="flex justify-end  gap-0 ">
@@ -144,7 +158,7 @@ const NavBar = () => {
                           href="Add Page"
                           className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                         >
-                          Add Page
+                        {userName?`${userName} Page`:"My Page"}
                         </a>
                       </li>
 

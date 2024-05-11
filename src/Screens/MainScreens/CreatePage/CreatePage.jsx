@@ -252,10 +252,10 @@ function CreatePage() {
 
 
   return (
-    <div className='new_Page_GroundImage'>
+    <div className=' w-full   new_Page_GroundImage'>
       <div className='h-[70px]'></div>
 
-      <div className='w-full  py-3'>
+      {/* <div className='w-full  py-3'> */}
 
         <div className='grid grid-cols-12 sm:px-1'>
           <div className='col-span-12 sm:col-span-12'>
@@ -266,7 +266,7 @@ function CreatePage() {
 
 
         <div className=' flex justify-center'>
-          <div className='2xl-w-[60%] mdl-w-[80%] sm:w-[150%]'>
+          <div className='w-[60%] mdl-w-[70%]  sm:w-[160%] h-[450px] sm:h-[350px]'>
 
             {/* Carsousel Section */}
             <CarouselComponent data={Data} />
@@ -310,13 +310,13 @@ function CreatePage() {
         </div>
 
         {/* section 3 */}
-        <div className='flex justify-center'><p>Add Your Links</p></div>
+        <div className='flex justify-center mt-5'><p>Add Your Links</p></div>
         <div className='my-5 flex justify-center item-center'>
           <div className='w-[60%] sm:w-[90%]'>
             <LinkCreatePage />
           </div>
         </div>
-      </div>
+      {/* </div> */}
     </div>
   )
 }

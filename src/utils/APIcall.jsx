@@ -169,7 +169,6 @@ export const AddLinkAPI = async (token, LinkName, LinkURL) => {
   return await axios.post(`${BASE_URL}/user/createpage`, DeletableLink, {
     headers: { Authorization: "Bearer " + token }
   });
-  // return 0
 };
 
 
@@ -241,5 +240,18 @@ export const AdduserspageAPI = async (token, UserName) => {
     return await axios.post(`${BASE_URL}/user/adduserspage`, reqData, {
       headers: { Authorization: "Bearer " + token }
     });
+  
+  };
+
+
+
+  // search Funcational 
+
+export const searchAPI = async (keyword) => {
+
+ const params={
+  keyword:keyword
+ }
+    return await axios.get(`${BASE_URL}/search`,{params:params});
   
   };

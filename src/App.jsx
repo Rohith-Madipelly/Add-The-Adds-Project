@@ -48,6 +48,7 @@ import { ToastContainer } from "react-toastify";
 
 
 import ShareButton from "./Screens/TestingScreens/ShareButton";
+import PaymentTest from "./Components/Razorpay/PaymentTest";
 
 const Loader = lazy(() => import("./shared/Loaders/Loader1"));
 const LoadingFallback = () => <Loader />;
@@ -60,7 +61,8 @@ function App() {
       <ToastContainer />
       <Suspense fallback={<LoadingFallback />}>
         <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/PaymentTest" element={<PaymentTest />} />
+          <Route path="/" element={<Home />} />
           <Route path="/Home" element={<Home />} />
           {/* <Route path="/Own Status"  element={isLogin ? <OwnStatus /> : <Navigate to="/login" state={{ from: "Own Status", message: "Login is required" }}/>} /> */}
           <Route path="/Own Status"  element={<OwnStatus /> } />

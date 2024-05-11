@@ -1,9 +1,15 @@
-
+ 
 
 /* styles.scss */
 .iframeResponsevi {
-    height: 350px;
+    /* height: 350px; */
+    height: 700px;
     margin: 0 auto;
+}
+
+.logoCss{
+    /* height: , */
+    width:10px,
 }
 
 
@@ -14,7 +20,11 @@
 
 @media (max-width: 768px) {
     .iframeResponsevi {
-        height: 30vh;
+        height: 100%;
+    }
+    .logoCss{
+        /* height: , */
+        width:0.9rem,
     }
 
     .Carousel-wapper {

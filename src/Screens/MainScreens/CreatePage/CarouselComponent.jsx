@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { ProfileAPI } from '../../../utils/APIcall';
 import './Carousel.css'
 
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
@@ -27,7 +28,7 @@ function CarouselComponent() {
     }, [])
 
     return (
-        <div className="Carousel-wapper d-flex justify-center">
+        <div className="Carousel-wapper h-[90%] w-[100%] d-flex justify-center mx-auto overflow-hidden">
             <Carousel className='d-flex justify-center carousel-arrow '
                 slideInterval={500000}
                 pauseOnHover
@@ -42,19 +43,20 @@ function CarouselComponent() {
 
 
                 {Data.length === 0 ? (
-                    <div className='justify-center h-full w-full bg-black '>
-                        <div class="flex justify-center items-center h-full w-full bg-black text-white">
+                    <div className='justify-center h-full'>
+                        <div className="flex justify-center items-center h-[80%] w-[70%] bg-black text-white mx-auto">
                             <p>No Data Uploaded</p>
                         </div>
                     </div>
                 ) : (
                     Data.map((data, index) => (
-                        <div key={index} className='d-flex justify-center items-center '>
+                        <div key={index} className='d-flex justify-center items-center'>
 
                             {!data.status ? (
 
-                                <iframe className="w-[80%] iframeResponsevi"
+                                <iframe className="w-full h-full px-10 iframeResponsevi"
                                     // src={data.headLink}
+                                    style={{height:400}}
                                     src={`https://www.youtube.com/embed/${data.headLink}`}
                                     title="YouTube video player"
                                     frameborder="0"
@@ -63,8 +65,10 @@ function CarouselComponent() {
                                     allowfullscreen
                                 ></iframe>
                             ) : (
-                                <img src={data.headLinkPic} className='w-[80%] iframeResponsevi' alt="Image"  />
-                            )}
+                                <div>
+                                    <img src={data.headLinkPic} className='px-10 iframeResponsevi object-contain ' alt="Image" />
+                                </div>
+                           )}
                         </div>
 
                     ))
@@ -77,6 +81,8 @@ function CarouselComponent() {
 
 
             </Carousel>
+
+           
         </div>
     )
 }

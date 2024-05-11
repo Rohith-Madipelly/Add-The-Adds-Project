@@ -32,7 +32,8 @@ const Login = () => {
       console.log("Value vachaya",values);
       const res = await UserRegisterAPI(values);
       showToastMessage_success(res.data.message);
-      dispatch(setToken(res.data.token));
+      // dispatch(setToken(res.data.token));
+      dispatch(setToken(res.data.token, res.data.username));
       navigate("/");
       console.log(res);
     } catch (error) {
@@ -97,7 +98,7 @@ const Login = () => {
       email: "",
       password: "",
       confirmPassword: "",
-      pagename: "",
+      // pagename: "",
     },
     validationSchema: signUpValidationSchema,
     onSubmit,
@@ -186,7 +187,7 @@ const Login = () => {
                   htmlFor="username"
                   className="block mb-1 text-sm font-medium text-gray-900"
                 >
-                  User name<span className="text-red-600">*</span>
+                  Username<span className="text-red-600">*</span>
                 </label>
                 <input
                   value={values.username}
@@ -371,12 +372,14 @@ const Login = () => {
                   )}
                 </div>
               </div>
-              <div>
+
+
+              {/* <div>
                 <label
                   htmlFor="pagename"
                   className="block mb-1 text-sm font-medium text-gray-900"
                 >
-                  Create Page Name<span className="text-red-600">*</span>
+                  Create page name<span className="text-red-600">*</span>
                 </label>
                 <input
                   value={values.pagename}
@@ -388,14 +391,14 @@ const Login = () => {
                   className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  ${
                     errors.pagename && touched.pagename ? "border-red-500" : ""
                   }`}
-                  placeholder="Page Name"
+                  placeholder="Page name"
                 />
                 {errors.pagename && touched.pagename && (
                   <small className="text-red-500 leading-0">
                     {errors.pagename}
                   </small>
                 )}
-              </div>
+              </div> */}
               <div className="pt-2">
                 <button
                   type="submit"

@@ -10,10 +10,10 @@ export const signUpValidationSchema = Yup.object({
     .max(25, "Must not exceed 25 characters")
     .required("Username is required"),
 
-  pagename: Yup.string()
-    .min(4, "Must be at least 4 characters")
-    .max(25, "Must not exceed 25 characters")
-    .required("Page name is required"),
+  // pagename: Yup.string()
+    // .min(4, "Must be at least 4 characters")
+    // .max(25, "Must not exceed 25 characters")
+    // .required("Page name is required"),
 
   email: Yup.string()
     .email()

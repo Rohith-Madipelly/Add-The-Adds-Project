@@ -4,22 +4,25 @@ import { Link } from 'react-router-dom'
 
 function Servicecards() {
     const userName = useSelector((state) => state.userName);
-    console.log(userName); // undefined
+    console.log("userName>>>",userName); // undefined
     var userNameData;
-    if(userName==='undefined')
-    {
-        userNameData="View Page"
-    }else{
+    if (userName === 'undefined') {
+        userNameData = "View Page"
+    } else {
 
-        userNameData=userName
+        userNameData = userName
     }
-    
+
     let tryOptions = [
         { name: "Own Status", imageLink: "images/img_rectangle_2.png", routes: "Own Status" },
         { name: "Create Page", imageLink: "images/img_rectangle_6.png", routes: "Create Page" },
         // Check if userName is exactly "undefined's" before including `${userName}'s`
-        ...(userName === "undefined's" ? [] : [{ name: `${userNameData}'s`, imageLink: "images/img_rectangle_7.png", routes: `Add Page/${userName}` }]),
-        { name: "Upload Ads", imageLink: "images/img_rectangle_8.png", routes: "Upload Ads" },
+        // ...(userName === "undefined's" ?
+        //     [{ name: `userPage's`, imageLink: "images/img_rectangle_7.png", routes: `Add Page/${userName}` }]
+        //     :
+        //     [{ name: `${userNameData}'s`, imageLink: "images/img_rectangle_7.png", routes: `Add Page/${userName}` }]),
+
+        // { name: "Upload Ads", imageLink: "images/img_rectangle_8.png", routes: "Upload Ads" },
     ];
 
     return (
@@ -46,6 +49,36 @@ function Servicecards() {
                             </Link>
                         ))
                     }
+
+                    <Link to={userName ? `/Add Page/${userName}` : "/login"} className='w-[97%] '>
+                        <div className="relative h-auto sm:h-[110px]">
+                            <img
+                                src={'images/img_rectangle_7.png'}
+                                alt="own_status_one"
+                                className="absolute top-0 left-0 w-full h-full object-cover rounded-[21px]"
+                            />
+                            <div className="relative flex justify-center w-full h-full px-0 py-[72px] sm:py-[50px] bg-gray-800_33 rounded-[21px]">
+                                <h5 as="h2" className="z-10 relative tracking-[1.00px] italic text-white">
+                                    {userName? userName.charAt(0).toUpperCase() + userName.slice(1):"My Page"}
+                                </h5>
+                            </div>
+                        </div>
+                    </Link>
+
+                    <Link to={`/Upload Ads`} className='w-[97%] '>
+                        <div className="relative h-auto sm:h-[110px]">
+                            <img
+                                src={'images/img_rectangle_8.png'}
+                                alt="own_status_one"
+                                className="absolute top-0 left-0 w-full h-full object-cover rounded-[21px]"
+                            />
+                            <div className="relative flex justify-center w-full h-full px-0 py-[72px] sm:py-[50px] bg-gray-800_33 rounded-[21px]">
+                                <h5 as="h2" className="z-10 relative tracking-[1.00px] italic text-white">
+                                Upload Ads
+                                </h5>
+                            </div>
+                        </div>
+                    </Link>
                 </div>
 
 

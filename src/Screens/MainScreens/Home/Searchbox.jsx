@@ -13,7 +13,7 @@ function Searchbox() {
             />
             <input
               name="search"
-              placeholder="Search here"
+              placeholder="Search here for users page"
               // value={searchBarValue}
               // onChange={(e) => setSearchBarValue(e)}
               suffix={

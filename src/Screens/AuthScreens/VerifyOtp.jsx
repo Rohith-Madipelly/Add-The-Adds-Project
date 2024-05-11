@@ -131,7 +131,7 @@ const VerifyOtp = () => {
                 className={`w-full text-white  rounded-lg px-5 py-2.5 text-center
                 bg-[#1A56DB] ${isSubmitting ? "opacity-35" : ""}`}
               >
-                {isSubmitting ? "verifying..." : "verify"}
+                {isSubmitting ? "Verifying..." : "Verify"}
               </button>
               {serverErr && (
                 <small className="text-red-500 mt-1">{serverErr}</small>

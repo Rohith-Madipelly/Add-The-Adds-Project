@@ -5,10 +5,12 @@ import { useSelector } from 'react-redux';
 import { IoAddCircleSharp } from 'react-icons/io5';
 import { FaUpload } from "react-icons/fa";
 import { showToastMessage_error, showToastMessage_success } from '../../../shared/Toaster';
-
+import imge from '../../../assets/Rectangle 545.png'
+import { Link } from 'react-router-dom';
 function LinkCreatePage() {
 
     const token = useSelector((state) => state.token);
+    const userName = useSelector((state) => state.userName);
     const [LiveLinkURLS, setLiveLinkURLS] = useState([""])
     const [GeneralLinkURLS, setGeneralLinkURLS] = useState([""])
     const [ChanelLinkURLS, setChanelLinkURLS] = useState([""])
@@ -51,7 +53,7 @@ function LinkCreatePage() {
 
 
         setGeneralLinkURLS(LINK.general_links)
-        console.log("><<",LINK.general_links)
+        console.log("><<", LINK.general_links)
 
         setChanelLinkURLS(LINK.chanel_links)
         console.log(ChanelLinkURLS)
@@ -78,7 +80,7 @@ function LinkCreatePage() {
     }
 
     const AddLinkCaller = async (LinkName, LinkURL) => {
-        
+
         if (LinkURL) {
 
             const res = await AddLinkAPI(token, LinkName, LinkURL)
@@ -318,7 +320,7 @@ function LinkCreatePage() {
                                     <div key={index} className={`flex w-[95%] mx-auto border-2 rounded-lg bg-white ${error ? 'bg-black' : 'bg-black'} h-[55px] mb-2`}>
                                         <input
                                             name={`service-${index}`}
-                                            placeholder='Add Channel Like Here'
+                                            placeholder='Add Channel Link Here'
 
                                             type="text"
                                             id={`service-${index}`}
@@ -355,7 +357,7 @@ function LinkCreatePage() {
                                     name={`service-0`}
                                     type="text"
                                     id={`service-0`}
-                                    placeholder='Add Channel Like Here'
+                                    placeholder='Add Channel Link Here'
 
                                     value=""
                                     onChange={(e) => {
@@ -368,6 +370,28 @@ function LinkCreatePage() {
                                 />
                             </div>
                         )}
+                        <p className='text-red-500'>{error}</p>
+                    </div>
+
+
+
+                    {/* User Page Link */}
+                    <div className='mb-3'>
+                        <div className='flex justify-between w-[95%]  mx-auto'>
+                            <p className='my-1'>User Page Link</p>
+                        </div >
+
+                        <div className='flex justify-between w-[95%]  mx-auto'>
+                            <div className='w-[45%]  h-[140px] rounded-2xl'>
+                                <img src={imge} alt="cs" className='w-full h-full object-cover rounded-2xl' />
+                            </div>
+                            <div className='w-[45%] h-[140px] rounded-2xl bg-white flex justify-center items-center'>
+                          
+                            <Link to={`https://addtheadd.com/Add Page/${userName}`}>https://addtheadd.com/Add Page/{userName}</Link>
+                            </div>
+
+                        </div>
+
                         <p className='text-red-500'>{error}</p>
                     </div>
                 </div>
