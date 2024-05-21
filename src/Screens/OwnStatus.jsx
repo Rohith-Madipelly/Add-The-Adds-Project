@@ -21,8 +21,8 @@ import { showToastMessage_error, showToastMessage_warn } from '../shared/Toaster
 import CopyToClipBoard from '../utils/CopyToClipBoard';
 import Loading from '../utils/Loadings/Loading';
 import { setToken } from '../redux/actions/loginAction';
-
 import { useDispatch} from 'react-redux';
+import axios from 'axios';
 function OwnStatus() {
     const [Data, setData] = useState([])
     const token = useSelector((state) => state.token);
@@ -83,7 +83,19 @@ function OwnStatus() {
     useEffect(() => {
         APICaller()
     }, [])
-
+//     const getImage = async () => {
+//         try {
+//           const response = await axios.get('https://admin.addtheadd.com/user/allcanvas');
+//           const data = response.data;
+//           console.log(data); 
+//         } catch (error) {
+//           console.log("canvaImage", error);
+//         }
+//     }
+      
+// useEffect(()=>{
+// getImage()
+// },[])
 
     if (loading) {
         return <Loading/>
@@ -100,7 +112,7 @@ function OwnStatus() {
             <div className='OwnStatusImageBackgound  pt-5 px-[100px] sm:px-5 '>
                 <div className='flex '>
                     <div className='w-[35%]'>
-                        <Button className='my-4 bg-blue-800' as={Link} to={'/Edit Own Page'}>Own Status</Button>
+                        <Button className='my-4 bg-blue-800' as={Link} to={'/EditPage'}>Own Status</Button>
                         {/* <Button className='my-4 bg-blue-800'>Ready for themes</Button> */}
                     </div>
 

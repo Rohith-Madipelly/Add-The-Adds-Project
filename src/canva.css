@@ -1,0 +1,279 @@
+
+
+.container-canva {
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    gap: 90px;
+    /* margin-top: 50px; */
+    /* margin-top: 10%; */
+    /* margin: 0 auto; */
+  }
+  
+  .sidebar {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    /* padding: 20px; */
+    gap:20px;
+        width: 5%;
+        border-radius: 5px;
+    /* height: 100%; */
+    /* margin: 20px; */
+  }
+  .sidebar button{
+    max-width: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .sidebar p{
+    font-size: 12px;
+    margin-top: -20px;
+  }
+
+  button{
+    color: white;
+  }
+  
+  .sample-canvas {
+    margin-top: 50px;
+    border: 1px solid #ccc;
+    width: 493px;
+    height: 422px;
+    max-width:100%;
+    max-height: 100%;
+    border-radius: 5px;
+    box-shadow: 0 0px 2px rgba(0, 0, 0, 0.673);
+    /* width: 800px; */
+    /* height: 500px; */
+  }
+  button.active {
+    border: 2px solid blue;
+    border-radius: 5%;
+}
+
+.saveButton{
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    padding: 50px;
+}
+.saveButton button{
+    background-color: blueviolet;
+    margin-right: 20px;
+    padding: 8px;
+    border-radius: 5px;
+/* color: black; */
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.673);
+}
+
+
+.layerName{
+    margin-top: 50px;
+    max-width: 100%;
+    width: 10%;
+    margin-bottom: 5px;
+}
+.layerName button{
+    color: black;
+}
+.binimg{
+    width: 15px;
+    margin-left: 5px;
+}
+.layerName {
+  padding: 10px;
+  background-color: transparent;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  max-height: 420px; 
+  overflow-y: auto; /* Enable vertical scrolling */
+  border-radius: 5px;
+}
+/* Optional: Customize the scrollbar for better visibility */
+.layerName::-webkit-scrollbar {
+  width: 2px;
+}
+.layerName::-webkit-scrollbar:hover {
+  width: 8px;
+}
+
+.layerName::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.layerName::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.layerName::-webkit-scrollbar-thumb:hover {
+
+  background: #555;
+}
+
+.layerName h3 {
+  font-family: Arial, sans-serif;
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.layerName div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.layerName button {
+  padding: 5px 5px;
+  border: none;
+  border-radius: 3px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  font-size: 0.9em;
+}
+
+.layerName button.active {
+  background-color: #0056b3;
+}
+
+.layerName button img.binimg {
+  width: 16px;
+  height: 16px;
+}
+
+.layerName button:hover {
+  background-color: #0056b3;
+}
+
+.layerName button img.binimg:hover {
+  filter: brightness(0.8);
+}
+
+.container-head{
+  background-color: #444343d4;
+  color: white;
+  padding: 10px;
+ margin: 0 20%;
+ border-radius: 20px;
+  /* box-shadow: 0 0px 2px rgba(246, 246, 246, 0.673); */
+}
+.textColor{
+  display: flex;
+  gap: 20px;
+  font-size: 12px;
+  align-items: center;
+  justify-content: center;
+  /* color: white; */
+}
+.textColor input{
+  background-color: #5b5656d4;
+}
+.num{
+  width: 70px;
+  font-size: 14px;
+  background-color: transparent;
+  height: 30px;
+  /* background-color: #3d2a2a; */
+  /* color: white; */
+  border-bottom: 2px solid white ;
+  background-color: #5b5656d4;
+   transition: border-color 0.3s;
+   border: none;
+   --tw-shadow: none;
+   margin-top: 2px;
+
+}
+.textColor select{
+  font-size: 14px;
+  background-color: transparent;
+  border: none;
+  /* background-color: #3d2a2a; */
+  /* color: white; */
+  border-bottom: 2px solid white ;
+  background-color: #5b5656d4;
+  transition: border-color 0.3s;
+  border: none;
+  --tw-shadow: none;
+  height: 35px;
+  margin-top: 2px;
+
+}
+
+.inputColor{
+  margin-top: 8px;
+}
+
+@media (max-width:700px) {
+  .container-canva{
+    display: flex;
+    flex-direction: column;
+    /* position: relative; */
+    gap: 10px;
+  }
+  .container-head{
+    padding: 10px;
+   margin: 0 2%;
+  }
+  .textColor{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .sample-canvas {
+    margin: 15px;
+    width: 360px;
+    height: 322px;
+    max-width:100%;
+    max-height: 100%;
+    /* width: 800px; */
+    /* height: 500px; */
+  }
+  .sidebar{
+    /* position: absolute;
+    bottom: 140px; */
+    display: flex;
+    flex-direction: row;
+    max-width: 100%;
+    width: 96vw;
+    margin: 0 2%;
+    margin-top: 15px;
+  }
+  .sidebar p{
+    display: none;
+  }
+  .layerName{
+    width: 92vw;
+    margin-top: 5px;
+    margin-left: 15px;
+    max-height: 220px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.673);
+  }
+  .layerName div {
+    display: flex;
+    align-items: left;
+    justify-content:left;
+    margin-bottom: 10px;
+    gap: 20px;
+  }
+  .saveButton{
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    padding: 10px;
+    margin: 3% auto;
+}
+.saveButton button{
+    background-color: blueviolet;
+    margin-right: 20px;
+    padding: 8px;
+}
+}

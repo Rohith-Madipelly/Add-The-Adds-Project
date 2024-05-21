@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 
 const Login = lazy(() => import('./Screens/AuthScreens/Login'));
 const Home = lazy(() => import('./Screens/MainScreens/Home/Home'));
+const EditPage =lazy(()=> import('./EditPage'))
 const OwnStatus = lazy(() => import('./Screens/OwnStatus'));
 const EditOwnPage = lazy(() => import('./Screens/MainScreens/EditOwnPage/EditOwnPage'));
 const AddPage = lazy(() => import('./Screens/MainScreens/AddPage'));
@@ -89,6 +90,8 @@ function App() {
           <Route path="/License" element={<License />} />
           <Route path="/Services" element={<Services />} />
           <Route path="/Contact us" element={<ContactUs />} />
+          <Route path="/EditPage" element={<EditPage/>}/>
+
           <Route path="/FAQ" element={<FAQ />} />
           <Route path="/Terms of use" element={<TermsandCondition />} />
           <Route path="/Privacy Policy" element={<PrivacyPolicy />} />
