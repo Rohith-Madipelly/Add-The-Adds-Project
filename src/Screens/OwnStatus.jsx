@@ -23,6 +23,7 @@ import Loading from '../utils/Loadings/Loading';
 import { setToken } from '../redux/actions/loginAction';
 import { useDispatch} from 'react-redux';
 import axios from 'axios';
+
 function OwnStatus() {
     const [Data, setData] = useState([])
     const token = useSelector((state) => state.token);
@@ -34,6 +35,7 @@ function OwnStatus() {
     // Create array with 500 slides
     const dispatch = useDispatch();
     const location = useLocation();
+    const [imageData,setImageData]=useState([])
 
     // Check if there's a state with a message
     if (location.state && location.state.message) {
@@ -83,19 +85,20 @@ function OwnStatus() {
     useEffect(() => {
         APICaller()
     }, [])
-//     const getImage = async () => {
-//         try {
-//           const response = await axios.get('https://admin.addtheadd.com/user/allcanvas');
-//           const data = response.data;
-//           console.log(data); 
-//         } catch (error) {
-//           console.log("canvaImage", error);
-//         }
-//     }
+    const getImage = async () => {
+        try {
+          const response = await axios.get('https://admin.addtheadd.com/allcanvas');
+          const data = response.data;
+          setImageData(data.data)
+          console.log(imageData); 
+        } catch (error) {
+          console.log("canvaImage", error);
+        }
+    }
       
-// useEffect(()=>{
-// getImage()
-// },[])
+useEffect(()=>{
+getImage()
+},[])
 
     if (loading) {
         return <Loading/>
@@ -181,6 +184,24 @@ function OwnStatus() {
                             </SwiperSlide>
                         ))}
                     </Swiper> : ""}
+
+                    { imageData.map((eachObject)=>{
+                        console.log("each",eachObject);
+                        const{_id,image}=eachObject
+                        return(
+                            <SwiperSlide key={_id} className="z-40 h-full sm:flex sm:items-center sm:justify-center ">
+                                <Link to={`/EditPage/${_id}`}>
+                                {/* <Link to={{ pathname: '/Edit Own Page' }} state={{ slideContent }}> */}
+                                    {/* {console.log("Data ",slideContent)} */}
+                                    <img src={`https://admin.addtheadd.com${image}`} className='w-full h-[364px] w-[327px] sm:h-[204px] m-0 p-0 object-cover' />
+                                {/* </Link> */}
+                                </Link>
+                            </SwiperSlide>
+                        )
+                        
+                    })
+
+                    }
 
                 </div>
 

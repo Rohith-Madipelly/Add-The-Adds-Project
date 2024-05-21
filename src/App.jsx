@@ -91,6 +91,7 @@ function App() {
           <Route path="/Services" element={<Services />} />
           <Route path="/Contact us" element={<ContactUs />} />
           <Route path="/EditPage" element={<EditPage/>}/>
+          <Route path="/EditPage/:id" element={<EditPage/>} />
 
           <Route path="/FAQ" element={<FAQ />} />
           <Route path="/Terms of use" element={<TermsandCondition />} />

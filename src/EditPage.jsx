@@ -180,6 +180,12 @@ function EditPage() {
         if (canvasElement) {
             const dataURL = canvasElement.toDataURL('image/jpeg', 0.8);
             const blob = dataURLToBlob(dataURL);
+            const link = document.createElement('a');
+                  link.href = dataURL;
+                  link.download = 'canvas.jpg';
+                  document.body.appendChild(link);
+                  link.click();
+                  document.body.removeChild(link);
             setFormCanva((prevFormCanva) => {
                 const updatedFormCanva = { ...prevFormCanva, imageBlob: blob };
                 console.log("canvadata", updatedFormCanva);
