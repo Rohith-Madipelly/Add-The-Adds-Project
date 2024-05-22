@@ -57,6 +57,8 @@ const LoadingFallback = () => <Loader />;
 
 function App() {
   const isLogin = useSelector((state) => state.isLogin);
+  const isAdmin = useSelector((state) => state.isAdmin);
+  console.log("isAdmin",isAdmin);
 
   return (
     <div>

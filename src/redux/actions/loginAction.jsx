@@ -1,6 +1,6 @@
-export const setToken = (token,userName) => {
+export const setToken = (token,userName,isAdmin) => {
 
-  return { type: "SET_TOKEN", token,userName };
+  return { type: "SET_TOKEN", token,userName,isAdmin };
 };
 
 

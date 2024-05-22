@@ -1,10 +1,12 @@
 
 const token = localStorage.getItem("token");
 const userName = localStorage.getItem("userName");
+const isAdmin = localStorage.getItem("userName");
 const initialState = {
   token: token || "",
   isLogin: token ? true : false,
   userName:userName ||"",
+  isAdmin:isAdmin||""
 };
 
 const loginReducer = (state = initialState, action) => {
@@ -14,12 +16,14 @@ const loginReducer = (state = initialState, action) => {
       {// sessionStorage.setItem("token", action.token);
       localStorage.setItem('token', action.token);
       localStorage.setItem('userName', action.userName);
+      localStorage.setItem('isAdmin', action.isAdmin);
       }
       return {
         ...state,
         token: action.token,
         isLogin: action.token ? true : false,
         userName: action.userName,
+        isAdmin: action.isAdmin,
       };
     default:
       return state;

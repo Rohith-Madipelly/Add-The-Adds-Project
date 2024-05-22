@@ -16,6 +16,7 @@ import {
   showToastMessage_success,
   showToastMessage_warn,
 } from "../../shared/Toaster.jsx";
+import { Alert } from "flowbite-react";
 // import Loader2 from "../../shared/Loaders/Loader2.jsx";
 
 const Login = () => {
@@ -62,9 +63,13 @@ const Login = () => {
         showToastMessage_success(res.data.message);
         setEmailOrPhoneApiErr("");
         setPasswordApiErr("");
-        dispatch(setToken(res.data.token, res.data.userName));
+        dispatch(setToken(res.data.token, res.data.userName,res.data.isAdmin));
+        
+       
+
         setTimeout(() => {
           navigate("/");
+         
         }, 200);
       } else {
       }
