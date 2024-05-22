@@ -4,12 +4,27 @@ import { RAZORPAY_KEY, RAZORPAY_URL } from "../../Enviornment";
 import { useNavigate } from "react-router-dom";
 import { Button } from 'flowbite-react';
 import { createOrder, verifySignatureApi } from '../../utils/APIcall';
+import { PaymentResModal } from './PaymentScreens/PaymentResModal';
 // import { verifySignatureApi, createOrder } from '../../Services/ApiCalls'
 
 const PaymentScreen = ({ planId }) => {
 
-  const navigate = useNavigate();
+
   const [formError, setFormError] = useState("");
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalTitle, setModalTitle] = useState('');
+  const [modalText, setModalText] = useState('');
+  const [routeTo, setRouteTo] = useState('');
+  const navigate = useNavigate();
+  const openModal = (title, text,route) => {
+    setModalTitle(title);
+    setModalText(text);
+    setIsModalOpen(true);
+    setRouteTo(route)
+  };
+
+  const closeModal = () => setIsModalOpen(false);
 
 
   //Script to Load Payment 
@@ -31,7 +46,7 @@ const PaymentScreen = ({ planId }) => {
 
   //Method to call Razorpay method
   const payMoney = async (planId) => {
-    console.log("Paying money",planId)
+   
     try {
       const res = await loadScript(RAZORPAY_URL);
       if (!res) {
@@ -45,14 +60,15 @@ const PaymentScreen = ({ planId }) => {
       //api call or CreateOrder
       const order = await createOrder(planId, token);
 
+
       if (order?.data) {
         console.log("sdf", order.data.order.id)
         const options = {
           key: RAZORPAY_KEY,
           amount: order.data.order.amount,
           currency: "INR",
-          name: "Ezewin",
-          description: `Transaction for Ezewin`,
+          name: "Addtheads",
+          description: `Transaction for addtheads`,
           // image: '../../../public/Logo4.png',
           order_id: order.data.order.id,
 
@@ -122,6 +138,8 @@ const PaymentScreen = ({ planId }) => {
         setTimeout(() => {
           // console.error("sjdfjhvsahjfvjh>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
           // navigate('/Profile');
+          openModal('Payment Successful', 'Your payment has been processed successfully.','/')
+
         }, 2000);
       }
     } catch (error) {
@@ -129,6 +147,7 @@ const PaymentScreen = ({ planId }) => {
       setFormError("Something went wrong.");
       setTimeout(() => {
       //   navigate('/PaymentFailed');
+      openModal('Payment Failed', 'Your payment was Failed, Please try again.','/Upload ads')
       }, 2000);
     }
   };
@@ -136,6 +155,34 @@ const PaymentScreen = ({ planId }) => {
   return (
     <div>
         <Button data-bs-dismiss="modal" onClick={() => payMoney({ planId })}><b>Add Now </b></Button>
+        <PaymentResModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        classNames={{
+          overlay: 'custom-overlay',
+          modal: 'custom-modal',
+          closeButton: 'custom-close-button',
+          title: 'custom-title',
+          content: 'custom-content',
+        }}
+        title={modalTitle}
+      >
+        <p>{modalText}</p>
+        <div className="flex justify-end">
+          <button
+            className="px-4 py-2 mr-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none"
+            onClick={()=>{navigate(`${routeTo}`);}}
+          >
+            OK
+          </button>
+          <button
+            className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 focus:outline-none"
+            onClick={closeModal}
+          >
+            Cancel
+          </button>
+        </div>
+      </PaymentResModal>
     </div>
   )
 }

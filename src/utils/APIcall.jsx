@@ -262,8 +262,6 @@ export const searchAPI = async (keyword) => {
 // Done with Testing  Create OrderAPI 
 export const createOrder = async (planId,token) => {
 
-  console.log("At Api call ",planId)
-
   return await axios.post(`${BASE_URL}/user/creteorder`, {planId: '663e1c1f0f1d760d448eeefe'}, {
     headers: { Authorization: "Bearer " + token }
   }
@@ -271,6 +269,16 @@ export const createOrder = async (planId,token) => {
 
 };
 
+
+// Done with Testing  Create OrderAPI 
+export const createOrder123 = async (planId,token) => {
+
+  return await axios.post(`${BASE_URL}/user/creteorder`, {planId}, {
+    headers: { Authorization: "Bearer " + token }
+  }
+)
+
+};
 
 
 

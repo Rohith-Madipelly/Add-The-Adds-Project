@@ -286,7 +286,7 @@ function UploadPage() {
 
                     </div>
                     <div className='flex justify-center'>
-                      
+                     
                       <PaymentScreen planId={data._id}></PaymentScreen>
                       </div>
                   </div>
