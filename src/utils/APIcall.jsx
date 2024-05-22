@@ -255,3 +255,37 @@ export const searchAPI = async (keyword) => {
     return await axios.get(`${BASE_URL}/search`,{params:params});
   
   };
+
+
+
+  
+// Done with Testing  Create OrderAPI 
+export const createOrder = async (planId,token) => {
+
+  console.log("At Api call ",planId)
+
+  return await axios.post(`${BASE_URL}/user/creteorder`, {planId: '663e1c1f0f1d760d448eeefe'}, {
+    headers: { Authorization: "Bearer " + token }
+  }
+)
+
+};
+
+
+
+
+
+// Done with Testing  verifySignature
+export const verifySignatureApi = async (paymentData,token) => {
+  const formData={
+    "razorpay_order_id" : paymentData.razorpay_order_id,
+    "razorpay_payment_id" : paymentData.razorpay_payment_id,
+    "razorpay_signature" : paymentData.razorpay_signature
+  }
+
+  return await axios.post(`${BASE_URL}/user/verifyorder`, formData, {
+    headers: { Authorization: "Bearer " + token }
+  }
+  )
+};
+

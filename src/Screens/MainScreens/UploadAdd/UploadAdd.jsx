@@ -12,6 +12,7 @@ import RightTrue from './RightTrue'
 import WrongFalse from './WrongFalse'
 import { ShareModel } from '../../../utils/ShareModel'
 import { GiftCard } from './GiftCard'
+import PaymentScreen from '../../../Components/Razorpay/Razorpay'
 function UploadPage() {
   const [isShareModelOpen, setIsShareModelOpen] = useState(false);
   const [currentURl, setCurrentURl] = useState(true);
@@ -284,7 +285,10 @@ function UploadPage() {
 
 
                     </div>
-                    <div className='flex justify-center'><Button>Get this plan</Button></div>
+                    <div className='flex justify-center'>
+                      
+                      <PaymentScreen planId={data._id}></PaymentScreen>
+                      </div>
                   </div>
                 </div>
               ))
