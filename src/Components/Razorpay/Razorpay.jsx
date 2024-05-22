@@ -126,6 +126,7 @@ const PaymentScreen = ({ planId }) => {
   const verifySignature = async (paymentData) => {
     console.log("dsff", paymentData)
     const token = localStorage.getItem('token');
+    // console.log("Hello ",token);
     try {
 
 

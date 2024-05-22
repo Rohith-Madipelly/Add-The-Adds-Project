@@ -153,14 +153,21 @@ const NavBar = () => {
                         </a>
                       </li>
 
-                      <li>
+                      {userName?<li>
                         <a
-                          href="Add Page"
+                          href={`Add Page/${userName}`}
                           className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                         >
                         {userName?`${userName} Page`:"My Page"}
                         </a>
-                      </li>
+                      </li>:<li>
+                        <a
+                          href={`login`}
+                          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        >
+                        {userName?`${userName} Page`:"My Page"}
+                        </a>
+                      </li>}
 
                       <li>
                         <a
