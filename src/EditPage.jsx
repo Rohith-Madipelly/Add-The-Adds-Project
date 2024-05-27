@@ -10,10 +10,16 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { useParams } from 'react-router-dom';
 
 function EditPage() {
   // const fileInputRef = useRef(null);
+  const canvasRef = useRef(null);
+  const { id } = useParams();
+  console.log("pa",id);
   const token = useSelector((state) => state.token);
+  const isAdmin = useSelector((state) => state.isAdmin);
+  console.log("isAdmin",isAdmin);
   const { editor, onReady } = useFabricJSEditor();
   const [textColor, setTextColor] = useState("black");
   const [bgColor, setBgColor] = useState("transparent");
@@ -25,10 +31,28 @@ function EditPage() {
   const [fontFamily, setFontFamily] = useState("");
   const [textAlign, setTextAlign] = useState("left");
   const [fontWeight, setFontWeight] = useState(200);
-  const [textState, setTextState] = useState([]);
+  const [canvaObject, setCanvaObject] = useState([]);
   const [popup,setPopup]=useState(false)
   const [formCanva,setFormCanva]=useState({imageBlob:"",canvaData:""})
 
+  const canavobjectAPI=async(id)=>{
+    console.log("id",id);
+    try {
+      const response = await axios.get(`https://admin.addtheadd.com/canvas/${id}`);
+      const data = response.data;
+      const obj=data.data.canva
+      setCanvaObject(obj)
+      console.log("obj",canvaObject); 
+    } catch (error) {
+      console.log("canvaImage", error);
+    }
+  }
+  useEffect(()=>{
+    if(id!==""){
+      canavobjectAPI(id)
+    }
+  },[])
+  
   const onAddCircle = () => {
     const circle = new fabric.Circle({
       radius: 50,
@@ -52,7 +76,16 @@ function EditPage() {
       fontWeight:fontWeight
     });
     editor.canvas.add(textBox);
+    textBox.bringToFront(); // Bring to front on addition
     editor.canvas.setActiveObject(textBox);
+
+    setTextColor("black");
+    setBgColor("transparent")
+
+    // Add event listener for moving the text
+    // textBox.on('moving', () => {
+    //   textBox.bringToFront();
+    // })
   };
 
   const addImageToCanvas = (url) => {
@@ -74,6 +107,7 @@ function EditPage() {
       editor.canvas.add(img);
       // editor.canvas.add(img);
       editor.canvas.setActiveObject(img);
+      img.bringToFront();
       editor.canvas.renderAll();
     },{ crossOrigin: 'anonymous' });
   };
@@ -174,8 +208,12 @@ function EditPage() {
   //   }
   // };
   const saveAsJpg = () => {
+   
     if (editor && editor.canvas) {
         const canvas = editor.canvas;
+        canvas.discardActiveObject();
+      canvas.renderAll();
+
         const canvasElement = canvas.lowerCanvasEl;
         if (canvasElement) {
             const dataURL = canvasElement.toDataURL('image/jpeg', 0.8);
@@ -219,10 +257,10 @@ const dataURLToBlob = (dataURL) => {
         return updatedFormCanva;
       });
     // console.log("canvadata",formCanva);
-     const a = document.createElement('a');
-      a.href = url;
-      a.download = 'canvas.json';
-      a.click();
+    //  const a = document.createElement('a');
+    //   a.href = url;
+    //   a.download = 'canvas.json';
+    //   a.click();
       URL.revokeObjectURL(url);
     }
   };
@@ -253,15 +291,20 @@ const dataURLToBlob = (dataURL) => {
       }
     }
   };
-
+  
   const loadJson = () => {
-    const jsonData = '{"version":"5.3.0","objects":[{"type":"image","version":"5.3.0","originX":"left","originY":"top","left":63.95,"top":106.84,"width":474,"height":266,"fill":"rgb(0,0,0)","stroke":null,"strokeWidth":0,"strokeDashArray":null,"strokeLineCap":"butt","strokeDashOffset":0,"strokeLineJoin":"miter","strokeUniform":false,"strokeMiterLimit":4,"scaleX":0.75,"scaleY":0.75,"angle":0,"flipX":false,"flipY":false,"opacity":1,"shadow":null,"visible":true,"backgroundColor":"","fillRule":"nonzero","paintFirst":"fill","globalCompositeOperation":"source-over","skewX":0,"skewY":0,"cropX":0,"cropY":0,"src":"https://admin.addtheadd.com/uploadings/1716200091332.jpeg","crossOrigin":null,"filters":[]}],"background":"#f9a4ac"}';
     if (editor && editor.canvas) {
+      const jsonData =canvaObject ;
       const data = JSON.parse(jsonData);
       editor.canvas.loadFromJSON(data);
       editor.canvas.renderAll();
     }
   };
+  useEffect(()=>{
+  if(id!==""){
+    loadJson()
+  }
+},[canvaObject])
 
   useEffect(() => {
     setCanvasBackground();
@@ -323,12 +366,14 @@ const dataURLToBlob = (dataURL) => {
         );
   
         if (response.status === 200) {
+          setFormCanva({imageBlob:"",canvaData:""})
           console.log("canvapost", response);
         } else {
           throw new Error('Failed to upload canvas data',error.message);
         }
       } catch (error) {
         console.error('Error:', error);
+        setFormCanva({imageBlob:"",canvaData:""})
       }
     } else {
       console.log("Canvas data or image is missing");
@@ -338,6 +383,41 @@ const dataURLToBlob = (dataURL) => {
 useEffect(()=>{
   postCanvaData()
 },[formCanva])
+useEffect(() => {
+  const handleResize = () => {
+    if (canvasRef.current && editor) {
+      const { width, height } = canvasRef.current.getBoundingClientRect();
+      const canvas = editor.canvas;
+      const scaleX = width / canvas.getWidth();
+      const scaleY = height / canvas.getHeight();
+
+      canvas.setDimensions({ width, height });
+
+      canvas.getObjects().forEach((obj) => {
+        obj.scaleX *= scaleX;
+        obj.scaleY *= scaleY;
+        obj.left *= scaleX;
+        obj.top *= scaleY;
+        obj.setCoords();
+      });
+
+      canvas.renderAll();
+    }
+  };
+
+  window.addEventListener('resize', handleResize);
+  return () => {
+    window.removeEventListener('resize', handleResize);
+  };
+}, [editor]);
+
+useEffect(() => {
+  if (canvasRef.current && editor) {
+    const { width, height } = canvasRef.current.getBoundingClientRect();
+    editor.canvas.setDimensions({ width, height });
+    editor.canvas.renderAll();
+  }
+}, [editor]);
   return (
       <div className='new_Page_GroundImage'>
         <ToastContainer />
@@ -477,8 +557,14 @@ useEffect(()=>{
             onChange={(e) => changeBackgroundColor(e.target.value)}
           />
         </div>
+        <path d="M25.8125 5.1875H5.1875C4.69022 5.1875 4.21331 5.38504 3.86167 5.73667C3.51004 6.08831 3.3125 6.56522 3.3125 7.0625V23.9375C3.3125 24.4348 3.51004 24.9117 3.86167 25.2633C4.21331 25.615 4.69022 25.8125 5.1875 25.8125H25.8125C26.3098 25.8125 26.7867 25.615 27.1383 25.2633C27.49 24.9117 27.6875 24.4348 27.6875 23.9375V7.0625C27.6875 6.56522 27.49 6.08831 27.1383 5.73667C26.7867 5.38504 26.3098 5.1875 25.8125 5.1875ZM25.8125 7.0625V23.9375H5.1875V7.0625H25.8125ZM8.8125 15.4375C9.74858 15.4375 10.5 14.6861 10.5 13.75C10.5 12.8139 9.74858 12.0625 8.8125 12.0625C7.87642 12.0625 7.125 12.8139 7.125 13.75C7.125 14.6861 7.87642 15.4375 8.8125 15.4375ZM10.75 18.875L13.9062 22.0312C14.1481 22.2731 14.5145 22.3047 14.7734 22.1133L17.0625 20.375L21.6875 25.8125H6.625L10.75 18.875ZM21.25 14.0625C21.25 13.5652 21.4475 13.0883 21.7992 12.7367C22.1508 12.385 22.6277 12.1875 23.125 12.1875C23.6223 12.1875 24.0992 12.385 24.4508 12.7367C24.8025 13.0883 25 13.5652 25 14.0625V23.3125H21.25V14.0625Z" fill="white"/>
+
         {/* <div className="canvas-container"> */}
-          <FabricJSCanvas className="sample-canvas" onReady={onReady} />
+        {/* <div ref={canvasRef} style={{ width: '493px', height: '422px' }}> */}
+          <FabricJSCanvas className="sample-canvas"
+          
+           onReady={onReady} />
+          {/* </div> */}
         {/* </div> */}
         <div className="layerName">
           Layers:
@@ -498,9 +584,9 @@ useEffect(()=>{
         </div>
       </div>
       <div className="saveButton">
-        <button onClick={loadJson}>canvas</button>
+        {/* <button onClick={loadJson}>canvas</button> */}
         <button onClick={saveAsJpg}>Save as JPG</button>
-        <button onClick={()=>{saveAsJpg();saveAsJson()}}>Save as canvas</button>
+{isAdmin &&       <button onClick={()=>{saveAsJpg();saveAsJson()}}>Save as canvas</button>}
       </div>
       {popup && (            
       <CanvaPhoto  close={()=>{setPopup(false)}}

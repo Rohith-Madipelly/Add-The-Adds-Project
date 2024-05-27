@@ -6,7 +6,7 @@ const initialState = {
   token: token || "",
   isLogin: token ? true : false,
   userName:userName ||"",
-  isAdmin:isAdmin||""
+  isAdmin:isAdmin? true : false
 };
 
 const loginReducer = (state = initialState, action) => {

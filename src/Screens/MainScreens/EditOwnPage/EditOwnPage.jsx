@@ -7,9 +7,9 @@ import { useSelector } from 'react-redux'
 import { ProfileAPI } from '../../../utils/APIcall'
 
 
-
 function EditOwnPage() {
     const location = useLocation()
+
     const navigate = useNavigate();
     // Access the props sent from the previous page
     const receivedData = location.state

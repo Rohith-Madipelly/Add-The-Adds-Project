@@ -23,10 +23,15 @@ import Loading from '../utils/Loadings/Loading';
 import { setToken } from '../redux/actions/loginAction';
 import { useDispatch} from 'react-redux';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+
 
 function OwnStatus() {
+    const isAdmin = useSelector((state) => state.isAdmin);
+    console.log("dsdssf",isAdmin);
     const [Data, setData] = useState([])
     const token = useSelector((state) => state.token);
+    console.log("token",token);
     const [loading, setLoading] = useState(true)
     const navigate = useNavigate();
     const [swiperRef, setSwiperRef] = useState(null);
@@ -36,60 +41,20 @@ function OwnStatus() {
     const dispatch = useDispatch();
     const location = useLocation();
     const [imageData,setImageData]=useState([])
+   
 
     // Check if there's a state with a message
     if (location.state && location.state.message) {
         // Show toaster notification with the message
         showToastMessage_warn(location.state.message);
     }
-    const APICaller = async () => {
-        try {
-            const res = await getTemplatesAPI(token)
-            setData(res.data.Data)
-            setLoading(false)
-        } catch (error) {
 
-            if (error.response) {
-                if (error.response.status === 401) {
-
-                    showToastMessage_error(`${error.response.statusText} Please Login again`)
-
-                    if(error.response.statusText==="Unauthorized")
-                    {
-                        dispatch(setToken("")); // Dispatch action to clear token
-                        localStorage.removeItem('token');
-                    }
-
-                    navigate('/login');
-                } else if (error.response.status === 404) {
-                    //   setEmailOrPhoneApiErr("Account does not exist with the provided email or phone number")
-                } else if (error.response.status === 500) {
-                    //   console.log("Data Error Internal server error 500 ", error)
-                    showToastMessage_error("Internal server error 500")
-                } else {
-                    console.log("Error else ?? ")
-                }
-            } else if (error.request) {
-                showToastMessage_error(`No response received from the server. ${error.message} . Please Try Again `)
-            } else {
-                showToastMessage_error('Error setting up the request.')
-            }
-
-
-            console.log("vdvsd", e)
-        } finally {
-            console.log("Finally 123")
-        }
-    }
-
-    useEffect(() => {
-        APICaller()
-    }, [])
     const getImage = async () => {
         try {
           const response = await axios.get('https://admin.addtheadd.com/allcanvas');
           const data = response.data;
-          setImageData(data.data)
+          setImageData(data.data.reverse())
+          setLoading(false)
           console.log(imageData); 
         } catch (error) {
           console.log("canvaImage", error);
@@ -99,6 +64,32 @@ function OwnStatus() {
 useEffect(()=>{
 getImage()
 },[])
+const deleteApi=async(id)=>{
+    console.log("token",token);
+
+    try {
+        const response = await axios.get(`https://admin.addtheadd.com/user/deletecanva/${id}`,
+        {
+            // headers:{Authorization: "Bearer" + token}
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        const data = response.data;
+        toast.success(data.message)
+    } catch (error) {
+        console.log(error);
+    }
+}
+const handleDelete=(id)=>{
+    deleteApi(id)
+    const filterdata=imageData.filter((each)=>{
+        const {_id}=each
+        if(id!==_id){
+            return each
+        }
+    })
+    setImageData(filterdata)
+
+}
 
     if (loading) {
         return <Loading/>
@@ -109,6 +100,7 @@ getImage()
 
     return (
         <div className='w-full'>
+            <ToastContainer/>
             <div className='h-[70px]'>
 
             </div>
@@ -129,9 +121,9 @@ getImage()
                         {/* <div className='w-90  bg-white shadow-xl px-5 py-2 rounded-lg'>Search Here</div> */}
                     </div>
                 </div>
-                <div className='w-full h-[400px] sm:h-[250px] mt-5 mx-5'>
+                <div className='w-full h-[280px] sm:h-[250px] mt-5 mx-5'>
 
-                    {Data ? <Swiper
+                    {imageData ? <Swiper
 
                         // modules={[Autoplay]}
                         onSwiper={setSwiperRef}
@@ -150,7 +142,7 @@ getImage()
                         pagination={{
                             clickable: true,
                         }}
-                        className="w-full h-full"
+                        className="w-full h-68 pb-4"
                         modules={[Navigation, Pagination]}
                         breakpoints={{
                             390: {
@@ -175,33 +167,37 @@ getImage()
                             },
                         }}
                     >
-                        {Data.map((slideContent, index) => (
-                            <SwiperSlide key={slideContent} className="z-40 h-full sm:flex sm:items-center sm:justify-center ">
-                                <Link to={{ pathname: '/Edit Own Page' }} state={{ slideContent }}>
-                                    {/* {console.log("Data ",slideContent)} */}
-                                    <img src={slideContent.imageUrl} className='w-full h-[364px] w-[327px] sm:h-[204px] m-0 p-0 object-cover' />
-                                </Link>
-                            </SwiperSlide>
-                        ))}
-                    </Swiper> : ""}
-
-                    { imageData.map((eachObject)=>{
-                        console.log("each",eachObject);
+                        { imageData.map((eachObject)=>{
+                        // console.log("each",eachObject);
                         const{_id,image}=eachObject
                         return(
-                            <SwiperSlide key={_id} className="z-40 h-full sm:flex sm:items-center sm:justify-center ">
+                            <SwiperSlide key={_id} className="z-40 h-full 
+                             sm:flex sm:items-center sm:justify-center ">
                                 <Link to={`/EditPage/${_id}`}>
                                 {/* <Link to={{ pathname: '/Edit Own Page' }} state={{ slideContent }}> */}
                                     {/* {console.log("Data ",slideContent)} */}
-                                    <img src={`https://admin.addtheadd.com${image}`} className='w-full h-[364px] w-[327px] sm:h-[204px] m-0 p-0 object-cover' />
+                                    <img src={`https://admin.addtheadd.com${image}`}
+                                     className='  w-[100%] sm:h-[290px] m-0 p-0 object-cover' />
                                 {/* </Link> */}
                                 </Link>
+                                <div>{isAdmin.toString()}</div>
+                                { isAdmin &&
+                                    <div className='flex justify-center'>
+                                        <button onClick={()=>{handleDelete(_id)}}
+                                className='bg-[#1E429F] items-center text-[white] p-1 mt-2 rounded mb-8
+                               '>Delete</button></div>
+                                }
                             </SwiperSlide>
+                            
+                            
                         )
                         
                     })
 
                     }
+                    </Swiper> : ""}
+
+                    
 
                 </div>
 

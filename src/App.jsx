@@ -93,7 +93,7 @@ function App() {
           <Route path="/License" element={<License />} />
           <Route path="/Services" element={<Services />} />
           <Route path="/Contact us" element={<ContactUs />} />
-          <Route path="/EditPage" element={<EditPage/>}/>
+          <Route path="/EditPage" element={isLogin ? <EditPage/> : <Navigate to="/login" />}/>
           <Route path="/EditPage/:id" element={<EditPage/>} />
 
           <Route path="/FAQ" element={<FAQ />} />

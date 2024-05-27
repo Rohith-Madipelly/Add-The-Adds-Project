@@ -11,10 +11,13 @@ const CanvaPhoto = ({close, uploadImage}) => {
     const[uploadImg,setUploadImg]=useState()
     const [fileName, setFileName] = useState('No file chosen');
     const token = useSelector((state) => state.token);
+
+
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            setFileName(file.name);
+          console.error(file.name,"file.name anta ")
+            // setFileName(file.name);
             setLocal((file));
 
             console.log("filef", file.name);
@@ -32,19 +35,26 @@ const CanvaPhoto = ({close, uploadImage}) => {
         }
     }
 
+
     const postImage = async () => {
+  
         const formData = new FormData();
         formData.append('pic', local);
-        console.log(formData);
+        console.error("scvav",formData);
+
+        // const Test={
+        //   'pic':local
+        // }
 
         try {
             const response = await axios.post(
-                'https://admin.addtheadd.com/user/uploadimage/',
-                formData, {
+                'https://admin.addtheadd.com/user/uploadimage',formData, {
                     headers: { Authorization: "Bearer " + token },
                     // withCredentials: true
                 }
             );
+
+            console.error("jsb>>",response)
             if(response.status === 200){
                 const data=await response.data
                 setUploadImg(data.data.image)
@@ -57,9 +67,14 @@ const CanvaPhoto = ({close, uploadImage}) => {
         }
     };
     useEffect(()=>{
+      console.error('This is an error message 1');
+      if(local){
         postImage()
+      }
     },[local])
-    console.log(fileName);
+
+
+
     return (
         <div className="fixed inset-0 z-50 overflow-auto bg-gray-900 bg-opacity-75 flex">
       <div className="relative p-8 bg-white w-full max-w-md m-auto flex-col flex rounded-lg">

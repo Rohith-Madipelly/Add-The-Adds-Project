@@ -55,7 +55,9 @@ const NavBar = () => {
     }
     console.log("Clear the token from localStorage");
     dispatch(setToken(""));
+    dispatch(setToken(""));
     localStorage.removeItem("token");
+    localStorage.removeItem("isAdmin");
   };
 
 
