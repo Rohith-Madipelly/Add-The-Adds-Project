@@ -63,14 +63,13 @@ const Login = () => {
         showToastMessage_success(res.data.message);
         setEmailOrPhoneApiErr("");
         setPasswordApiErr("");
-        dispatch(setToken(res.data.token, res.data.userName,res.data.isAdmin));
-        
-       
+        console.log("isAdmin Test Lofgin Page >", res.data.isAdmin)
+        dispatch(setToken(res.data.token, res.data.userName, res.data.isAdmin));
 
         setTimeout(() => {
           navigate("/");
-         
         }, 200);
+
       } else {
       }
     } catch (error) {
@@ -172,12 +171,11 @@ const Login = () => {
                   name="emailOrPhone"
                   id="emailOrPhone"
                   className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 
-                  ${
-                    (errors.emailOrPhone && touched.emailOrPhone) ||
-                    emailOrPhoneApiErr
+                  ${(errors.emailOrPhone && touched.emailOrPhone) ||
+                      emailOrPhoneApiErr
                       ? "border-red-500!important"
                       : ""
-                  }`}
+                    }`}
                   placeholder="Enter your email or phone number"
                 />
                 {errors.emailOrPhone && touched.emailOrPhone && (
@@ -209,11 +207,10 @@ const Login = () => {
                     id="password"
                     placeholder="Enter your password"
                     className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 relative 
-                    ${
-                      (errors.password && touched.password) || passwordApiErr
+                    ${(errors.password && touched.password) || passwordApiErr
                         ? "border-red-500"
                         : ""
-                    }`}
+                      }`}
                     required=""
                   />
                   {isPasswordVisible ? (

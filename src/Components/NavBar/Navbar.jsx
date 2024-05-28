@@ -55,7 +55,7 @@ const NavBar = () => {
     }
     console.log("Clear the token from localStorage");
     dispatch(setToken(""));
-    dispatch(setToken(""));
+    // dispatch(setToken(""));
     localStorage.removeItem("token");
     localStorage.removeItem("isAdmin");
   };
@@ -73,14 +73,14 @@ const NavBar = () => {
         >
           <Link to={"/"} className="inline w-100"><div className="inline flex" style={{ textAlign: 'center' }}>
             <img src={Logo} alt="logo" style={{
-              width: 45, marginTop: 5, marginLeft: 30, 
+              width: 45, marginTop: 5, marginLeft: 30,
               '@media (min-width: 730px)': {
                 marginTop: 25, // Adjust as needed
                 // Additional styles for smaller screens
               }
             }} className="logoCss" />
             {/* <p className="m-3">Add The Adds.com</p> */}
-            </div></Link>
+          </div></Link>
 
         </h2>
         <div className="flex justify-end  gap-0 ">
@@ -155,30 +155,31 @@ const NavBar = () => {
                         </a>
                       </li>
 
-                      {userName?<li>
+                      {userName ? <li>
                         <a
                           href={`Add Page/${userName}`}
                           className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                         >
-                        {userName?`${userName} Page`:"My Page"}
+                          {userName ? `${userName} Page` : "My Page"}
                         </a>
-                      </li>:<li>
+                      </li> : <li>
                         <a
                           href={`login`}
                           className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                         >
-                        {userName?`${userName} Page`:"My Page"}
+                          {userName ? `${userName} Page` : "My Page"}
                         </a>
                       </li>}
 
                       <li>
                         <a
-                          href="Upload Add"
+                          href="Upload ads"
                           className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                         >
                           Upload Add
                         </a>
                       </li>
+
                     </ul>
                   </div>
                 )}

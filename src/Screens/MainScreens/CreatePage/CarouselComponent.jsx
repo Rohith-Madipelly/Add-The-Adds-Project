@@ -66,7 +66,8 @@ function CarouselComponent() {
                                 ></iframe>
                             ) : (
                                 <div>
-                                    <img src={data.headLinkPic} className='px-10 iframeResponsevi object-contain ' alt="Image" />
+                                    
+                                    <img src={`https://admin.addtheadd.com${data.headLinkPic}`} className='px-10 iframeResponsevi object-contain ' alt="Image" />
                                 </div>
                            )}
                         </div>

@@ -73,7 +73,7 @@ function CarouselComponentAddPage({ userName }) {
                                     className='w-full h-full px-10 iframeResponsevi'
                                     style={{height:400}}
                                     // src={data.headLink}
-                                    src={`https://www.youtube.com/embed/${data.headerData.headLink}`}
+                                    src={`https://www.youtube.com/embed/${data.headLink}`}
                                     title="YouTube video player"
                                     frameborder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -81,8 +81,7 @@ function CarouselComponentAddPage({ userName }) {
                                     allowfullscreen
                                 ></iframe>
                             ) : (
-                                <img src={data.headLinkPic} className='px-10 h-[100%] w-full iframeResponsevi' alt="Image" />
-                               
+                                <img src={`https://admin.addtheadd.com/${data.headLinkPic}`} className='px-10 h-[100%] w-full iframeResponsevi' alt="Image" />   
                             )}
                         </div>
                     ))

@@ -6,19 +6,28 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import { getTemplatesAPI } from '../../../utils/APIcall';
+import { getAddsAPI } from '../../../utils/APIcall';
 import { showToastMessage_error } from '../../../shared/Toaster';
 function Premier_Add_Page() {
     const [swiperRef, setSwiperRef] = useState(null);
     const [Data, setData] = useState([])
+    const [checker, setChecker] = useState(false)
 
 
 
 
     const APICaller = async () => {
         try {
-            const res = await getTemplatesAPI()
-            setData(res.data.Data)
+            const res = await getAddsAPI()
+            console.log("Hello Hero", res.data);
+            
+            if(res.data){
+                setChecker(true)
+                console.log("cdmhbcj",checker)
+            }
+            setData(res.data.Data);
+
+            // setData(res.data.Data)
             // setLoading(false)
         } catch (error) {
 
@@ -75,7 +84,52 @@ function Premier_Add_Page() {
 
 
                     <div className='flex w-[644px] items-center justify-center sm:w-[350px] '>
-                        {Data ? (
+                        {checker?(<Swiper
+                                onSwiper={setSwiperRef}
+                                slidesPerView={1}
+                                centeredSlides={false}
+                                spaceBetween={10}
+                                navigation={true}
+                                autoplay={{
+                                    delay: 2500,
+                                    disableOnInteraction: false,
+                                }}
+                                pagination={{
+                                    clickable: true,
+                                }}
+                                className='w-full h-full flex items-center justify-center '
+                                modules={[Navigation, Pagination]}
+                                breakpoints={{
+                                    390: {
+                                        slidesPerView: 1,
+                                        spaceBetween: 10,
+                                    },
+                                    480: {
+                                        slidesPerView: 1,
+                                        spaceBetween: 10,
+                                    },
+                                    768: {
+                                        slidesPerView: 1,
+                                        spaceBetween: 10,
+                                    },
+                                    1023: {
+                                        slidesPerView: 1,
+                                        spaceBetween: 10,
+                                    },
+                                    1280: {
+                                        slidesPerView: 1,
+                                        spaceBetween: 10,
+                                    },
+                                }}
+                            >
+                             
+                    <div className='flex w-[644px] items-center justify-center sm:w-[350px] '>
+                        {Data.length === 0? (
+                            <div className='justify-center h-full '>
+                                <div class="flex justify-center items-center h-[80%] w-[70%] bg-black text-white mx-auto">
+                                    <p>No Data Uploaded</p>
+                                </div>
+                            </div>) : (
                             <Swiper
                                 onSwiper={setSwiperRef}
                                 slidesPerView={1}
@@ -89,7 +143,7 @@ function Premier_Add_Page() {
                                 pagination={{
                                     clickable: true,
                                 }}
-                                className='w-full h-full flex items-center justify-center bg-black'
+                                className='w-full h-full flex items-center justify-center '
                                 modules={[Navigation, Pagination]}
                                 breakpoints={{
                                     390: {
@@ -116,18 +170,48 @@ function Premier_Add_Page() {
                             >
                                 <div className='bg-white h-full w-full flex justify-center'>
 
-
                                     {Data.map((slideContent, index) => (
                                         <SwiperSlide key={slideContent} className="z-40 ">
-                                            <Link to={{ pathname: '/Edit Own Page' }} state={{ slideContent }} >
+                                            <Link to={{ pathname: `/Add Page/${slideContent.userPage}` }}>
                                                 {/* <img onLoad={(e) => { e.target.closest('.swiper-slide').style.height = `${e.target.clientHeight}px`; }} src={slideContent.imageUrl} className='max-w-full h-auto flex justify-center px-10' /> */}
-                                                <img src={slideContent.imageUrl} className='max-w-full h-auto flex justify-center px-10 border-8 border-sky-500' />
+                                                <div key={index} className='d-flex justify-center item-center'>
+                                             
+                                                    {!slideContent.status ? (
+                                                        <iframe
+                                                            className='w-full h-full px-10 iframeResponsevi'
+                                                            style={{ height: 400 }}
+                                                            // src={data.headLink}
+                                                            src={`https://www.youtube.com/embed/${slideContent.recentHeader}`}
+                                                            // src={`https://www.youtube.com/embed/${slideContent.headLink}`}
+                                                            title="YouTube video player"
+                                                            frameborder="0"
+                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                            referrerpolicy="strict-origin-when-cross-origin"
+                                                            allowfullscreen
+                                                        ></iframe>
+                                                    ) : (
+                                                        <div>
+                                                         
+                                                            <img src={`https://admin.addtheadd.com${slideContent.recentHeader}`} className='max-w-full h-auto flex justify-center px-10 ' />
+                                                        </div>
+                                                    )}
+                                                </div>
                                             </Link>
                                         </SwiperSlide>
                                     ))}
+
+
                                 </div>
-                            </Swiper>
-                        ) : ""}
+                            </Swiper>)
+                        }
+
+                    </div>
+                            </Swiper>)
+                        :<div className='justify-center h-full w-full'>
+                        <div class="flex justify-center items-center h-[80%] w-[70%] bg-black text-white mx-auto">
+                            <p>No Data Uploaded</p>
+                        </div>
+                    </div>}
 
                     </div>
 

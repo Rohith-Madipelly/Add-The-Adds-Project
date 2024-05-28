@@ -10,7 +10,7 @@ function AdvertisingComponents() {
     const [initialValue, SetinitialValue] = useState(1)
     const [ADSData, setADSData] = useState([])
     const APICaller = async () => {
-        console.log("API start")
+        // console.log("API start")
         try {
             const res = await getaddAPI()
             console.log(res.data.Data)
@@ -28,16 +28,21 @@ function AdvertisingComponents() {
 
     useEffect(() => {
         APICaller()
-        console.log("Page Started")
+        // console.log("Page Started")
     }, [])
     const handleClose = () => {
-        setShowImage(false);
-        SetinitialValue((prevIndex) => (prevIndex + 1) % ADSData.length);
-        setImageURl(ADSData[initialValue].imageUrl)
-        setLinkURl(ADSData[initialValue].imageUrl)
-        setTimeout(() => {
-            setShowImage(true);
-        }, 5000);
+        try{
+            setShowImage(false);
+            SetinitialValue((prevIndex) => (prevIndex + 1) % ADSData.length);
+            setImageURl(ADSData[initialValue].imageUrl)
+            setLinkURl(ADSData[initialValue].imageUrl)
+            setTimeout(() => {
+                setShowImage(true);
+            }, 5000);
+        }catch(e){
+            console.log("No Image found In error")
+        }
+     
     };
 
     return (

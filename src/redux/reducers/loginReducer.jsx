@@ -1,12 +1,14 @@
 
 const token = localStorage.getItem("token");
 const userName = localStorage.getItem("userName");
-const isAdmin = localStorage.getItem("userName");
+const isAdmin = localStorage.getItem("isAdmin");
+console.log("check in reducer",isAdmin)
+
 const initialState = {
   token: token || "",
   isLogin: token ? true : false,
   userName:userName ||"",
-  isAdmin:isAdmin? true : false
+  isAdmin:isAdmin?isAdmin : false,
 };
 
 const loginReducer = (state = initialState, action) => {
@@ -23,7 +25,7 @@ const loginReducer = (state = initialState, action) => {
         token: action.token,
         isLogin: action.token ? true : false,
         userName: action.userName,
-        isAdmin: action.isAdmin,
+        isAdmin: action.isAdmin ? action.isAdmin : false,
       };
     default:
       return state;

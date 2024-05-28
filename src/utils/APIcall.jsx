@@ -99,7 +99,7 @@ export const GetPlanInfo = async (token) => {
 };
 
 export const getaddAPI = async () => {
-  return await axios.get(`${BASE_URL}/getaddimage`)
+  return await axios.get(`${BASE_URL}/getadds`)
 }
 
 
@@ -135,12 +135,9 @@ export const LIKEAPI = async (token,userPage) => {
 
 //UserPageAPI
 export const UserPageAPI= async (userName) => {
-
   const reqData={
     userPageName:userName
   }
-
-
   return await axios.post(`${BASE_URL}/userpage`,reqData);
 
 };
@@ -257,7 +254,8 @@ export const searchAPI = async (keyword) => {
   };
 
 
-
+  export const getAddsAPI = async () => {
+       return await axios.get(`${BASE_URL}/adds`);};
   
 // Done with Testing  Create OrderAPI 
 export const createOrder = async (planId,token) => {

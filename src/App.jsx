@@ -22,7 +22,7 @@ const FAQ = lazy(() => import('./Screens/MainScreens/OtherPages/FAQ'));
 
 const TermsandCondition = lazy(() => import('./Screens/MainScreens/OtherPages/TermsandCondition'));
 const PrivacyPolicy = lazy(() => import('./Screens/MainScreens/OtherPages/PrivacyPolicy'));
-const Desktop = lazy(() => import('./Screens/Desktop'));
+// const Desktop = lazy(() => import('./Screens/Desktop'));
 const License = lazy(() => import('./Screens/MainScreens/OtherPages/License'));
 const Blog = lazy(() => import('./Screens/MainScreens/OtherPages/Blog'));
 
@@ -45,14 +45,9 @@ const ChangePassword = lazy(() => import('./Screens/AuthScreens/ChangePassword,'
 
 
 import { ToastContainer } from "react-toastify";
-
-
-
 import ShareButton from "./Screens/TestingScreens/ShareButton";
-// import PaymentTest from "./Components/Razorpay/PaymentTest";
-import PaymentScreens from "./Components/Razorpay/PaymentScreens/PaymentScreens";
-
 const Loader = lazy(() => import("./shared/Loaders/Loader1"));
+
 const LoadingFallback = () => <Loader />;
 
 function App() {
@@ -65,7 +60,6 @@ function App() {
       <ToastContainer />
       <Suspense fallback={<LoadingFallback />}>
         <Routes>
-        {/* <Route path="/PaymentTest" element={<PaymentTest />} /> */}
           <Route path="/" element={<Home />} />
           <Route path="/Home" element={<Home />} />
           {/* <Route path="/Own Status"  element={isLogin ? <OwnStatus /> : <Navigate to="/login" state={{ from: "Own Status", message: "Login is required" }}/>} /> */}
@@ -81,11 +75,9 @@ function App() {
 
 
 
-
-
           <Route path="/d123" element={<ShareButton />} />
 
-          <Route path="/d" element={<PaymentScreens />} />
+          
           <Route path="/About us" element={<About />} />
           <Route path="/Blog" element={<Blog />} />
           <Route path="/Festivals" element={<Festivals />} />

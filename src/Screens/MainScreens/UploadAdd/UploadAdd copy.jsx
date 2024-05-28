@@ -35,52 +35,6 @@ function UploadPage() {
     setIsShareModelOpen(true);
   };
 
-  useEffect(() => {
-
-    const ApiCaller = async () => {
-      try {
-        const res = await GetPlanInfo(token)
-
-        if (res) {
-          console.log("res dataaaaa>>", res.data)
-
-
-
-
-          try {
-            setPlanDataView(res.data.data)
-            setTimeout(() => {
-              console.log(">>>>123456", planDataView, ">>>>", res.data.data)
-            }, 200)
-          } catch (e) {
-            console.log("sadjkbbsd")
-          }
-
-
-          // SetPlanData(res.data)
-          // console.log("Data Page >>", PlanData)
-          // console.log(">>>",PlanData)
-          // SetBenefitsData(res.data.benefits)
-          // console.log("benefits>>>>>>", benefitsData)
-        }
-
-
-      } catch (e) {
-        console.log(e)
-
-        console.error('Error fetching data', error);
-
-      }
-      finally {
-        console.log("API Call Finished .")
-        setIsLoading(false)
-      }
-    }
-
-    ApiCaller()
-
-  }, [])
-
   const closeShareModel = () => {
     setIsShareModelOpen(false);
   };
@@ -128,101 +82,61 @@ function UploadPage() {
     // window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(link)}`);
   };
   const [PlanData, SetPlanData] = useState([])
-  const [planDataView, setPlanDataView] = useState([ {
-    "_id": "665088970b8b0a538e79fa6d",
-    "PlanName": "test",
-    "Duration": 30,
-    "timesInADay": 25,
-    "Description": "test",
-    "PlanPrize": 1,
-    "PlanPic": "/planPics/1716553879597.jpg",
-    "addDuration": 20,
-    "benefits": [
-        {
-            "_id": "66541da7bdb2d9fd2b2098fe",
-            "plans": "665088970b8b0a538e79fa6d",
-            "name": "30 days",
-            "status": true,
-            "createdAt": "2024-05-27T05:44:07.763Z",
-            "updatedAt": "2024-05-27T05:44:07.763Z",
-            "__v": 0
-        }
-    ],
-    "createdAt": "2024-05-24T12:31:19.613Z",
-    "updatedAt": "2024-05-27T05:44:07.808Z",
-    "__v": 1
-},])
+  const [planDataView, setPlanDataView] = useState([])
 
   const token = useSelector((state) => state.token);
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(true);
-
-
-
   // Check if there's a state with a message
   if (location.state && location.state.message) {
+    // Show toaster notification with the message
     showToastMessage_warn(location.state.message);
   }
-  const dataRes = [
-    {
-      "_id": "665088970b8b0a538e79fa6d",
-      "PlanName": "test",
-      "Duration": 30,
-      "timesInADay": 25,
-      "Description": "test",
-      "PlanPrize": 1,
-      "PlanPic": "/planPics/1716553879597.jpg",
-      "addDuration": 20,
-      "benefits": [
-        {
-          "_id": "66541da7bdb2d9fd2b2098fe",
-          "plans": "665088970b8b0a538e79fa6d",
-          "name": "30 days",
-          "status": true,
-          "createdAt": "2024-05-27T05:44:07.763Z",
-          "updatedAt": "2024-05-27T05:44:07.763Z",
-          "__v": 0
-        }
-      ],
-      "createdAt": "2024-05-24T12:31:19.613Z",
-      "updatedAt": "2024-05-27T05:44:07.808Z",
-      "__v": 1
-    },
-    {
-      "_id": "66541d6fbdb2d9fd2b2098a3",
-      "PlanName": "test 2",
-      "Duration": 40,
-      "timesInADay": 30,
-      "Description": "test 2",
-      "PlanPrize": 2,
-      "PlanPic": "/planPics/1716788591388.jpg",
-      "addDuration": 25,
-      "benefits": [
-        {
-          "_id": "66541d7ebdb2d9fd2b2098ba",
-          "plans": "66541d6fbdb2d9fd2b2098a3",
-          "name": "40 days",
-          "status": true,
-          "createdAt": "2024-05-27T05:43:26.790Z",
-          "updatedAt": "2024-05-27T05:43:26.790Z",
-          "__v": 0
-        },
-        {
-          "_id": "66542070bd7cd24b8a8d1725",
-          "plans": "66541d6fbdb2d9fd2b2098a3",
-          "name": "30 times in a day",
-          "status": true,
-          "createdAt": "2024-05-27T05:56:00.492Z",
-          "updatedAt": "2024-05-27T05:56:00.492Z",
-          "__v": 0
-        }
-      ],
-      "createdAt": "2024-05-27T05:43:11.427Z",
-      "updatedAt": "2024-05-27T05:56:00.543Z",
-      "__v": 2
-    }
-  ]
 
+
+  useEffect(() => {
+    let isMounted = true;
+    const ApiCaller = async () => {
+      try {
+        const res = await GetPlanInfo(token)
+
+        if (res) {
+          console.log("res dataaaaa>>", res.data)
+
+          if (isMounted) {
+            setPlanDataView(res.data)
+          setTimeout(() => {
+            console.log(">>>>123456", planDataView)
+          }, 200)
+          }
+          
+
+          // SetPlanData(res.data)
+          // console.log("Data Page >>", PlanData)
+          // console.log(">>>",PlanData)
+          // SetBenefitsData(res.data.benefits)
+          // console.log("benefits>>>>>>", benefitsData)
+        }
+
+
+      } catch (e) {
+        console.log(e)
+        if (isMounted) {
+          console.error('Error fetching data', error);
+        }
+      }
+      finally {
+        console.log("API Call Finished .")
+        setIsLoading(false)
+      }
+    }
+
+    ApiCaller()
+
+    return () => {
+      isMounted = false; // Cleanup function to set isMounted to false if the component unmounts
+    };
+  }, [])
 
 
 
@@ -247,6 +161,7 @@ function UploadPage() {
     <div className='h-auto'>
 
       <div className='h-[70px]'>
+
       </div>
 
       <div className=' w-full flex justify-center mt-8'>
@@ -288,6 +203,8 @@ function UploadPage() {
 
 
         </div>
+
+
       </div>
 
 
@@ -341,8 +258,8 @@ function UploadPage() {
               <div className='backGroundGradinatecss w-full xl:h-auto rounded-xl flex flex-col py-10 justify-center items-center max-w-[80%] max-h-[100%]'>
                 <a href='/Create Page'>
                   <CustomButton classStyle={'my-4 bg-white font-bold'}>My Page</CustomButton>
-                </a>
 
+                </a>
                 <a href='/Add Page'><CustomButton classStyle={'my-4 bg-white font-bold'}>Add Page</CustomButton></a>
                 <a href='/Create Page'><CustomButton classStyle={'my-4 bg-white font-bold'}>Add The Adds</CustomButton></a>
               </div>
@@ -357,39 +274,24 @@ function UploadPage() {
           <div className='grid grid-cols-3 sm:grid-cols-1 ,mdl:grid-cols-2 w-full  gap-7 justify-center'>
             {planDataView.length === 0 ? (
               <div className='text-center text-black font-bold'>No plans available</div>
-            ) : (planDataView.map((data, index)=>(
-              <div key={index} className='h-[500px] rounded-3xl'>
-                <div className='backGroundGradinateForprimenrm p-5 w-full h-full rounded-3xl'>
-                  <div className='flex justify-center items-center'>
-                    <div className=' text-white text-center pb-3 border-b-2 border-r-pink-800 font-bold w-[50%]'>
-                      {data.PlanName}
-                    </div>
-                  </div>
+            ) : (
 
-                  <div className='text-white text-center mt-5'>
-                    <div className='font-bold text-3xl'>{data.PlanPrize} ₹</div>
-                    <div className='text-sm font-normal my-2'>{data.Duration}</div>
-                    <div className='text-lg mt-4'>{data.Description}</div>
-                  </div>
+              // planDataView.map((data, index) => (
+    
+              // ))
 
-                  <div className='text-white text-center mt-5'>
-                    <div className='my-6'>
-                      {data.benefits.length > 0 ? (
-                        data.benefits.map((item, index) => (
-                          item.status ? <RightTrue benefitsName={item.name} key={index} /> : <WrongFalse benefitsName={item.name} key={index} />
-                        ))
-                      ) : (
-                        <p>No benefits available</p>
-                      )}
-                    </div>
-                  </div>
-                  <div className='flex justify-center'>
+               <div></div>
+            )}
 
-                    <PaymentScreen planId={data._id}></PaymentScreen>
-                    </div>
-                </div>
-              </div>
-            )))}
+
+
+            {/* {planDataView.map((item) => (
+              <div key={item.id}>{item.name}</div>
+            ))} */}
+
+
+
+
           </div>
 
         </div>

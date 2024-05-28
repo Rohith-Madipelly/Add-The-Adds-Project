@@ -37,10 +37,9 @@ function FAQ() {
         try {
             const res = await FAQuestionsAPI(token)
             setAPIData(res.data)
-            console.log(APIData)
+            console.log("Data ", APIData)
         } catch (e) {
             console.log(e)
-
         } finally {
 
         }
@@ -49,9 +48,9 @@ function FAQ() {
 
     const data = {
         title: "",
-        rows:APIData,
+        rows: APIData,
     };
-    
+
 
 
     useEffect(() => {
@@ -67,12 +66,13 @@ function FAQ() {
                 <div className='my-5 font-bold text-xl text-center'>Frequently Asked Questions (FAQ)</div>
                 <div className=' mx-10 px-10'>
 
-
-                    <Faq
+                    {APIData.length === 0 ? <div> No FAQ's available
+                    </div> : <Faq
                         data={data}
                         styles={styles}
                         config={config}
-                    />
+                    />}
+
 
                 </div>
 

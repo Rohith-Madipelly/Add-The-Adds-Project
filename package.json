@@ -14,6 +14,8 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@reduxjs/toolkit": "^2.2.1",
     "axios": "^1.6.7",
+    "fabric": "^5.3.0",
+    "fabricjs-react": "^1.2.2",
     "flowbite-react": "^0.7.2",
     "formik": "^2.4.5",
     "react": "^18.2.0",

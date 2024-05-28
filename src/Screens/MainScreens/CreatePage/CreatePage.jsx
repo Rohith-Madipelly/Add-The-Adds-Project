@@ -18,9 +18,10 @@ import { Link, useLocation } from 'react-router-dom'
 import { Add_Image_In_HeadersAPI, Add_Video_In_HeadersAPI, DeleteHeadersAPI, LIKEAPI, ProfileAPI } from '../../../utils/APIcall'
 import { showToastMessage_error, showToastMessage_success, showToastMessage_warn } from '../../../shared/Toaster'
 
-
-
 import Loading from '../../../utils/Loadings/Loading'
+
+
+
 function CreatePage() {
   const [isLoading, setIsLoading] = useState(false);
   const [Data, setData] = useState("")
@@ -80,7 +81,6 @@ function CreatePage() {
         //   }
         // },500)
 
-      
       }
     }
     catch (e) {
@@ -310,7 +310,9 @@ function CreatePage() {
         </div>
 
         {/* section 3 */}
-        <div className='flex justify-center mt-5'><p>Add Your Links</p></div>
+        <div className='flex justify-center mt-7 sm:mt-10'>
+          <p>Add Your Links</p>
+          </div>
         <div className='my-5 flex justify-center item-center'>
           <div className='w-[60%] sm:w-[90%]'>
             <LinkCreatePage />

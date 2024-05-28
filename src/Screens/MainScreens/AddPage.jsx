@@ -36,7 +36,15 @@ function AddPage() {
 
   const navigate = useNavigate();
   const [Dataapi, setDataapi] = useState([])
-  const [OtherUser, setOtherUser] = useState([])
+  const [OtherUser, setOtherUser] = useState([ {
+    "_id": "66543340ee20dc798168292b",
+    "username": "Rachana",
+    "recentHeader": {
+        "_id": "665483de0f8c4fcca185705f",
+        "headLinkPic": "https://admin.addtheadd.com/headerPics/1716814814571.png",
+        "status": true
+    }
+}])
   const [isLoading, setIsLoading] = useState(true);
   const [currentURl, setCurrentURl] = useState(true);
 
@@ -70,15 +78,17 @@ function AddPage() {
       const responsed = await UserPageAPI(userName)
       if (responsed) {
         let resData = await responsed.data
+
+        setOtherUser(responsed.data.userPages)
+        console.log("OtherUserDaat>>>> ", OtherUser,resData.userPages)
+
         setDataapi(resData)
 
         setLive_links(resData.Links.live_links)
         setGeneral_links(resData.Links.general_links)
         setChanel_links(resData.Links.chanel_links)
-
-        setOtherUser(resData.userPages)
-        console.log("OtherUserDaat>>>>", OtherUser)
-        console.log("Hello", Dataapi.Likes)
+       
+        // console.log("Hello", Dataapi.Likes)
         setLike(responsed.data.Likes)
       }
       else {
@@ -90,6 +100,7 @@ function AddPage() {
       if (error.response) {
         if (error.response.status === 401) {
           console.log(error.response)
+       
 
         } else if (error.response.status === 404) {
           showToastMessage_error(error.response.data.message)
@@ -106,6 +117,7 @@ function AddPage() {
     }
     finally {
       setIsLoading(false)
+      console.log("KLLLL",OtherUser)
     }
   }
 
@@ -185,17 +197,6 @@ function AddPage() {
   };
 
   ;
-
-
-
-
-
-
-
-
-
-
-
 
 
   useEffect(() => {
@@ -311,17 +312,18 @@ function AddPage() {
 
             {/* <div className='w-[80%] h-[300px] mt-10  gap-1 gap-y-2 grid grid-flow-col grid-col-2 sm:grid-rows-2 sm:mx-0 sm:justify-center rounded-lg overflow-hidden'> */}
             <div className='sm:h-[80%]'>
-              {OtherUser.map((MapData, index) => (
+            {OtherUser.length === 0 ? (
+              <div className='text-center text-black font-bold'>No userpage is available</div>
+            ) : (OtherUser.map((MapData, index) => (
                 <div key={index} className="flex justify-center relative w-[500px] h-[100%] px-auto rounded-lg">
                   <a href={MapData.username}>
-                    <img src={MapData.recentHeader.headLinkPic} className='h-[100%] rounded-lg' />
+                    <img src={`https://admin.addtheadd.com/${MapData.recentHeader.headLinkPic}`} className='h-[100%] rounded-lg' />
                     <div className="absolute inset-0 bg-black opacity-0 hover:opacity-70 flex items-center justify-center rounded-lg">
                       <span className="text-white text-xl">Click to view full page</span>
                     </div>
                   </a>
                 </div>
-
-              ))}
+              )))}
 
 
             </div>
