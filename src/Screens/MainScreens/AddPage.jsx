@@ -307,18 +307,19 @@ function AddPage() {
 
 
           {/* Section 2 */}
-          <div className='w-[100%] flex justify-center items-center"'>
+          <div className=' flex justify-center items-center"'>
 
 
             {/* <div className='w-[80%] h-[300px] mt-10  gap-1 gap-y-2 grid grid-flow-col grid-col-2 sm:grid-rows-2 sm:mx-0 sm:justify-center rounded-lg overflow-hidden'> */}
-            <div className='sm:h-[80%]'>
+            <div className='flex justify-center sm:h-[80%] gap-4 sm:flex-col sm:ml-4 sm:pr-[10px]'>
             {OtherUser.length === 0 ? (
               <div className='text-center text-black font-bold'>No userpage is available</div>
-            ) : (OtherUser.map((MapData, index) => (
-                <div key={index} className="flex justify-center relative w-[500px] h-[100%] px-auto rounded-lg">
+            ) : (OtherUser.map((MapData, index) => ( 
+                <div key={index} className=" relative w-[400px] h-[100%] px-auto rounded-lg sm:ml-2 sm:pr-[10vw]">
                   <a href={MapData.username}>
-                    <img src={`https://admin.addtheadd.com/${MapData.recentHeader.headLinkPic}`} className='h-[100%] rounded-lg' />
-                    <div className="absolute inset-0 bg-black opacity-0 hover:opacity-70 flex items-center justify-center rounded-lg">
+                    <img src={`https://admin.addtheadd.com/${MapData.recentHeader.headLinkPic}`}
+                     className='h-[100%] rounded-lg sm:ml-4 ]'/>
+                    <div className="sm:ml-2 sm:mr-[5vw] absolute inset-0 bg-black opacity-0 hover:opacity-70 flex items-center justify-center rounded-lg">
                       <span className="text-white text-xl">Click to view full page</span>
                     </div>
                   </a>

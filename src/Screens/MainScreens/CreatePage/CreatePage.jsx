@@ -266,7 +266,7 @@ function CreatePage() {
 
 
         <div className=' flex justify-center'>
-          <div className='w-[60%] mdl-w-[70%]  sm:w-[160%] h-[450px] sm:h-[350px]'>
+          <div className='w-[70%] mdl-w-[70%]  sm:w-[160%] h-[450px] sm:h-[350px]'>
 
             {/* Carsousel Section */}
             <CarouselComponent data={Data} />
@@ -301,7 +301,11 @@ function CreatePage() {
                   Image
                 </CustomButton>
                 <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handlePageOpenModal() }}>
-                  Upload Ads
+                  Display Ads
+                </CustomButton>
+                <DeleteHeadersModel datares={headerData} isOpen={isDeleteModalOpen} onClose={handleDeleteCloseModal} onSubmit={handleDeleteSubmit} />
+                <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handlePageOpenModal() }}>
+                  Delete Ads
                 </CustomButton>
               </div>
             </div>

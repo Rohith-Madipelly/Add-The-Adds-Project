@@ -81,7 +81,7 @@ function CarouselComponentAddPage({ userName }) {
                                     allowfullscreen
                                 ></iframe>
                             ) : (
-                                <img src={`https://admin.addtheadd.com/${data.headLinkPic}`} className='px-10 h-[100%] w-full iframeResponsevi' alt="Image" />   
+                                <img src={`https://admin.addtheadd.com/${data.headLinkPic}`} className='px-10  object-scale-down iframeResponsevi' alt="Image" />   
                             )}
                         </div>
                     ))
