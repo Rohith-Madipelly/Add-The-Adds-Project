@@ -19,6 +19,7 @@ import { Add_Image_In_HeadersAPI, Add_Video_In_HeadersAPI, DeleteHeadersAPI, LIK
 import { showToastMessage_error, showToastMessage_success, showToastMessage_warn } from '../../../shared/Toaster'
 
 import Loading from '../../../utils/Loadings/Loading'
+import { DeleteUserModel } from './DeleteUserModel'
 
 
 
@@ -28,6 +29,7 @@ function CreatePage() {
   const [userPage, setUserPage] = useState("")
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [headerData, setHeadersData] = useState([])
+  const [UserData, setUserData] = useState([])
   const [Like, setLike] = useState(1)
   const [liked, setLiked] = useState(false);
 
@@ -44,35 +46,33 @@ function CreatePage() {
 
   const Apicaller = async () => {
     setIsLoading(true)
-
     try {
       const res = await ProfileAPI(token)
 
-      if (res.status===200) {
+      if (res.status === 200) {
         const ResData = await res.data;
-        console.log(">>>>", res.data)
+
 
         setUserPage(res.data.pagename)
         setData(res.data)
-        
-        console.log("<><><>", res.data)
-        
+
+        setUserData(res.data.userPages)
         setLiked(res.data.isLiked)
         setHeadersData(ResData.ownHeaders)
         if (ResData.ownHeaders.length === 0) {
           showToastMessage_warn("No Data Found, You can add here");
         }
- 
+
         setLike(res.data.likes)
 
 
-        setTimeout(()=>{
-          likesData=Data.likes;
+        setTimeout(() => {
+          likesData = Data.likes;
           setLike(likesData)
-        },500)
-        
+        }, 500)
+
         // setTimeout(()=>{
-         
+
         //   if(likesData!=1)
         //   {
         //     setLike(likesData)
@@ -186,6 +186,7 @@ function CreatePage() {
 
   const handlePageSubmit = async () => {
     setIsPageModalOpen(false);
+    window.location.reload();
   };
 
   ;
@@ -209,6 +210,23 @@ function CreatePage() {
     window.location.reload();
   };
 
+  // user Delete Links
+
+  const [isDeleteUserModalOpen, setIsDeleteUserModalOpen] = useState(false);
+
+  const handleDeleteUserOpenModal = () => {
+    setIsDeleteUserModalOpen(true);
+  };
+
+  const handleDeleteUserCloseModal = () => {
+    setIsDeleteUserModalOpen(false);
+  };
+
+
+  const handleDeleteUserSubmit = async () => {
+    setIsDeleteUserModalOpen(false);
+    window.location.reload();
+  };
 
   const toggleLike = () => {
     // setLiked(!liked);
@@ -232,7 +250,7 @@ function CreatePage() {
           if (Like === 0) {
             setLike(0)
           } else {
-            setLike(previousValue=>previousValue - 1)
+            setLike(previousValue => previousValue - 1)
           }
           setLiked(false)
         }
@@ -257,71 +275,71 @@ function CreatePage() {
 
       {/* <div className='w-full  py-3'> */}
 
-        <div className='grid grid-cols-12 sm:px-1'>
-          <div className='col-span-12 sm:col-span-12'>
-            <div className='font-bold text-xl mb-5 text-center sm:text-center'>  Hey {Data.pagename ? Data.pagename.charAt(0).toUpperCase() + Data.pagename.slice(1) : ''}! Create Your Page Here</div>
-          </div>
+      <div className='grid grid-cols-12 sm:px-1'>
+        <div className='col-span-12 sm:col-span-12'>
+          <div className='font-bold text-xl mb-5 text-center sm:text-center'>  Hey {Data.pagename ? Data.pagename.charAt(0).toUpperCase() + Data.pagename.slice(1) : ''}! Create Your Page Here</div>
         </div>
+      </div>
 
 
 
-        <div className=' flex justify-center'>
-          <div className='w-[70%] mdl-w-[70%]  sm:w-[160%] h-[450px] sm:h-[350px]'>
+      <div className=' flex justify-center'>
+        <div className='w-[70%] mdl-w-[70%]  sm:w-[160%] h-[450px] sm:h-[350px]'>
 
-            {/* Carsousel Section */}
-            <CarouselComponent data={Data} />
+          {/* Carsousel Section */}
+          <CarouselComponent data={Data} />
 
-            <div className='my-4 flex justify-between sm:flex-col  mdl:flex-col'>
-              <div className='grid grid-flow-col gap-2    sm:text-xs'>
-                <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={toggleLike}>
-                  {liked ? <MdThumbUp color="blue" size={25} /> : <MdThumbUp size={25} />}
-                  <p className='ms-2'>{Like} Likes</p>
-                </CustomButton>
+          <div className='my-4 flex justify-between sm:flex-col  mdl:flex-col'>
+            <div className='grid grid-flow-col gap-2    sm:text-xs'>
+              <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={toggleLike}>
+                {liked ? <MdThumbUp color="blue" size={25} /> : <MdThumbUp size={25} />}
+                <p className='ms-2'>{Like} Likes</p>
+              </CustomButton>
 
-                <CustomButton classStyle={'my-3 bg-white h-auto'}>{Data.views} Views</CustomButton>
+              <CustomButton classStyle={'my-3 bg-white h-auto'}>{Data.views} Views</CustomButton>
 
-                <CustomButton classStyle={'my-3 bg-white h-auto me-2'} onClick={() => { handleDeleteOpenModal() }}>
-                  Delete Content
-                </CustomButton>
+              <CustomButton classStyle={'my-3 bg-white h-auto me-2'} onClick={() => { handleDeleteOpenModal() }}>
+                Delete Content
+              </CustomButton>
 
-                <YouTubeModal isOpen={isModalOpen} onClose={handleCloseModal} onSubmit={handleSubmit} />
+              <YouTubeModal isOpen={isModalOpen} onClose={handleCloseModal} onSubmit={handleSubmit} />
 
-                <ImageUploadModel isOpen={isImageModalOpen} onClose={handleImageCloseModal} onSubmit={handleImageSubmit} />
+              <ImageUploadModel isOpen={isImageModalOpen} onClose={handleImageCloseModal} onSubmit={handleImageSubmit} />
 
-                <AddPagetoUser isOpen={isPageModalOpen} onClose={handlePageCloseModal} onSubmit={handlePageSubmit} />
+              <AddPagetoUser isOpen={isPageModalOpen} onClose={handlePageCloseModal} onSubmit={handlePageSubmit} />
 
-                <DeleteHeadersModel datares={headerData} isOpen={isDeleteModalOpen} onClose={handleDeleteCloseModal} onSubmit={handleDeleteSubmit} />
-              </div>
-
-              <div className='grid grid-flow-col gap-2 sm:text-xs'>
-                <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handleOpenModal() }}>
-                  Upload Video
-                </CustomButton>
-                <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handleImageOpenModal() }}>
-                  Image
-                </CustomButton>
-                <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handlePageOpenModal() }}>
-                  Display Ads
-                </CustomButton>
-                <DeleteHeadersModel datares={headerData} isOpen={isDeleteModalOpen} onClose={handleDeleteCloseModal} onSubmit={handleDeleteSubmit} />
-                <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handlePageOpenModal() }}>
-                  Delete Ads
-                </CustomButton>
-              </div>
+              <DeleteHeadersModel datares={headerData} isOpen={isDeleteModalOpen} onClose={handleDeleteCloseModal} onSubmit={handleDeleteSubmit} />
+              <DeleteUserModel datares={UserData} isOpen={isDeleteUserModalOpen} onClose={handleDeleteUserCloseModal} onSubmit={handleDeleteUserSubmit} />
             </div>
 
+            <div className='grid grid-flow-col gap-2 sm:text-xs'>
+              <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handleOpenModal() }}>
+                Upload Video
+              </CustomButton>
+              <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handleImageOpenModal() }}>
+                Image
+              </CustomButton>
+              <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handlePageOpenModal() }}>
+                Display Ads
+              </CustomButton>
+              <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handleDeleteUserOpenModal() }}>
+                Delete Ads
+              </CustomButton>
+            </div>
           </div>
-        </div>
 
-        {/* section 3 */}
-        <div className='flex justify-center mt-7 sm:mt-10'>
-          <p>Add Your Links</p>
-          </div>
-        <div className='my-5 flex justify-center item-center'>
-          <div className='w-[60%] sm:w-[90%]'>
-            <LinkCreatePage />
-          </div>
         </div>
+      </div>
+
+      {/* section 3 */}
+      <div className='flex justify-center mt-7 sm:mt-10'>
+        <p>Add Your Links</p>
+      </div>
+      <div className='my-5 flex justify-center item-center'>
+        <div className='w-[60%] sm:w-[90%]'>
+          <LinkCreatePage />
+        </div>
+      </div>
       {/* </div> */}
     </div>
   )

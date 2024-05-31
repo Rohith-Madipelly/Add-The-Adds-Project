@@ -16,6 +16,7 @@ function CarouselComponent() {
         console.log(token)
         try {
             const res = await ProfileAPI(token)
+            console.log("Satya",res.data)
             setData(res.data.ownHeaders)
             console.log(res.data.ownHeaders)
         }

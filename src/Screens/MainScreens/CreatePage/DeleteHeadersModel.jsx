@@ -7,8 +7,6 @@ import { useSelector } from 'react-redux';
 export const DeleteHeadersModel = ({ datares, isOpen, onClose, onSubmit }) => {
 
     const handleSubmit = () => {
-        onSubmit("d");
-
     };
 
 

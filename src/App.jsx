@@ -64,8 +64,8 @@ function App() {
           <Route path="/Home" element={<Home />} />
           {/* <Route path="/Own Status"  element={isLogin ? <OwnStatus /> : <Navigate to="/login" state={{ from: "Own Status", message: "Login is required" }}/>} /> */}
           <Route path="/Own Status"  element={<OwnStatus /> } />
-          <Route path="/Edit Own Page" element={<EditOwnPage />} />
-          <Route path="/Edit Own Page/:id" element={<EditOwnPageC />} />
+          <Route path="/Edit Own Page" element={isLogin ?<EditOwnPage />: <Navigate to="/login" state={{ from: "Profile", message: "Login is required" }}/>} />
+          <Route path="/Edit Own Page/:id" element={isLogin ? <EditOwnPageC />: <Navigate to="/login" state={{ from: "Profile", message: "Login is required" }}/>} />
           {/* <Route path="/Add Page" element={isLogin ? <AddPage /> : <Navigate to="/login" state={{ from: "Add Page", message: "Login is required" }}/>} /> */}
           <Route path="/Profile" element={isLogin ? <Profile /> : <Navigate to="/login" state={{ from: "Profile", message: "Login is required" }}/>} />
 
