@@ -41,15 +41,26 @@
   
   .sample-canvas {
     margin-top: 50px;
-    border: 1px solid #ccc;
-    width: 493px;
-    height: 422px;
-    max-width:100%;
-    max-height: 100%;
-    border-radius: 5px;
-    box-shadow: 0 0px 2px rgba(0, 0, 0, 0.673);
+    /* border: 1px solid #ccc; */
+    /* width: 493px;
+    height: 422px; */
+    /* margin-right: 20vw;
+    width: 25em;
+    height: 20em; */
+    /* max-width:100%; */
+    /* max-height: 100%; */
+    /* border-radius: 5px; */
+    /* box-shadow: 0 0px 2px rgba(0, 0, 0, 0.673); */
     /* width: 800px; */
     /* height: 500px; */
+  }
+  .canvas-container{
+    width: 493px !important;
+    height: 422px !important;
+    max-width:100% !important;
+    max-height: 100% !important;
+    border-radius: 5px; 
+    box-shadow: 0 0px 2px rgba(0, 0, 0, 0.673);
   }
   button.active {
     border: 2px solid blue;
@@ -230,12 +241,18 @@ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.673);
   }
   .sample-canvas {
     margin: 15px;
-    width: 90vw;
-    height: 322px;
-    max-width:100%;
-    max-height: 100%;
+    /* width: 90vw;
+    height: 322px; */
+    /* max-width:100%;
+    max-height: 100%; */
     /* width: 800px; */
     /* height: 500px; */
+  }
+  .canvas-container{
+    width: 393px !important;
+    height: 322px !important;
+    max-width:100% !important;
+    max-height: 100% !important;
   }
   .sidebar{
     /* position: absolute;

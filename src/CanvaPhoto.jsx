@@ -73,6 +73,7 @@ const CanvaPhoto = ({close, uploadImage}) => {
       }
     },[local])
 
+    
 
 
     return (
