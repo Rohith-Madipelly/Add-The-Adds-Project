@@ -14,8 +14,14 @@ export const AddPagetoUser = ({ isOpen, onClose, onSubmit }) => {
     const handleSubmit = async () => {
         try {
             const res = await AdduserspageAPI(token, UserName)
-            console.log(res.data.message)
-            showToastMessage_success(res.data.message)
+            if(res.status===200)
+                {
+                    console.log(res.data.message)
+                    showToastMessage_success(res.data.message)
+                    
+                    onSubmit()
+                }
+   
         } catch (error) {
             if (error.response) {
                 if (error.response.status === 401) {
@@ -41,6 +47,7 @@ export const AddPagetoUser = ({ isOpen, onClose, onSubmit }) => {
 
         } finally {
             setIsLoading(false);
+            onSubmit()
         }
 
         onSubmit(UserName);

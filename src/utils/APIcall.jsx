@@ -209,19 +209,47 @@ export const Add_Image_In_HeadersAPI = async (token, ImageFile) => {
 // DeleteHeaders 
 
 export const DeleteHeadersAPI = async (token, ID) => {
+
 const reqData={
-  headerId:ID
+  userPageId:ID
 }
 
 
-  return await axios.post(`${BASE_URL}/user/deleteheaders`, reqData, {
-    headers: { Authorization: "Bearer " + token }
+
+  return await axios.post(`${BASE_URL}/user/deletepage`, reqData, {
+    headers: { Authorization: "Bearer "+ token }
   });
 
 };
 
 
 
+export const DeletableHeadersAPI=async(token,ID)=>{
+  const userPageId={
+    userPageId:ID
+  }
+  return await axios.post(`${BASE_URL}/user/deletepage`,userPageId,{
+    headers: { Authorization: "Bearer "+ token }
+  })
+}
+
+
+
+
+// DeleteUser 
+
+export const DeleteUserAPI = async (token, ID) => {
+  const reqData={
+    userPageId:ID
+  }
+  
+  
+    return await axios.post(`${BASE_URL}/user/deletepage`, reqData, {
+      headers: { Authorization: "Bearer " + token }
+    });
+  
+  };
+  
 
 
 
