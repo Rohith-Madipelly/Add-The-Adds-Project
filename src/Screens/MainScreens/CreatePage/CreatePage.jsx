@@ -324,7 +324,7 @@ function CreatePage() {
                   Display Ads
                 </CustomButton>
                 <DeleteHeadersModel datares={headerData} isOpen={isDeleteModalOpen} onClose={handleDeleteCloseModal} onSubmit={handleDeleteSubmit} />
-                <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handlePageOpenModal() }}>
+                <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handleDeleteUserOpenModal() }}>
                   Delete Ads
                 </CustomButton>
               </div>
