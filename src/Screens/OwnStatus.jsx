@@ -3,7 +3,7 @@ import { Virtual, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
-import 'swiper/css/pagination';
+// import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 
@@ -24,6 +24,9 @@ import { setToken } from '../redux/actions/loginAction';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
+import { ShareModel } from '../utils/ShareModel';
+import CustomButton from '../Components/UI/Button/CustomButton';
+import share from '../../public/images/share.png'
 
 
 function OwnStatus() {
@@ -40,6 +43,59 @@ function OwnStatus() {
     const dispatch = useDispatch();
     const location = useLocation();
     const [imageData, setImageData] = useState([])
+    const [currentURl, setCurrentURl] = useState('https://addtheadd.com/Own%20Status');
+
+    const [isShareModelOpen, setIsShareModelOpen] = useState(false);
+    const [shareimg,setShareimg]=useState('')
+
+    const openShareModel = (image) => {
+      setIsShareModelOpen(true);
+      setShareimg(`https://admin.addtheadd.com${image}`)
+    };
+  
+    const closeShareModel = () => {
+      setIsShareModelOpen(false);
+    };
+
+    const handleShare = (link, platform) => {
+        if (platform === "whatsapp") {
+          const linkMessage = "Vist My Page";
+          const image = shareimg;
+    
+          // Encode message, image URL, and link
+          const encodedMessage = encodeURIComponent(linkMessage);
+          const encodedImage = encodeURIComponent(image);
+          const encodedLink = encodeURIComponent(link);
+    
+          // Compose the message with link, additional text, and image
+  const message = `${encodedMessage}%0A%0AUser Page: ${encodedLink}%0A%0AImage: ${encodedImage}`;    
+          // Open WhatsApp with the composed message
+          window.open(`https://api.whatsapp.com/send?text=${message}`);
+        }
+    
+        else if (platform === "instagram") {
+          const linkMessage = "Use Template";
+          const image = shareimg;
+          const link = "https://addtheadd.com/Own%20Status"; // Replace this with your actual link
+    
+          // Compose the caption with link, additional text, and image
+          const caption = `${linkMessage}%0A%0AWebsite: Your additional text here.%0A%0AUser Page: ${link}`;
+    
+          // Construct the Instagram post URL
+          const instagramPostUrl = `instagram://library?AssetPath=${image}&Caption=${caption}`;
+    
+          // Open Instagram with the pre-filled caption
+          window.open(instagramPostUrl);
+        }
+    
+        // Implement logic to share the link through various platforms
+        console.log('Sharing link:', link);
+        // You can use libraries like react-share to implement sharing functionalities
+        // Example: share on WhatsApp
+        // window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(link)}`);
+      };
+
+
 
 
     // Check if there's a state with a message
@@ -120,7 +176,7 @@ function OwnStatus() {
                             {/* <div className='w-90  bg-white shadow-xl px-5 py-2 rounded-lg'>Search Here</div> */}
                         </div>
                     </div>
-                    <div className='w-full h-[280px] sm:h-[250px] mt-5 mx-5'>
+                    <div className='w-full h-[280px] sm:h-[250px] mt-5 '>
 
                         {imageData ? <Swiper
 
@@ -140,10 +196,15 @@ function OwnStatus() {
                             }}
                             pagination={{
                                 clickable: true,
+                                el: '.custom-pagination'
                             }}
                             className="w-full h-68 pb-4"
                             modules={[Navigation, Pagination]}
                             breakpoints={{
+                                300: {
+                                    slidesPerView: 1,
+                                    spaceBetween: 10,
+                                },
                                 390: {
                                     slidesPerView: 1,
                                     spaceBetween: 10,
@@ -176,13 +237,15 @@ function OwnStatus() {
                                             {/* <Link to={{ pathname: '/Edit Own Page' }} state={{ slideContent }}> */}
                                             {/* {console.log("Data ",slideContent)} */}
                                             <img src={`https://admin.addtheadd.com${image}`}
-                                                className='  w-[100%] sm:h-[290px] m-0 p-0 object-cover' />
+                                                className='  w-[100%] sm:h-[290px]  p-0 object-cover sm-mr-5vw' />
                                             {/* </Link> */}
                                         </Link>
-                                       
+                                        <button classStyle={'my-3 bg-white h-auto'} className='p-1 rounded '
+                                         onClick={() => { openShareModel(image) }}><img src={share} alt='share'/></button>
+
                                         {isAdmin.toString()==="true"?<div className='flex justify-center'>
                                             <button onClick={() => { handleDelete(_id) }}
-                                                className='bg-[#1E429F] items-center text-[white] p-1 mt-2 rounded mb-8'>Delete</button></div>:""}
+                                                className='bg-[#1E429F] items-center text-[white] p-1  rounded mb-8'>Delete</button></div>:""}
                                     </SwiperSlide>
 
 
@@ -194,13 +257,14 @@ function OwnStatus() {
                         </Swiper> : ""}
 
 
+                        <ShareModel isOpen={isShareModelOpen} onClose={closeShareModel} onSubmit={handleShare} linkData={currentURl} />
 
                     </div>
 
 
 
 
-                    <div className='h-[100px]'>
+                    <div className='h-[100px] mb-8 '>
 
                     </div>
                 </div>

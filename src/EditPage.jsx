@@ -367,9 +367,9 @@ function EditPage() {
   }, [editor]);
 
   return (
-    <div className='new_Page_GroundImage'>
+    <div >
       <ToastContainer />
-      <div className='h-[70px] HomeBackGroundImage'>
+      <div className='h-[70px]'>
       </div>
       <div className="container-head">
         <div className="textColor">
@@ -464,7 +464,7 @@ function EditPage() {
           <button onClick={onAddImage}><svg width="33" height="33" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M25.8125 5.1875H5.1875C4.69022 5.1875 4.21331 5.38504 3.86167 5.73667C3.51004 6.08831 3.3125 6.56522 3.3125 7.0625V23.9375C3.3125 24.4348 3.51004 24.9117 3.86167 25.2633C4.21331 25.615 4.69022 25.8125 5.1875 25.8125H25.8125C26.3098 25.8125 26.7867 25.615 27.1383 25.2633C27.49 24.9117 27.6875 24.4348 27.6875 23.9375V7.0625C27.6875 6.56522 27.49 6.08831 27.1383 5.73667C26.7867 5.38504 26.3098 5.1875 25.8125 5.1875ZM18.7812 10.8125C19.0594 10.8125 19.3313 10.895 19.5625 11.0495C19.7938 11.204 19.974 11.4236 20.0805 11.6806C20.1869 11.9376 20.2147 12.2203 20.1605 12.4931C20.1062 12.7659 19.9723 13.0165 19.7756 13.2131C19.579 13.4098 19.3284 13.5437 19.0556 13.598C18.7828 13.6522 18.5001 13.6244 18.2431 13.518C17.9861 13.4115 17.7665 13.2313 17.612 13C17.4575 12.7688 17.375 12.4969 17.375 12.2188C17.375 11.8458 17.5232 11.4881 17.7869 11.2244C18.0506 10.9607 18.4083 10.8125 18.7812 10.8125ZM5.1875 23.9375V20.6562L11.2812 14.5625L20.6562 23.9375H5.1875ZM25.8125 23.9375H23.3082L19.0895 19.7188L21.4332 17.375L25.8125 21.7555V23.9375Z" fill="white" />
           </svg>
-          </button><p style={{ color: "white" }}>Image</p>
+          </button><p style={{ color: "white" }}>Edit Image</p>
           <button onClick={changeShape}><img src={imgshape}
             style={{ cursor: 'pointer', width: "25px" }}
             alt="change shape" />
@@ -472,6 +472,7 @@ function EditPage() {
           <img src={photo} alt="Uploaded"
             onClick={() => { setPopup(true) }}
             style={{ cursor: 'pointer', width: "28px" }} />
+            <p style={{ color: "white" }}>Upload</p>
 
           <input style={{
             padding: "5px",
@@ -479,12 +480,14 @@ function EditPage() {
             width: "40px",
             height: "40px",
             border: "none",
-            cursor: "pointer"
+            cursor: "pointer",
+            backgroundColor:"white"
           }}
             type="color"
             value={bgCanvaColor}
             onChange={(e) => changeBackgroundColor(e.target.value)}
           />
+          <p style={{ color: "white" }}>BackGround</p><p style={{ color: "white" }}>Color</p>
         </div>
         {/* <div className="canvas-container"> */}
         <FabricJSCanvas className="sample-canvas"
@@ -504,14 +507,16 @@ function EditPage() {
                 >
                   Layer {index + 1}
                 </button>
-                <button onClick={() => { onLayerClick(obj); handleDelete(index); }}><img className="binimg" src={bin} /></button>
+                <button style={{backgroundColor:"transparent"}}
+                onClick={() => { onLayerClick(obj); handleDelete(index); }}>
+                  <img className="binimg"  src={bin} /></button>
               </div>
             ))}
         </div>
       </div>
       <div className="saveButton">
         <button onClick={saveAsJpg}>Download</button>
-        {isAdmin && <button onClick={() => { saveAsJpg(); saveAsJson() }}>Save as canvas</button>}
+        {isAdmin.toString()==="true"? <button onClick={() => { saveAsJpg(); saveAsJson() }}>Save as canvas</button>:""}
       </div>
       {popup && (
         <CanvaPhoto close={() => { setPopup(false) }}

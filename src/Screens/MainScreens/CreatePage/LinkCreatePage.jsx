@@ -387,7 +387,7 @@ function LinkCreatePage() {
                             </div>
                             <div className='w-[45%] h-[140px] rounded-2xl bg-white flex justify-center items-center'>
                           
-                            <Link to={`https://addtheadd.com/Add Page/${userName}`}>https://addtheadd.com/Add Page/{userName}</Link>
+                            <Link to={`https://addtheadd.com/Add Page/${userName}`}>https://addtheadd.com/Add%20Page/{userName}</Link>
                             </div>
 
                         </div>

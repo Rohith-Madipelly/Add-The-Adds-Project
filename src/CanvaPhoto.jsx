@@ -32,6 +32,7 @@ const CanvaPhoto = ({close, uploadImage}) => {
         // uploadImage(URL.createObjectURL(local))
         uploadImage(`https://admin.addtheadd.com${uploadImg}`)
         close();
+        toast.success("Please go to the Edit tab to edit the template")
         }
     }
 
