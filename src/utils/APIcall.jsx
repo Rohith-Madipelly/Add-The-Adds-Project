@@ -211,12 +211,12 @@ export const Add_Image_In_HeadersAPI = async (token, ImageFile) => {
 export const DeleteHeadersAPI = async (token, ID) => {
 
 const reqData={
-  userPageId:ID
+  headerId:ID
 }
 
 
 
-  return await axios.post(`${BASE_URL}/user/deletepage`, reqData, {
+  return await axios.post(`${BASE_URL}/user/deleteheaders`, reqData, {
     headers: { Authorization: "Bearer "+ token }
   });
 

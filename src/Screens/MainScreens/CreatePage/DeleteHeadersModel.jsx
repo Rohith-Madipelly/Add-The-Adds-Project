@@ -19,7 +19,7 @@ export const DeleteHeadersModel = ({ datares, isOpen, onClose, onSubmit }) => {
             const res = await DeleteHeadersAPI(token, ID)
             console.log(res.data)
             showToastMessage_success(res.data.message)
-            handleSubmit()
+            onSubmit()
 
         }
         catch (e) {

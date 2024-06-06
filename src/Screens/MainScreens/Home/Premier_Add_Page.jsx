@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Virtual, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -12,7 +12,7 @@ function Premier_Add_Page() {
     const [swiperRef, setSwiperRef] = useState(null);
     const [Data, setData] = useState([])
     const [checker, setChecker] = useState(false)
-
+    const navigate = useNavigate();
 
 
 
@@ -80,7 +80,7 @@ function Premier_Add_Page() {
         <div className='mt-5'>
             <div>
                 <div className='flex flex-col items-center justify-center  w-full h-full mx-auto '>
-                    <h1>GET A PLAN BECOME A CUSTOMER</h1>
+                    <h1 onClick={()=>{navigate('/Upload Ads');}}>GET A PLAN BECOME A CUSTOMER</h1>
 
 
                     <div className='flex w-[644px] items-center justify-center sm:w-[350px] '>

@@ -31,7 +31,7 @@ const ForgotPass = () => {
       if (error.response.status === 404) {
         setEmailApiErr("Email does not exist");
       } else if (error.response.status === 429) {
-        setOtpApiErr("Email does not exist");
+        setOtpApiErr('Failed to send otp. Check email configuration');
       }
     } finally {
       resetForm();
@@ -97,9 +97,8 @@ const ForgotPass = () => {
                   type="email"
                   name="email"
                   id="email"
-                  className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ${
-                    errors.email && touched.email ? "border-red-500" : ""
-                  }`}
+                  className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ${errors.email && touched.email ? "border-red-500" : ""
+                    }`}
                   placeholder="Enter your email"
                   required=""
                 />

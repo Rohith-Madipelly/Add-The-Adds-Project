@@ -319,11 +319,11 @@ function UploadPage() {
             <div className='flex flex-col items-start  border-b border-r p-[40px] mx-5'>
               <a href='Own%20Status'>
 
-                <CustomButton classStyle={'my-3 bg-white h-auto'}>Upload My Page</CustomButton>
+                <CustomButton classStyle={'my-3 bg-white h-auto'}>Upload my page</CustomButton>
               </a>
               <a href="/Create Page">
 
-                <CustomButton classStyle={'my-3 bg-white h-auto'}>Add Ads Links</CustomButton>
+                <CustomButton classStyle={'my-3 bg-white h-auto'}>Add ads links</CustomButton>
               </a>
               {/* <GiftCard isOpen={isShareModelOpen} onClose={closeShareModel} onSubmit={handleShare} linkData={currentURl} /> */}
 
@@ -340,11 +340,11 @@ function UploadPage() {
             <div className='w-full h-full flex  items-center'>
               <div className='backGroundGradinatecss w-full xl:h-auto rounded-xl flex flex-col py-10 justify-center items-center max-w-[80%] max-h-[100%]'>
                 <a href='/Create Page'>
-                  <CustomButton classStyle={'my-4 bg-white font-bold'}>My Page</CustomButton>
+                  <CustomButton classStyle={'my-4 bg-white font-bold'}>My page</CustomButton>
                 </a>
 
-                <a href='/Add Page'><CustomButton classStyle={'my-4 bg-white font-bold'}>Add Page</CustomButton></a>
-                <a href='/Create Page'><CustomButton classStyle={'my-4 bg-white font-bold'}>Add The Adds</CustomButton></a>
+                <a href='/Add Page'><CustomButton classStyle={'my-4 bg-white font-bold'}>Add page</CustomButton></a>
+                <a href='/Create Page'><CustomButton classStyle={'my-4 bg-white font-bold'}>Add the adds</CustomButton></a>
               </div>
             </div>
           </div>
@@ -368,7 +368,7 @@ function UploadPage() {
 
                   <div className='text-white text-center mt-5'>
                     <div className='font-bold text-3xl'>{data.PlanPrize} ₹</div>
-                    <div className='text-sm font-normal my-2'>{data.Duration}</div>
+                    {/* <div className='text-sm font-normal my-2'>{data.Duration}</div> */}
                     <div className='text-lg mt-4'>{data.Description}</div>
                   </div>
 

@@ -5,7 +5,7 @@ import { getaddAPI } from '../../utils/APIcall'
 function AdvertisingComponents() {
 
     const [showImage, setShowImage] = useState(true);
-    const [ImageUrl, setImageURl] = useState()
+    const [ImageUrl, setImageURl] = useState('')
     const [LinkUrl, setLinkURl] = useState()
     const [initialValue, SetinitialValue] = useState(1)
     const [ADSData, setADSData] = useState([])
@@ -13,13 +13,15 @@ function AdvertisingComponents() {
         // console.log("API start")
         try {
             const res = await getaddAPI()
-            console.log(res.data.Data)
+            console.log(res.data.imageData)
+            console.log("<><><<><><><><><>>>>>>>>>>>>",res.data.imageData[0].imageUrl)
             setADSData(res.data.Data)
-            setImageURl(res.data.Data[0].imageUrl);
+            
+            setImageURl(`https://admin.addtheadd.com${res.data.imageData[0].imageUrl}`);
             setLinkURl(res.data.Data[0].imagelink)
             console.log("1 ImageUrl", ImageUrl)
         } catch (e) {
-            setImageURl('/images/Home/Advertisting.png');
+            // setImageURl('/images/Home/Advertisting.png');
         } finally {
             console.log("Finally")
         }
@@ -33,12 +35,13 @@ function AdvertisingComponents() {
     const handleClose = () => {
         try{
             setShowImage(false);
-            SetinitialValue((prevIndex) => (prevIndex + 1) % ADSData.length);
-            setImageURl(ADSData[initialValue].imageUrl)
-            setLinkURl(ADSData[initialValue].imageUrl)
+            // SetinitialValue((prevIndex) => (prevIndex + 1) % ADSData.length);
+            // setImageURl(ADSData[initialValue].imageUrl)
+            // setLinkURl(ADSData[initialValue].imageUrl)
             setTimeout(() => {
                 setShowImage(true);
             }, 5000);
+            APICaller()
         }catch(e){
             console.log("No Image found In error")
         }
@@ -54,7 +57,7 @@ function AdvertisingComponents() {
 
 
                 {ImageUrl ? <>{showImage ?
-                    <a href={LinkUrl} target='blank'><img src={ImageUrl} alt="Image" style={{ objectFit: 'cover' }} className='w-[100%] h-[12vw] sm:w-[100%]' /></a>
+                    <a href={LinkUrl} target='blank'><img src={ImageUrl} alt={ImageUrl} style={{ objectFit: 'cover' }}  className='w-[100%] h-[12vw] sm:w-[100%]' /></a>
                     : <div><div style={{ width: '100%', height: '100%' }} className=' bg-white '></div></div>}</> : ""}
 
                 {/* {showImage ?
