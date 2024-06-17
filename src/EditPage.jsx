@@ -174,7 +174,7 @@ function EditPage() {
         const blob = dataURLToBlob(dataURL);
         const link = document.createElement('a');
         link.href = dataURL;
-        link.download = 'canvas.jpg';
+        link.download = 'image.jpg';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);

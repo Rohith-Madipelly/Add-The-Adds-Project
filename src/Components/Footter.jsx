@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
 
 function Footter() {
+  const [isTrue,setIsTrue]=useState(false)
   const location = useLocation();
   const FootterDisplay =
     location.pathname === "/login" ||
@@ -20,87 +21,70 @@ function Footter() {
       <div className="p-5 sm:px-0 flex justify-center item-center">
         <div className="w-[70%] sm:w-[85%] ">
           <div className=" border-b-2 pb-5">
-            <div className="grid grid-cols-4 sm:grid-cols-1 gap-3 ">
-              <div className="">
-                <h4 className="tracking-[1.20px] uppercase py-2 text-2xl sm:text-xl font-bold ">
-                  CONTENT
+          <h4 className="tracking-[1.20px] uppercase py-2 text-2xl text-center sm:text-xl font-bold ">
+                  BUSINESS VICTORY SOLUTIONS SOFTWARE COMPANY
                 </h4>
-                <Link
-                  to={"/Festivals"}
-                  className="p-2 text-xl sm:text-base block"
-                >
-                  Festivals
-                </Link>
-                <Link
-                  to={"/Trending"}
-                  className="p-2 text-xl sm:text-base block"
-                >
-                  Trending
-                </Link>
-                <Link to={"/Blog"} className="p-2 text-xl sm:text-base block">
-                  Blog
-                </Link>
-              </div>
-              <div className="">
-                <h3 className="tracking-[1.20px] uppercase py-2  text-2xl sm:text-xl font-bold">
-                  Legal
+              <button onClick={()=>setIsTrue(prevState => !prevState)} className="flex gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#ffffff"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg>
+              Menu
+              </button>
+
+           { isTrue && <div className="grid grid-cols-3 sm:grid-cols-1 gap-4 m-4 ">
+              <div>
+              <h3  className=" text-xl sm:text-base block">
+                  WebSite Development
                 </h3>
-                <Link
-                  to={"/Terms of use"}
-                  className="p-2 text-xl sm:text-base block"
-                >
-                  Terms of use
-                </Link>
-                <Link
-                  to={"/License"}
-                  className="p-2 text-xl sm:text-base block"
-                >
-                  License
-                </Link>
-                <Link
-                  to={"/Privacy Policy"}
-                  className="p-2 text-xl sm:text-base block"
-                >
-                  Privacy policy
-                </Link>
-              </div>
-              <div className="">
-                <h3 className="tracking-[1.20px] uppercase py-2  text-2xl sm:text-xl font-bold">
-                  Support
+                <h3  className="text-xl sm:text-base block">
+                  Mobile App Development
+                </h3>
+                <h3  className="text-xl sm:text-base block">
+                  Advetising Ads Development
                 </h3>
 
-                {/* <Link to={'/Contact us'}> <p className='p-2 text-xl sm:text-base'>Contact</p></Link> */}
-                <Link to={"/Faq"} className="p-2 text-xl sm:text-base block">
-                  FAQ
-                </Link>
-                <Link
-                  to={"/Contact us"}
-                  className="p-2 text-xl sm:text-base block"
-                >
-                  Contact
-                </Link>
-              </div>
-              {/* </div> */}
-              <div className="">
-                <h3 className="tracking-[1.20px] uppercase py-2  text-2xl sm:text-xl font-bold">
-                  Social Media
+              <h3  className="text-xl sm:text-base block">
+                  Social Media Promotions
                 </h3>
-                <div className="flex gap-4 p-2 ">
-                  <Link to={"https://www.facebook.com/"} target="_blank">
-                    <img src="images/img_vector.svg"></img>
-                  </Link>
-                  <Link to={"https://www.instagram.com/"} target="_blank">
-                    <img src="images/img_vector_white_a700.svg"></img>
-                  </Link>
-                  <Link to={"https://www.linkedin.com/"} target="_blank">
-                    <img src="images/img_vector_white_a700_32x32.svg"></img>
-                  </Link>
-                </div>
+                <h3  className="text-xl sm:text-base block">
+                  Social Media Handling
+                </h3>
+                <h3  className="text-xl sm:text-base block">
+                  Brand & Logos Designing
+                </h3>
               </div>
-            </div>
+  
+              <div>
+              <h3  className="text-xl sm:text-base block">
+                  Celebrating Promotions
+                </h3>
+                <h3  className="text-xl sm:text-base block">
+                  Digital media marketing
+                  <ul style={{'list-style-type':"disc"}} className="text-left text-sm ml-8" >
+                  <li>Google Ads</li>
+                  <li>FaceBook Ads</li>
+                  <li>Instagram Ads</li>
+                  <li>Youtube Ads</li>
+                  <li>Website Ads</li>
+                  <li>addtheadd.com ads</li>
+                 </ul>
+                </h3>
+                 
+                
+              </div>
+
+              <div>
+              <h3  className="text-xl sm:text-base block">
+                  Contact
+                </h3>
+                <p>Business Victory Solutions</p>
+                <p>Maneger :8523899330, 7993558948</p>
+                <p>bvsadds@gmail.com</p>
+                <p>bvsaddshelpline@gmail.com</p>
+              </div>
+  
+            </div>}
           </div>
           <p className="sm:text-sm text-center mt-4">
-            Copyright @ 2024 Add the Adds.com. All rights reserved
+            Copyright @ 2024 Add the Add.com. All rights reserved
           </p>
         </div>
       </div>
