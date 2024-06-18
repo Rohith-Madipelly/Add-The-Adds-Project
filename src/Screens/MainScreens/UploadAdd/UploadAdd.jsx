@@ -3,7 +3,7 @@ import './UploadAdd.css'
 import CustomButton from '../../../Components/UI/Button/CustomButton'
 import AdvertisingComponents from '../../../Components/Funca/AdvertisingComponents'
 import { Button } from 'flowbite-react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { GetPlanInfo } from '../../../utils/APIcall'
 import { useLocation } from 'react-router-dom'
 import { showToastMessage_warn } from '../../../shared/Toaster'
@@ -13,11 +13,12 @@ import WrongFalse from './WrongFalse'
 import { ShareModel } from '../../../utils/ShareModel'
 import { GiftCard } from './GiftCard'
 import PaymentScreen from '../../../Components/Razorpay/Razorpay'
+import { setToken } from '../../../redux/actions/loginAction'
 function UploadPage() {
   const [isShareModelOpen, setIsShareModelOpen] = useState(false);
   const [currentURl, setCurrentURl] = useState(true);
   const [isGiftModalOpen, setIsGiftModalOpen] = useState(false);
-
+  const dispatch = useDispatch();
   const handleImageOpenModal = () => {
 
     setIsGiftModalOpen(true);
@@ -52,8 +53,32 @@ function UploadPage() {
             setTimeout(() => {
               console.log(">>>>123456", planDataView, ">>>>", res.data.data)
             }, 200)
-          } catch (e) {
-            console.log("sadjkbbsd")
+          } catch (error) {
+            console.log(error);
+            if (error.response) {
+              if (error.response.status === 401) {
+             
+              } else if (error.response.status === 404) {
+                showToastMessage_warn('User Not Found')
+                dispatch(setToken(""));
+                // dispatch(setToken(""));
+                localStorage.removeItem("token");
+                localStorage.removeItem("isAdmin");
+              } else if (error.response.status === 500) {
+                // toast.error('Internal server error', { position: toast.POSITION.TOP_CENTER })
+                showToastMessage_warn('Internal server error')
+                dispatch(setToken(""));
+                localStorage.removeItem("token");
+                localStorage.removeItem("isAdmin");
+              } else {
+                showToastMessage_warn('An error occurred during .')
+              }
+            } else if (error.request) {
+              showToastMessage_warn('No response received from the server.')
+           
+            } else {
+              showToastMessage_warn('Error setting up the request.')
+            }
           }
 
 

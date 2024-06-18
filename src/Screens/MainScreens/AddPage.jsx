@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import CustomButton from '../../Components/UI/Button/CustomButton'
 
 import { LIKEAPI, UserPageAPI } from '../../utils/APIcall';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { showToastMessage_error, showToastMessage_warn } from '../../shared/Toaster';
 import CarouselComponentAddPage from './AddPage/CarouselComponentAddPage';
 import { useLocation } from 'react-router-dom';
@@ -12,6 +12,7 @@ import { NotInLogin } from './AddPage/NotInLogin';
 import { useNavigate } from "react-router";
 import { useParams } from 'react-router-dom';
 import { ShareModel } from '../../utils/ShareModel';
+import { setToken } from '../../redux/actions/loginAction';
 
 function AddPage() {
 
@@ -19,7 +20,7 @@ function AddPage() {
 
   const userName11 = useSelector((state) => state.userName);
 
-
+  const dispatch = useDispatch();
   let { userNameParams } = useParams();
 
 
@@ -35,15 +36,15 @@ function AddPage() {
 
   const navigate = useNavigate();
   const [Dataapi, setDataapi] = useState([])
-  const [OtherUser, setOtherUser] = useState([ {
+  const [OtherUser, setOtherUser] = useState([{
     "_id": "66543340ee20dc798168292b",
     "username": "Rachana",
     "recentHeader": {
-        "_id": "665483de0f8c4fcca185705f",
-        "headLinkPic": "https://admin.addtheadd.com/headerPics/1716814814571.png",
-        "status": true
+      "_id": "665483de0f8c4fcca185705f",
+      "headLinkPic": "https://admin.addtheadd.com/headerPics/1716814814571.png",
+      "status": true
     }
-}])
+  }])
   const [isLoading, setIsLoading] = useState(true);
   const [currentURl, setCurrentURl] = useState(true);
 
@@ -79,14 +80,14 @@ function AddPage() {
         let resData = await responsed.data
 
         setOtherUser(responsed.data.userPages)
-        console.log("OtherUserDaat>>>> ", OtherUser,resData.userPages)
+        console.log("OtherUserDaat>>>> ", OtherUser, resData.userPages)
 
         setDataapi(resData)
 
         setLive_links(resData.Links.live_links)
         setGeneral_links(resData.Links.general_links)
         setChanel_links(resData.Links.chanel_links)
-       
+
         // console.log("Hello", Dataapi.Likes)
         setLike(responsed.data.Likes)
       }
@@ -99,7 +100,7 @@ function AddPage() {
       if (error.response) {
         if (error.response.status === 401) {
           console.log(error.response)
-       
+
 
         } else if (error.response.status === 404) {
           showToastMessage_error(error.response.data.message)
@@ -116,7 +117,7 @@ function AddPage() {
     }
     finally {
       setIsLoading(false)
-      console.log("KLLLL",OtherUser)
+      console.log("KLLLL", OtherUser)
     }
   }
 
@@ -147,8 +148,32 @@ function AddPage() {
         }
 
       }
-    } catch (e) {
-      console.log("hjsbkdf", e)
+    } catch (error) {
+      console.log(error);
+      if (error.response) {
+        if (error.response.status === 401) {
+       
+        } else if (error.response.status === 404) {
+          showToastMessage_warn('User Not Found')
+          dispatch(setToken(""));
+          // dispatch(setToken(""));
+          localStorage.removeItem("token");
+          localStorage.removeItem("isAdmin");
+        } else if (error.response.status === 500) {
+          // toast.error('Internal server error', { position: toast.POSITION.TOP_CENTER })
+          showToastMessage_warn('Internal server error')
+          dispatch(setToken(""));
+          localStorage.removeItem("token");
+          localStorage.removeItem("isAdmin");
+        } else {
+          showToastMessage_warn('An error occurred during .')
+        }
+      } else if (error.request) {
+        showToastMessage_warn('No response received from the server.')
+     
+      } else {
+        showToastMessage_warn('Error setting up the request.')
+      }
     } finally {
       console.log("function Ended")
     }
@@ -311,13 +336,13 @@ function AddPage() {
 
             {/* <div className='w-[80%] h-[300px] mt-10  gap-1 gap-y-2 grid grid-flow-col grid-col-2 sm:grid-rows-2 sm:mx-0 sm:justify-center rounded-lg overflow-hidden'> */}
             <div className='flex justify-center sm:h-[80%] gap-4 sm:flex-col sm:ml-4 sm:pr-[10px]'>
-            {OtherUser.length === 0 ? (
-              <div className='text-center text-black font-bold'>No userpage is available</div>
-            ) : (OtherUser.map((MapData, index) => ( 
+              {OtherUser.length === 0 ? (
+                <div className='text-center text-black font-bold'>No userpage is available</div>
+              ) : (OtherUser.map((MapData, index) => (
                 <div key={index} className=" relative w-[400px] h-[100%] px-auto rounded-lg sm:ml-2 sm:pr-[10vw]">
                   <a href={MapData.username}>
                     <img src={`https://admin.addtheadd.com/${MapData.recentHeader.headLinkPic}`}
-                     className='h-[100%] rounded-lg sm:ml-4 ]'/>
+                      className='h-[100%] rounded-lg sm:ml-4 ]' />
                     <div className="sm:ml-2 sm:mr-[5vw] absolute inset-0 bg-black opacity-0 hover:opacity-70 flex items-center justify-center rounded-lg">
                       <span className="text-white text-xl">Click to view full page</span>
                     </div>

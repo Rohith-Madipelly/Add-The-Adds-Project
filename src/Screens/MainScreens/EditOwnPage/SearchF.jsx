@@ -22,6 +22,7 @@ const SearchF = () => {
       console.log("<><", res.data.Data)
       const Data = res.data.Data
       console.log(Data)
+      toast.error('User Not Found',)
       const filteredResults = Data.filter((user) => {
         return (
           value &&
@@ -35,6 +36,22 @@ const SearchF = () => {
     }
     catch (e) {
       console.log("Hello", e)
+      if (error.response) {
+        if (error.response.status === 401) {
+
+        } else if (error.response.status === 404) {
+
+          toast.error('User Not Found', { position: toast.POSITION.TOP_CENTER })
+        } else if (error.response.status === 500) {
+          toast.error('Internal server error', { position: toast.POSITION.TOP_CENTER })
+        } else {
+          toast.error('An error occurred during .', { position: toast.POSITION.TOP_CENTER })
+        }
+      } else if (error.request) {
+        toast.error('No response received from the server.', { position: toast.POSITION.TOP_CENTER })
+      } else {
+        toast.error('Error setting up the request.', { position: toast.POSITION.TOP_CENTER })
+      }
     }
     finally {
       console.log("sda")

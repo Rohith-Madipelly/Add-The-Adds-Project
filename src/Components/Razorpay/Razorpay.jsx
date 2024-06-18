@@ -60,6 +60,8 @@ const PaymentScreen = ({ planId }) => {
       //api call or CreateOrder
       const order = await createOrder(planId, token);
 
+      
+      console.log("123456",order)
 
       if (order?.data) {
         console.log("sdf", order.data.order.id)

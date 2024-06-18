@@ -11,7 +11,7 @@ import { DeleteHeadersModel } from './DeleteHeadersModel'
 
 import { AddPagetoUser } from './AddPagetoUser'
 
-import { useSelector } from 'react-redux'
+import { useSelector,useDispatch } from 'react-redux'
 import { MdDelete, MdThumbUp } from 'react-icons/md'
 
 import { Link, useLocation } from 'react-router-dom'
@@ -20,6 +20,7 @@ import { showToastMessage_error, showToastMessage_success, showToastMessage_warn
 
 import Loading from '../../../utils/Loadings/Loading'
 import { DeleteUserModel } from './DeleteUserModel'
+import { setToken } from '../../../redux/actions/loginAction'
 
 
 
@@ -32,7 +33,7 @@ function CreatePage() {
   const [UserData, setUserData] = useState([])
   const [Like, setLike] = useState(1)
   const [liked, setLiked] = useState(false);
-
+  const dispatch = useDispatch();
 
   const token = useSelector((state) => state.token);
   const location = useLocation();
@@ -84,8 +85,32 @@ function CreatePage() {
 
       }
     }
-    catch (e) {
-      console.log(e);
+    catch (error) {
+      console.log(error);
+      if (error.response) {
+        if (error.response.status === 401) {
+       
+        } else if (error.response.status === 404) {
+          showToastMessage_warn('User Not Found')
+          dispatch(setToken(""));
+          // dispatch(setToken(""));
+          localStorage.removeItem("token");
+          localStorage.removeItem("isAdmin");
+        } else if (error.response.status === 500) {
+          // toast.error('Internal server error', { position: toast.POSITION.TOP_CENTER })
+          showToastMessage_warn('Internal server error')
+          dispatch(setToken(""));
+          localStorage.removeItem("token");
+          localStorage.removeItem("isAdmin");
+        } else {
+          showToastMessage_warn('An error occurred during .')
+        }
+      } else if (error.request) {
+        showToastMessage_warn('No response received from the server.')
+     
+      } else {
+        showToastMessage_warn('Error setting up the request.')
+      }
     }
     finally {
       setIsLoading(false)
@@ -162,6 +187,27 @@ function CreatePage() {
     } catch (e) {
       console.log("error", e)
       showToastMessage_error('Error setting up the request.')
+
+      if (error.response) {
+        if (error.response.status === 401) {
+       
+        } else if (error.response.status === 404) {
+          showToastMessage_error('Error setting up the request.')
+          // toast.error('User Not Found', { position: toast.POSITION.TOP_CENTER })
+        } else if (error.response.status === 500) {
+         
+          showToastMessage_error('Internal server error.')
+
+        } else {
+         
+          showToastMessage_error('An error occurred during .')
+
+        }
+      } else if (error.request) {
+        toast.error('No response received from the server.', { position: toast.POSITION.TOP_CENTER })
+      } else {
+        toast.error('Error setting up the request.', { position: toast.POSITION.TOP_CENTER })
+      }
     }
     finally {
 
