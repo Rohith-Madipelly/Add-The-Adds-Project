@@ -18,7 +18,7 @@ const config = {
 
 // User Login API Call 
 export const UserLoginAPI = async (requestBody) => {
-console.log(requestBody)
+  console.log(requestBody)
   return await axios.post(`${GUEST_URL}/login`, requestBody);
 
 };
@@ -127,18 +127,18 @@ export const ProfileAPI = async (token) => {
 
 
 //LIKE API 
-export const LIKEAPI = async (token,userPage) => {
+export const LIKEAPI = async (token, userPage) => {
   return await axios.get(`${BASE_URL}/user/likepage/${userPage}`, {
     headers: { Authorization: "Bearer " + token }
   });
 };
 
 //UserPageAPI
-export const UserPageAPI= async (userName) => {
-  const reqData={
-    userPageName:userName
+export const UserPageAPI = async (userName) => {
+  const reqData = {
+    userPageName: userName
   }
-  return await axios.post(`${BASE_URL}/userpage`,reqData);
+  return await axios.post(`${BASE_URL}/userpage`, reqData);
 
 };
 
@@ -210,26 +210,26 @@ export const Add_Image_In_HeadersAPI = async (token, ImageFile) => {
 
 export const DeleteHeadersAPI = async (token, ID) => {
 
-const reqData={
-  headerId:ID
-}
+  const reqData = {
+    headerId: ID
+  }
 
 
 
   return await axios.post(`${BASE_URL}/user/deleteheaders`, reqData, {
-    headers: { Authorization: "Bearer "+ token }
+    headers: { Authorization: "Bearer " + token }
   });
 
 };
 
 
 
-export const DeletableHeadersAPI=async(token,ID)=>{
-  const userPageId={
-    userPageId:ID
+export const DeletableHeadersAPI = async (token, ID) => {
+  const userPageId = {
+    userPageId: ID
   }
-  return await axios.post(`${BASE_URL}/user/deletepage`,userPageId,{
-    headers: { Authorization: "Bearer "+ token }
+  return await axios.post(`${BASE_URL}/user/deletepage`, userPageId, {
+    headers: { Authorization: "Bearer " + token }
   })
 }
 
@@ -239,17 +239,17 @@ export const DeletableHeadersAPI=async(token,ID)=>{
 // DeleteUser 
 
 export const DeleteUserAPI = async (token, ID) => {
-  const reqData={
-    userPageId:ID
+  const reqData = {
+    userPageId: ID
   }
-  
-  
-    return await axios.post(`${BASE_URL}/user/deletepage`, reqData, {
-      headers: { Authorization: "Bearer " + token }
-    });
-  
-  };
-  
+
+
+  return await axios.post(`${BASE_URL}/user/deletepage`, reqData, {
+    headers: { Authorization: "Bearer " + token }
+  });
+
+};
+
 
 
 
@@ -257,45 +257,46 @@ export const DeleteUserAPI = async (token, ID) => {
 // AdduserspageAPI 
 
 export const AdduserspageAPI = async (token, UserName) => {
-  const reqData={
-    userPage:UserName
+  const reqData = {
+    userPage: UserName
   }
-  console.log(UserName,token)
- 
-    return await axios.post(`${BASE_URL}/user/adduserspage`, reqData, {
-      headers: { Authorization: "Bearer " + token }
-    });
-  
-  };
+  console.log(UserName, token)
+
+  return await axios.post(`${BASE_URL}/user/adduserspage`, reqData, {
+    headers: { Authorization: "Bearer " + token }
+  });
+
+};
 
 
 
-  // search Funcational 
+// search Funcational 
 
 export const searchAPI = async (keyword) => {
 
- const params={
-  keyword:keyword
- }
-    return await axios.get(`${BASE_URL}/search`,{params:params});
-  
-  };
+  const params = {
+    keyword: keyword
+  }
+  return await axios.get(`${BASE_URL}/search`, { params: params });
+
+};
 
 
-  export const getAddsAPI = async () => {
-       return await axios.get(`${BASE_URL}/adds`);};
-  
+export const getAddsAPI = async () => {
+  return await axios.get(`${BASE_URL}/adds`);
+};
+
 // Done with Testing  Create OrderAPI 
-export const createOrder = async (planId,token) => {
+export const createOrder = async (planId, token) => {
   console.log(planId);
-  const reqData={
-    planId:planId.planId
+  const reqData = {
+    planId: planId.planId
   }
 
   return await axios.post(`${BASE_URL}/user/creteorder`, reqData, {
     headers: { Authorization: "Bearer " + token }
   }
-)
+  )
 
 };
 
@@ -305,11 +306,11 @@ export const createOrder = async (planId,token) => {
 
 
 // Done with Testing  verifySignature
-export const verifySignatureApi = async (paymentData,token) => {
-  const formData={
-    "razorpay_order_id" : paymentData.razorpay_order_id,
-    "razorpay_payment_id" : paymentData.razorpay_payment_id,
-    "razorpay_signature" : paymentData.razorpay_signature
+export const verifySignatureApi = async (paymentData, token) => {
+  const formData = {
+    "razorpay_order_id": paymentData.razorpay_order_id,
+    "razorpay_payment_id": paymentData.razorpay_payment_id,
+    "razorpay_signature": paymentData.razorpay_signature
   }
 
   return await axios.post(`${BASE_URL}/user/verifyorder`, formData, {

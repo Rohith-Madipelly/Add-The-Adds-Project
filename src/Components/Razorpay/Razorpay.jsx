@@ -110,6 +110,7 @@ const PaymentScreen = ({ planId }) => {
         rzp1.open();
       }
     } catch (error) {
+      console.log(error.response)
 
       if (error?.response?.status === 401) {
         // await dispatch(setToken(""));
@@ -118,7 +119,9 @@ const PaymentScreen = ({ planId }) => {
         //   state: { redirectUrl: "Wallet" },
         // });
       }else if (error?.response?.status === 412) {
-        // console.log(error.response.data.message)
+        
+        console.log(error.response.data.message)
+     
         showToastMessage_error(error.response.data.message);
 
       } else {
