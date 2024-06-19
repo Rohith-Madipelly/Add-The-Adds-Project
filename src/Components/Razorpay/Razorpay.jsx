@@ -60,8 +60,8 @@ const PaymentScreen = ({ planId }) => {
       //api call or CreateOrder
       const order = await createOrder(planId, token);
 
-      
-      console.log("123456",order)
+
+   
 
       if (order?.data) {
         console.log("sdf", order.data.order.id)
@@ -116,6 +116,10 @@ const PaymentScreen = ({ planId }) => {
         //   pathname: "Login",
         //   state: { redirectUrl: "Wallet" },
         // });
+      }else if (error?.response?.status === 412) {
+        console.log(error)
+        setFormError("You have already purchased a plan");
+
       } else {
         setFormError("Something went wrong.");
         // updateFormMsg();
