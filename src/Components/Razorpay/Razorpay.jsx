@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from 'flowbite-react';
 import { createOrder, verifySignatureApi } from '../../utils/APIcall';
 import { PaymentResModal } from './PaymentScreens/PaymentResModal';
+import { showToastMessage_error } from '../../shared/Toaster';
 // import { verifySignatureApi, createOrder } from '../../Services/ApiCalls'
 
 const PaymentScreen = ({ planId }) => {
@@ -117,11 +118,11 @@ const PaymentScreen = ({ planId }) => {
         //   state: { redirectUrl: "Wallet" },
         // });
       }else if (error?.response?.status === 412) {
-        console.log(error)
-        setFormError("You have already purchased a plan");
+        // console.log(error.response.data.message)
+        showToastMessage_error(error.response.data.message);
 
       } else {
-        setFormError("Something went wrong.");
+        showToastMessage_error("Something went wrong.");
         // updateFormMsg();
       }
     }
