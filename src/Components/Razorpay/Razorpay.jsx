@@ -130,7 +130,7 @@ const PaymentScreen = ({ planId }) => {
 
 
   const verifySignature = async (paymentData) => {
-    console.log("dsff", paymentData)
+    console.log("dsff>>>>>>>>>>>>??????????????????????", paymentData)
     const token = localStorage.getItem('token');
     // console.log("Hello ",token);
     try {
@@ -150,7 +150,8 @@ const PaymentScreen = ({ planId }) => {
         }, 2000);
       }
     } catch (error) {
-      console.error(error)
+      console.error(">///////////////",error)
+      console.error(">///////////////",error.response.data.message)
       setFormError("Something went wrong.");
       setTimeout(() => {
       //   navigate('/PaymentFailed');
@@ -178,7 +179,8 @@ const PaymentScreen = ({ planId }) => {
         <div className="flex justify-end">
           <button
             className="px-4 py-2 mr-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none"
-            onClick={()=>{navigate(`${routeTo}`);}}
+            // onClick={()=>{navigate(`${routeTo}`);}}
+            onClick={()=>{navigate(`/`);}}
           >
             OK
           </button>
