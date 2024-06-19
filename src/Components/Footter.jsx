@@ -76,9 +76,10 @@ function Footter() {
                   Contact
                 </h3>
                 <p>Business Victory Solutions</p>
-                <p>Maneger :8523899330, 7993558948</p>
-                <p>bvsadds@gmail.com</p>
-                <p>bvsaddshelpline@gmail.com</p>
+                <p>Manager: <a href="tel:8523899330">8523899330</a>, <a href="tel:7993558948">7993558948</a></p>
+                <p><a href="mailto:bvsadds@gmail.com">bvsadds@gmail.com</a></p>
+                <p><a href="mailto:bvsaddshelpline@gmail.com">bvsaddshelpline@gmail.com</a></p>
+
               </div>
   
             </div>}

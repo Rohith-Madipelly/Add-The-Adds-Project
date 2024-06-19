@@ -80,7 +80,8 @@ function Premier_Add_Page() {
         <div className='mt-5'>
             <div>
                 <div className='flex flex-col items-center justify-center  w-full h-full mx-auto '>
-                    <h1 onClick={()=>{navigate('/Upload Ads');}}>GET A PLAN BECOME A CUSTOMER</h1>
+                    <h1 style={{cursor:"pointer",padding:20,fontSize:20,fontWeight:600}}
+                     onClick={()=>{navigate('/Upload Ads');}}>GET A PLAN BECOME A CUSTOMER</h1>
 
 
                     <div className='flex w-[644px] items-center justify-center sm:w-[350px] '>

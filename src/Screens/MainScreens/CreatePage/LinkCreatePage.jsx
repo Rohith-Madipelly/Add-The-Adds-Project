@@ -136,7 +136,7 @@ function LinkCreatePage() {
                 <div>
                     {/* Live Links */}
                     <div className='mb-3'>
-                        <div className='flex justify-between w-[95%]   mx-auto'>
+                        <div className='flex justify-between w-[95%]   mx-auto '>
                             <p className='my-1'>Live Links</p>
                             <p onClick={() => { addLinkToArray() }}>Add More Links</p>
                         </div>
@@ -377,15 +377,17 @@ function LinkCreatePage() {
 
                     {/* User Page Link */}
                     <div className='mb-3'>
-                        <div className='flex justify-between w-[95%]  mx-auto'>
-                            <p className='my-1'>User Page Link</p>
+                        <div className='flex justify-between w-[95%]  mx-auto  '>
+                            <p className='my-1 sm:text-center'>User Page Link</p>
                         </div >
 
-                        <div className='flex justify-between w-[95%]  mx-auto'>
-                            <div className='w-[45%]  h-[140px] rounded-2xl'>
+                        <div className='flex justify-between w-[95%]  mx-auto sm:flex-col sm:justify-center
+                        sm:align-center'>
+                            <div className='w-[45%]  h-[140px] rounded-2xl  sm:w-[100%]'>
                                 <img src={imge} alt="cs" className='w-full h-full object-cover rounded-2xl' />
                             </div>
-                            <div className='w-[45%] h-[140px] rounded-2xl bg-white flex justify-center items-center'>
+                            <div className='w-[45%] h-[140px] rounded-2xl bg-white flex  items-center text-center
+                            pl-3 sm:flex: none sm:pl-2 shadow-2xl sm:w-[100%] sm:mt-4'>
                           
                             <Link to={`https://addtheadd.com/Add Page/${userName}`}>https://addtheadd.com/Add%20Page/{userName}</Link>
                             </div>

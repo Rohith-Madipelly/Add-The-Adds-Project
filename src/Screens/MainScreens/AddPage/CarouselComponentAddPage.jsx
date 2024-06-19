@@ -81,7 +81,9 @@ function CarouselComponentAddPage({ userName }) {
                                     allowfullscreen
                                 ></iframe>
                             ) : (
-                                <img src={`https://admin.addtheadd.com/${data.headLinkPic}`} className=' p-10 py-40 px-10  object-fit iframeResponsevi' alt="Image" />  
+                                <img src={`https://admin.addtheadd.com/${data.headLinkPic}`} 
+                                className='p-10 py-40 px-10 iframeResponsevi object-contain 
+                                 sm:max-h-[550px]' alt="Image" />  
                             )}
                         </div>
                     ))

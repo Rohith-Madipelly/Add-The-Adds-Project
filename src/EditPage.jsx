@@ -11,6 +11,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useParams } from 'react-router-dom';
+import { saveAs } from "file-saver";
+import { ShareModel } from "./utils/ShareModel";
 
 function EditPage() {
   const canvasRef = useRef(null);
@@ -31,6 +33,7 @@ function EditPage() {
   const [canvaObject, setCanvaObject] = useState([]);
   const [popup, setPopup] = useState(false);
   const [formCanva, setFormCanva] = useState({ imageBlob: "", canvaData: "" });
+
 
   const canavobjectAPI = async (id) => {
     try {
@@ -162,6 +165,7 @@ function EditPage() {
     setBgCanvaColor(color);
   };
 
+  const imgid = id ? id : `${Math.random().toString().slice(2)}`;
   const saveAsJpg = () => {
     if (editor && editor.canvas) {
       const canvas = editor.canvas;
@@ -172,12 +176,14 @@ function EditPage() {
       if (canvasElement) {
         const dataURL = canvasElement.toDataURL('image/jpeg', 0.8);
         const blob = dataURLToBlob(dataURL);
-        const link = document.createElement('a');
-        link.href = dataURL;
-        link.download = 'image.jpg';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        // const link = document.createElement('a');
+        // link.href = dataURL;
+        saveAs(dataURL,`image-${imgid}.jpg`)
+        isShareModelOpen(true)
+        // link.download = `image-${imgid}.jpg`;
+        // document.body.appendChild(link);
+        // link.click();
+        // document.body.removeChild(link);
         setFormCanva((prevFormCanva) => {
           const updatedFormCanva = { ...prevFormCanva, imageBlob: blob };
           return updatedFormCanva;
@@ -522,7 +528,7 @@ function EditPage() {
         <CanvaPhoto close={() => { setPopup(false) }}
           uploadImage={setLocalImageUrl} />
       )}
-      {console.log("ll", localImageUrl)}
+
     </div>
   )
 }
