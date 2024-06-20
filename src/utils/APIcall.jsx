@@ -293,7 +293,7 @@ export const createOrder = async (planId, token) => {
     planId: planId.planId
   }
 
-  return await axios.post(`${BASE_URL}/user/creteorder`, reqData, {
+  return await axios.post(`${BASE_URL}/user/createorder`, reqData, {
     headers: { Authorization: "Bearer " + token }
   }
   )

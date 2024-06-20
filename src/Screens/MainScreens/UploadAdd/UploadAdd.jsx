@@ -82,11 +82,7 @@ function UploadPage() {
           }
 
 
-          // SetPlanData(res.data)
-          // console.log("Data Page >>", PlanData)
-          // console.log(">>>",PlanData)
-          // SetBenefitsData(res.data.benefits)
-          // console.log("benefits>>>>>>", benefitsData)
+        
         }
 
 
@@ -153,30 +149,7 @@ function UploadPage() {
     // window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(link)}`);
   };
   const [PlanData, SetPlanData] = useState([])
-  const [planDataView, setPlanDataView] = useState([ {
-    "_id": "665088970b8b0a538e79fa6d",
-    "PlanName": "test",
-    "Duration": 30,
-    "timesInADay": 25,
-    "Description": "test",
-    "PlanPrize": 1,
-    "PlanPic": "/planPics/1716553879597.jpg",
-    "addDuration": 20,
-    "benefits": [
-        {
-            "_id": "66541da7bdb2d9fd2b2098fe",
-            "plans": "665088970b8b0a538e79fa6d",
-            "name": "30 days",
-            "status": true,
-            "createdAt": "2024-05-27T05:44:07.763Z",
-            "updatedAt": "2024-05-27T05:44:07.763Z",
-            "__v": 0
-        }
-    ],
-    "createdAt": "2024-05-24T12:31:19.613Z",
-    "updatedAt": "2024-05-27T05:44:07.808Z",
-    "__v": 1
-},])
+  const [planDataView, setPlanDataView] = useState([])
 
   const token = useSelector((state) => state.token);
   const location = useLocation();
