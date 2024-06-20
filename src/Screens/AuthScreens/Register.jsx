@@ -28,7 +28,7 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = async () => {
-    try {
+    try { 
 
       const res = await UserRegisterAPI(values);
       showToastMessage_success(res.data.message);
@@ -102,7 +102,7 @@ const Login = () => {
     },
     validationSchema: signUpValidationSchema,
     onSubmit,
-  });
+  });   
 
   return (
     <section className="font-mainFont sm:mt-8 md:mt-14 mdl:mt-16 lg:mt-16 xl:mt-16 2xl:mt-20">
@@ -257,6 +257,7 @@ const Login = () => {
                     const value = e.target.value || "";
                     setFieldValue("phone_number", value.replace(/\D/g, ""));
                     handleInputChange;
+                    
                   }}
                   maxLength={10}
                   onBlur={handleBlur}

@@ -35,7 +35,21 @@ export const signUpValidationSchema = Yup.object({
     .required("Confirm password required")
     .oneOf([Yup.ref("password"), null], "Passwords must match"),
 
-  phone_number: Yup.string()
-    .matches(/^\d{10}$/, "Phone number is not valid")
-    .required("Phone number required"),
+  // phone_number: Yup.string()
+  //   .matches(/^\d{10}$/, "Phone number is not valid")
+  //   .required("Phone number required"),
+    phone_number: Yup.string()
+  .trim()
+  .required("Phone number is a required field")
+  .test(
+    'valid-start',
+    'Phone number must start with 6, 7, 8, or 9',
+    (value) => {
+      if (!value) return false; // Handles the case when value is null or undefined.
+      return /^[6-9]/.test(value); // Checks if the first digit is 6, 7, 8, or 9.
+    }
+  )
+  .matches(/^[0-9]{10}$/, "Phone number must be a 10-digit number"),
+
 });
+   
