@@ -28,7 +28,7 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = async () => {
-    try { 
+    try {
 
       const res = await UserRegisterAPI(values);
       showToastMessage_success(res.data.message);
@@ -41,7 +41,7 @@ const Login = () => {
         console.log(error.response.status)
         if (error.response.status === 401) {
           // setPasswordApiErr("Incorrect Password")
-        }else if (error.response.status === 403) {
+        } else if (error.response.status === 403) {
           // console.log("Data Error Internal server error 500 ", error)
           showToastMessage_error(error.response.data.message);
         } else if (error.response.status === 404) {
@@ -102,7 +102,7 @@ const Login = () => {
     },
     validationSchema: signUpValidationSchema,
     onSubmit,
-  });   
+  });
 
   return (
     <section className="font-mainFont sm:mt-8 md:mt-14 mdl:mt-16 lg:mt-16 xl:mt-16 2xl:mt-20">
@@ -125,7 +125,7 @@ const Login = () => {
             <form
               onSubmit={handleSubmit}
               className="space-y-4 md:space-y-6"
-              // action="#"
+            // action="#"
             >
               <div className="flex items-center gap-2 w-full">
                 <div className="w-[50%]">
@@ -142,11 +142,10 @@ const Login = () => {
                     type="firstname"
                     name="firstname"
                     id="firstname"
-                    className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ${
-                      errors.firstname && touched.firstname
+                    className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ${errors.firstname && touched.firstname
                         ? "border-red-500"
                         : ""
-                    }`}
+                      }`}
                     placeholder="First name"
                     required=""
                   />
@@ -169,11 +168,10 @@ const Login = () => {
                     type="lastname"
                     name="lastname"
                     id="lastname"
-                    className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ${
-                      errors.lastname && touched.lastname
+                    className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ${errors.lastname && touched.lastname
                         ? "border-red-500"
                         : ""
-                    }`}
+                      }`}
                     placeholder="Last name"
                     required=""
                   />
@@ -196,9 +194,8 @@ const Login = () => {
                   type="username"
                   name="username"
                   id="username"
-                  className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ${
-                    errors.username && touched.username ? "border-red-500" : ""
-                  }`}
+                  className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ${errors.username && touched.username ? "border-red-500" : ""
+                    }`}
                   placeholder="Enter your name"
                   required=""
                 />
@@ -227,12 +224,10 @@ const Login = () => {
                   type="email"
                   name="email"
                   id="email"
-                  className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ${
-                    errors.email && touched.email ? "border-red-500" : ""
-                } ${
-                    emailApiErr ? "border-red-500" : ""
-                }`}
-                
+                  className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ${errors.email && touched.email ? "border-red-500" : ""
+                    } ${emailApiErr ? "border-red-500" : ""
+                    }`}
+
                   placeholder="Enter your email"
                   required=""
                 />
@@ -255,24 +250,32 @@ const Login = () => {
                   value={values.phone_number}
                   onChange={(e) => {
                     const value = e.target.value || "";
-                    setFieldValue("phone_number", value.replace(/\D/g, ""));
-                    handleInputChange;
-                    
+                    console.log(value)
+                    // Remove any non-numeric characters
+                    const numericValue = value.replace(/[^0-9]/g, '');
+                    // Update the state with the numeric value
+                    const Only10digits = numericValue.slice(0, 10);
+
+                    handleChange("phone_number")(Only10digits);
+
+
+                  
+
+
                   }}
                   maxLength={10}
                   onBlur={handleBlur}
                   type="tel"
                   name="phone_number"
                   id="phone_number"
-                  className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ${
-                    errors.phone_number && touched.phone_number
+                  className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ${errors.phone_number && touched.phone_number
                       ? "border-red-500"
                       : ""
-                  }`}
+                    }`}
                   placeholder="Enter your phone number"
                   required=""
                 />
-                {errors.phone_number && touched.phone_number && (
+           {errors.phone_number &&  (
                   <small className="text-red-500">{errors.phone_number}</small>
                 )}
                 {PhoneApiErr && (
@@ -296,11 +299,10 @@ const Login = () => {
                       name="password"
                       id="password"
                       placeholder="Enter your password"
-                      className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 relative ${
-                        errors.password && touched.password
+                      className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 relative ${errors.password && touched.password
                           ? "border-red-500"
                           : ""
-                      }`}
+                        }`}
                       required=""
                     />
                     {isPasswordVisible ? (
@@ -342,11 +344,10 @@ const Login = () => {
                       name="confirmPassword"
                       id="confirmPassword"
                       placeholder="Re-enter your password"
-                      className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 relative ${
-                        errors.confirmPassword && touched.confirmPassword
+                      className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 relative ${errors.confirmPassword && touched.confirmPassword
                           ? "border-red-500"
                           : ""
-                      }`}
+                        }`}
                       required=""
                     />
                     {isPasswordVisible ? (
