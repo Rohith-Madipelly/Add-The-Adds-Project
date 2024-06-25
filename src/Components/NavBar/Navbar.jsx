@@ -36,6 +36,22 @@ const NavBar = () => {
     { name: "Contact us", link: "/Contact us" },
   ];
 
+
+  console.log("userName>>>",userName); // undefined
+  var userNameData;
+  if (userName === 'undefined') {
+      userNameData = "View Page"
+  } else {
+
+      userNameData = userName.charAt(0).toUpperCase() + userName.slice(1)
+  }
+
+
+
+
+
+
+  
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -160,14 +176,14 @@ const NavBar = () => {
                           href={`Add Page/${userName}`}
                           className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                         >
-                          {userName ? `${userName} Page` : "My Page"}
+                          {userName ? `${userName} Page` : "My Page "}
                         </a>
                       </li> : <li>
                         <a
                           href={`login`}
                           className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                         >
-                          {userName ? `${userName} Page` : "My Page"}
+                          {userName ? `${userName} Page` : "My Page "}
                         </a>
                       </li>}
 

@@ -3,16 +3,35 @@ import { Link, useLocation } from "react-router-dom";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { IoMdArrowDropup } from "react-icons/io";
 import { IoMdMenu } from "react-icons/io";
+import { useSelector } from "react-redux";
 
 function NavDropDown() {
     const [isOpen, setIsOpen] = useState(false);
     const [MenuisOpen, setMenuIsOpen] = useState(false);
-
+    const userName = useSelector((state) => state.userName);
     const location = useLocation();
     const PageName = location.pathname === '/' || location.pathname === '/home' || location.pathname === '/data123';
     useEffect(() => {
         setIsOpen(false);
     }, [location.pathname]);
+
+
+
+
+
+
+
+    console.log("userName>>>", userName); // undefined
+    var userNameData;
+    var link = "";
+    if (userName === 'undefined') {
+        userNameData = "View"
+    } else {
+        link = userName;
+        userNameData = userName.charAt(0).toUpperCase() + userName.slice(1)
+    }
+
+
 
     let LinkPages = [
         { name: "Home", link: "/" },
@@ -23,8 +42,8 @@ function NavDropDown() {
             subLinks: [
                 { name: "Own Status", link: "/own status" },
                 { name: "Create Page", link: "/create page" },
-                { name: "Add Page", link: "/add page" },
-                { name: "Upload Add", link: "/upload add" }
+                { name: `${userNameData}'s Page`, link: `/Add Page/${link}` },
+                { name: "Upload Add", link: "/Upload Ads" }
             ]
         },
         { name: "Contact us", link: "/contact us" }
