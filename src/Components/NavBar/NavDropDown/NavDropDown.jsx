@@ -21,7 +21,7 @@ function NavDropDown() {
 
 
 
-    console.log("userName>>>", userName); // undefined
+    // console.log("userName>>>", userName); // undefined
     var userNameData;
     var link = "";
     if (userName === 'undefined') {

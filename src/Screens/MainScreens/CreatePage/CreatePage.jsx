@@ -11,7 +11,7 @@ import { DeleteHeadersModel } from './DeleteHeadersModel'
 
 import { AddPagetoUser } from './AddPagetoUser'
 
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector,useDispatch } from 'react-redux'
 import { MdDelete, MdThumbUp } from 'react-icons/md'
 
 import { Link, useLocation } from 'react-router-dom'
@@ -43,16 +43,17 @@ function CreatePage() {
     // Show toaster notification with the message
     showToastMessage_warn(location.state.message);
   }
-
+const ApicallerCount=0;
 
   const Apicaller = async () => {
+    console.log(ApicallerCount,ApicallerCount+1)
     setIsLoading(true)
     try {
       const res = await ProfileAPI(token)
 
       if (res.status === 200) {
         const ResData = await res.data;
-   
+
 
         setUserPage(res.data.pagename)
         setData(res.data)
@@ -61,10 +62,10 @@ function CreatePage() {
         setLiked(res.data.isLiked)
         setHeadersData(ResData.ownHeaders)
         if (ResData.ownHeaders.length === 0) {
-          showToastMessage_warn("No data found, you can add here");
+          // showToastMessage_warn("No data found, you can add here");
           console.log("Check")
         }
-
+        
 
 
         setLike(res.data.likes)
@@ -75,15 +76,23 @@ function CreatePage() {
           setLike(likesData)
         }, 500)
 
+        // setTimeout(()=>{
+
+        //   if(likesData!=1)
+        //   {
+        //     setLike(likesData)
+        //   }else{
+        //     setLike(1)
+        //   }
+        // },500)
 
       }
     }
     catch (error) {
       console.log(error);
-      showToastMessage_warn("No data found, you can add here");
       if (error.response) {
         if (error.response.status === 401) {
-
+       
         } else if (error.response.status === 404) {
           showToastMessage_warn('User Not Found')
           dispatch(setToken(""));
@@ -101,7 +110,7 @@ function CreatePage() {
         }
       } else if (error.request) {
         showToastMessage_warn('No response received from the server.')
-
+     
       } else {
         showToastMessage_warn('Error setting up the request.')
       }
@@ -184,16 +193,16 @@ function CreatePage() {
 
       if (error.response) {
         if (error.response.status === 401) {
-
+       
         } else if (error.response.status === 404) {
           showToastMessage_error('Error setting up the request.')
           // toast.error('User Not Found', { position: toast.POSITION.TOP_CENTER })
         } else if (error.response.status === 500) {
-
+         
           showToastMessage_error('Internal server error.')
 
         } else {
-
+         
           showToastMessage_error('An error occurred during .')
 
         }
@@ -353,22 +362,22 @@ function CreatePage() {
               <DeleteUserModel datares={UserData} isOpen={isDeleteUserModalOpen} onClose={handleDeleteUserCloseModal} onSubmit={handleDeleteUserSubmit} />
             </div>
 
-            <div className='grid grid-flow-col gap-2 sm:text-xs'>
-              <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handleOpenModal() }}>
-                Upload Video
-              </CustomButton>
-              <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handleImageOpenModal() }}>
-                Image
-              </CustomButton>
-              <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handlePageOpenModal() }}>
-                Display Ads
-              </CustomButton>
-              <DeleteHeadersModel datares={headerData} isOpen={isDeleteModalOpen} onClose={handleDeleteCloseModal} onSubmit={handleDeleteSubmit} />
-              <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handleDeleteUserOpenModal() }}>
-                Delete Ads
-              </CustomButton>
+              <div className='grid grid-flow-col gap-2 sm:text-xs'>
+                <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handleOpenModal() }}>
+                  Upload Video
+                </CustomButton>
+                <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handleImageOpenModal() }}>
+                  Image
+                </CustomButton>
+                <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handlePageOpenModal() }}>
+                  Display Ads
+                </CustomButton>
+                <DeleteHeadersModel datares={headerData} isOpen={isDeleteModalOpen} onClose={handleDeleteCloseModal} onSubmit={handleDeleteSubmit} />
+                <CustomButton classStyle={'my-3 bg-white h-auto'} onClick={() => { handleDeleteUserOpenModal() }}>
+                  Delete Ads
+                </CustomButton>
+              </div>
             </div>
-          </div>
 
         </div>
       </div>

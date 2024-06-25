@@ -346,7 +346,10 @@ function AddPage() {
                     <div className="sm:ml-2 sm:mr-[5vw] absolute inset-0 bg-black opacity-0 hover:opacity-70 flex items-center justify-center rounded-lg">
                       <span className="text-white text-xl">Click to view full page</span>
                     </div>
+                 <div style={{textAlign:'center',fontWeight:500}}>{MapData.username}'s Page</div>
+
                   </a>
+                 {/* <div style={{textAlign:'center',fontWeight:500}}>{MapData.username}'s Page</div> */}
                 </div>
               )))}
 

@@ -16,7 +16,6 @@ const NavBar = () => {
   const dispatch = useDispatch();
   const loginSelector = useSelector((state) => state.isLogin);
   const userName = useSelector((state) => state.userName);
-  console.log("Hello user Token is ", loginSelector);
   const PageName =
     location.pathname === "/" ||
     location.pathname === "/home" ||
@@ -37,7 +36,7 @@ const NavBar = () => {
   ];
 
 
-  console.log("userName>>>",userName); // undefined
+  // console.log("userName>>>",userName); // undefined
   var userNameData;
   if (userName === 'undefined') {
       userNameData = "View Page"
