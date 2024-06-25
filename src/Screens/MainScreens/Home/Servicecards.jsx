@@ -11,7 +11,7 @@ function Servicecards() {
         userNameData = "View Page"
     } else {
 
-        userNameData = userName
+        userNameData = userName.charAt(0).toUpperCase() + userName.slice(1)
     }
 
     let tryOptions = [
@@ -60,7 +60,8 @@ function Servicecards() {
                             />
                             <div className="relative flex justify-center w-full h-full px-0 py-[72px] sm:py-[50px] bg-gray-800_33 rounded-[21px]">
                                 <h5 as="h2" className="z-10 relative tracking-[1.00px] italic text-white">
-                                    {userName? userName.charAt(0).toUpperCase() + userName.slice(1):"My Page"}
+                                    {/* {userNameData? userName.charAt(0).toUpperCase() + userName.slice(1):"My Page"} */}
+                                    {userNameData?userNameData:"My page"}
                                 </h5>
                             </div>
                         </div>

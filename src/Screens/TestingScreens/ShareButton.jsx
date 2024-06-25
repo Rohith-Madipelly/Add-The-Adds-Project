@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { showToastMessage_warn } from '../../shared/Toaster';
 
 const ShareButton = () => {
   const [shareUrl, setShareUrl] = useState('');
@@ -18,7 +19,9 @@ const ShareButton = () => {
   };
 
   return (
-    <div>
+    <div className='new_Page_GroundImage'>
+         <div className='h-[70px] HomeBackGroundImage'>
+         </div>
       <p>Share this URL:</p>
       <p>Share this URL:</p>
       <p>Share this URL:</p>
@@ -29,6 +32,7 @@ const ShareButton = () => {
       <button onClick={() => copyToClipboard(shareUrl)}>Copy URL</button>
 
       <div>
+      <button onClick={() => showToastMessage_warn("No data found, you can add here")}>send toaster</button>
         
       </div>
     </div>
