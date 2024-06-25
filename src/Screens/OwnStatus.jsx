@@ -27,6 +27,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { ShareModel } from '../utils/ShareModel';
 import CustomButton from '../Components/UI/Button/CustomButton';
 import share from '../../public/images/share.png'
+import AdvertisingComponents from '../Components/Funca/AdvertisingComponents';
 
 
 function OwnStatus() {
@@ -255,13 +256,13 @@ function OwnStatus() {
                                 // console.log("each",eachObject);
                                 const { _id, image } = eachObject
                                 return (
-                                    <SwiperSlide key={_id} className="z-40 h-full 
+                                    <SwiperSlide key={_id} className="z-40 h-full
                              sm:flex sm:items-center sm:justify-center ">
                                         <Link to={`/EditPage/${_id}`}>
                                             {/* <Link to={{ pathname: '/Edit Own Page' }} state={{ slideContent }}> */}
                                             {/* {console.log("Data ",slideContent)} */}
                                             <img src={`https://admin.addtheadd.com${image}`}
-                                                className='  w-[100%] sm:h-[290px]  p-0 object-cover sm-mr-5vw' />
+                                                className='  w-[100%]  sm:h-[290px]  p-0 object-contain sm-mr-5vw' />
                                             {/* </Link> */}
                                         </Link>
                                         <button classStyle={'my-3 bg-white h-auto'} className='p-1 rounded '
@@ -285,13 +286,16 @@ function OwnStatus() {
 
                     </div>
 
-
-
-
                     <div className='h-[100px] mb-8 '>
 
                     </div>
+                   
+                    
                 </div>
+                <div>
+        <AdvertisingComponents />
+
+      </div>
 
             </div>
         )

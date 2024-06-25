@@ -14,6 +14,7 @@ function LinkCreatePage() {
     const [LiveLinkURLS, setLiveLinkURLS] = useState([""])
     const [GeneralLinkURLS, setGeneralLinkURLS] = useState([""])
     const [ChanelLinkURLS, setChanelLinkURLS] = useState([""])
+    const [linkDiscription,setLinkDiscription]=useState('')
 
     const [error, setError] = useState()
 
@@ -370,32 +371,61 @@ function LinkCreatePage() {
                                 />
                             </div>
                         )}
+                        <div className='mt-3'>
+                        <div className='flex justify-between w-[95%]  mx-auto'>
+                            <p className='my-1'>Add Description</p>
+                        </div>
+                        </div>
+                            <div className='flex w-[95%] border-2 rounded-lg bg-white h-auto mx-auto'>
+                            <textarea id="longDescription" name={'service-0'} rows="10" cols="10"
+                            className='border-none focus:outline-none focus:border-none w-full h-[50px]'
+                             placeholder='Add Description Here' value={linkDiscription}
+                             onChange={(e)=>setLinkDiscription(e.target.value)}></textarea>
+                              {linkDiscription ? <FaUpload size={22} color='blue' className='m-3' onClick={() => { AddLinkCaller("chanel_links", `${link}`) }} /> : ""}
+                                {/* <input
+                                    name={`service-0`}
+                                    type="description"
+                                    id={`service-0`}
+                                    placeholder='Add Description Here'
+
+                                    value=""
+                                    onChange={(e) => {
+                                        const updatedLinks = [...ChanelLinkURLS];
+                                        updatedLinks[0] = e.target.value;
+                                        setChanelLinkURLS(updatedLinks);
+                                    }} */}
+
+                                    
+                                {/* /> */}
+                            </div>
+                        
                         <p className='text-red-500'>{error}</p>
                     </div>
 
 
 
                     {/* User Page Link */}
-                    <div className='mb-3'>
-                        <div className='flex justify-between w-[95%]  mx-auto  '>
-                            <p className='my-1 sm:text-center'>User Page Link</p>
-                        </div >
+                        <div className='mb-3'>
+                            <div className='flex justify-between w-[95%]  mx-auto  '>
+                                <p className='my-1 sm:text-center'>User Page Link</p>
+                            </div >
 
-                        <div className='flex justify-between w-[95%]  mx-auto sm:flex-col sm:justify-center
-                        sm:align-center'>
-                            <div className='w-[45%]  h-[140px] rounded-2xl  sm:w-[100%]'>
-                                <img src={imge} alt="cs" className='w-full h-full object-cover rounded-2xl' />
-                            </div>
-                            <div className='w-[45%] h-[140px] rounded-2xl bg-white flex  items-center text-center
-                            pl-3 sm:flex: none sm:pl-2 shadow-2xl sm:w-[100%] sm:mt-4'>
-                          
-                            <Link to={`https://addtheadd.com/Add Page/${userName}`}>https://addtheadd.com/Add%20Page/{userName}</Link>
+                            <div className='flex justify-between w-[95%]  mx-auto sm:flex-col sm:justify-center
+                            sm:align-center'>
+                                <div className='w-[45%]  h-[140px] rounded-2xl  sm:w-[100%]'>
+                                    <img src={imge} alt="cs" className='w-full h-full object-cover rounded-2xl' />
+                                </div>
+                                <div className='w-[45%] h-[140px] rounded-2xl bg-white flex  items-center text-center
+                                pl-3 sm:flex: none sm:p-4 shadow-2xl sm:w-[100%] sm:mt-4' style={{overflowY:'scroll',scrollbarWidth:'none'}}>
+                            
+                                <Link to={`https://addtheadd.com/Add Page/${userName}`}>https://addtheadd.com/Add%20Page/{userName}</Link>
+                                </div>
+
                             </div>
 
+                            <p className='text-red-500'>{error}</p>
                         </div>
-
-                        <p className='text-red-500'>{error}</p>
-                    </div>
+                        
                 </div>
             </div>
         </div>
