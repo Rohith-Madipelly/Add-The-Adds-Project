@@ -32,7 +32,7 @@ function Footter() {
            { isTrue && <div className="grid grid-cols-3 sm:grid-cols-1 gap-4 m-4 ">
               <div>
               <h3  className=" text-xl sm:text-base block">
-                  WebSite Development
+                  Website Development
                 </h3>
                 <h3  className="text-xl sm:text-base block">
                   Mobile App Development
@@ -57,10 +57,10 @@ function Footter() {
                   Celebrating Promotions
                 </h3>
                 <h3  className="text-xl sm:text-base block">
-                  Digital media marketing
+                  Digital Media Marketing
                   <ul style={{'list-style-type':"disc"}} className="text-left text-sm ml-8" >
                   <li>Google Ads</li>
-                  <li>FaceBook Ads</li>
+                  <li>Facebook Ads</li>
                   <li>Instagram Ads</li>
                   <li>Youtube Ads</li>
                   <li>Website Ads</li>

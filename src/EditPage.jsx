@@ -179,7 +179,6 @@ function EditPage() {
         // const link = document.createElement('a');
         // link.href = dataURL;
         saveAs(dataURL,`image-${imgid}.jpg`)
-        isShareModelOpen(true)
         // link.download = `image-${imgid}.jpg`;
         // document.body.appendChild(link);
         // link.click();

@@ -13,6 +13,7 @@ import { useNavigate } from "react-router";
 import { useParams } from 'react-router-dom';
 import { ShareModel } from '../../utils/ShareModel';
 import { setToken } from '../../redux/actions/loginAction';
+import AdvertisingComponents from '../../Components/Funca/AdvertisingComponents';
 
 function AddPage() {
 
@@ -423,6 +424,10 @@ function AddPage() {
             </div>
           </div>
         </div>
+        <div>
+        <AdvertisingComponents />
+
+      </div>
       </div>
     )
   }

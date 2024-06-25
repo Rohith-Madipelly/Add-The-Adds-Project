@@ -21,6 +21,7 @@ import { showToastMessage_error, showToastMessage_success, showToastMessage_warn
 import Loading from '../../../utils/Loadings/Loading'
 import { DeleteUserModel } from './DeleteUserModel'
 import { setToken } from '../../../redux/actions/loginAction'
+import AdvertisingComponents from '../../../Components/Funca/AdvertisingComponents'
 
 
 
@@ -391,7 +392,12 @@ const ApicallerCount=0;
           <LinkCreatePage />
         </div>
       </div>
+      
       {/* </div> */}
+      <div>
+        <AdvertisingComponents/>
+
+      </div>
     </div>
   )
 }

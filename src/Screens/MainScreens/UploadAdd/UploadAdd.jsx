@@ -342,7 +342,7 @@ function UploadPage() {
                 </a>
 
                 <a href='/Create Page'><CustomButton classStyle={'my-4 bg-white font-bold'}>Add page</CustomButton></a>
-                <a href='/Own Status'><CustomButton classStyle={'my-4 bg-white font-bold'}>Add the adds</CustomButton></a>
+                <a href='/Own Status'><CustomButton classStyle={'my-4 bg-white font-bold'}>Add the ads</CustomButton></a>
               </div>
             </div>
           </div>
