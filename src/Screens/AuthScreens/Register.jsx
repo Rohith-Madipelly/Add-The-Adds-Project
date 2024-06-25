@@ -24,26 +24,35 @@ const Login = () => {
   const [emailApiErr, setEmailApiErr] = useState("");
   const [PhoneApiErr, setPhoneApiErr] = useState("");
   const [passwordApiErr, setPasswordApiErr] = useState("");
+  const [userNameApiErr, setUserNameApiErr] = useState("");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isconPassword12Visible, setIsconPasswordVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit = async () => {
     try {
 
       const res = await UserRegisterAPI(values);
-      showToastMessage_success(res.data.message);
-      // dispatch(setToken(res.data.token));
-      dispatch(setToken(res.data.token, res.data.username));
-      navigate("/");
+      if(res){
+        showToastMessage_success(res.data.message);
+        // dispatch(setToken(res.data.token));
+        dispatch(setToken(res.data.token, res.data.username));
+        navigate("/");
+        
+       
+      }
       console.log(res);
+
     } catch (error) {
       if (error.response) {
         console.log(error.response.status)
         if (error.response.status === 401) {
           // setPasswordApiErr("Incorrect Password")
         } else if (error.response.status === 403) {
-          // console.log("Data Error Internal server error 500 ", error)
-          showToastMessage_error(error.response.data.message);
+        
+          // setEmailOrPhoneApiErrset
+          setUserNameApiErr(error.response.data.message)
+          // showToastMessage_error(error.response.data.message);
         } else if (error.response.status === 404) {
           // setEmailOrPhoneApiErr("Account does not exist with the provided email or phone number")
         } else if (error.response.status === 409) {
@@ -78,6 +87,9 @@ const Login = () => {
 
   function togglePasswordVisibility() {
     setIsPasswordVisible((prevState) => !prevState);
+  }
+    function togglePasswordVisibility123() {
+      setIsconPasswordVisible((prevState) => !prevState);
   }
 
   const {
@@ -194,7 +206,9 @@ const Login = () => {
                   type="username"
                   name="username"
                   id="username"
-                  className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ${errors.username && touched.username ? "border-red-500" : ""
+                 
+                    className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ${errors.email && touched.email ? "border-red-500" : ""
+                    } ${userNameApiErr ? "border-red-500" : ""
                     }`}
                   placeholder="Enter your name"
                   required=""
@@ -202,9 +216,9 @@ const Login = () => {
                 {errors.username && touched.username && (
                   <small className="text-red-500 ">{errors.username}</small>
                 )}
-                {/* {userNameApiErr && (
+                {userNameApiErr && (
                   <small className="text-red-500 ">{userNameApiErr}</small>
-                )} */}
+                )}
               </div>
               <div>
                 <label
@@ -340,7 +354,7 @@ const Login = () => {
                       value={values.confirmPassword}
                       onChange={handleInputChange}
                       onBlur={handleBlur}
-                      type={isPasswordVisible ? "text" : "password"}
+                      type={isconPassword12Visible ? "text" : "password"}
                       name="confirmPassword"
                       id="confirmPassword"
                       placeholder="Re-enter your password"
@@ -350,16 +364,16 @@ const Login = () => {
                         }`}
                       required=""
                     />
-                    {isPasswordVisible ? (
+                    {isconPassword12Visible ? (
                       <AiOutlineEye
                         fill="#949CA9"
-                        onClick={togglePasswordVisibility}
+                        onClick={togglePasswordVisibility123}
                         className="absolute top-0 right-0 mt-4 mr-3"
                       />
                     ) : (
                       <AiOutlineEyeInvisible
                         fill="#949CA9"
-                        onClick={togglePasswordVisibility}
+                        onClick={togglePasswordVisibility123}
                         className="absolute top-0 right-0 mt-4 mr-3"
                       />
                     )}
