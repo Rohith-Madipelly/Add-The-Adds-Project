@@ -18,8 +18,9 @@ function AdvertisingComponents() {
             setADSData(res.data.Data)
             
             setImageURl(`https://admin.addtheadd.com${res.data.imageData[0].imageUrl}`);
-            setLinkURl(res.data.Data[0].imagelink)
             console.log("1 ImageUrl", ImageUrl)
+            console.log(res.data.imageData[0].imagelink)
+            setLinkURl(res.data.imageData[0].imagelink)
         } catch (e) {
             // setImageURl('/images/Home/Advertisting.png');
         } finally {
@@ -51,10 +52,10 @@ function AdvertisingComponents() {
     return (
         // <Link to={`/addPage}`} className='w-[100%] '>
         <div className='mx-3'>
+   
             {/* {initialValue} */}
             {showImage ? <div className='w-[100%] h-[270px] sm:h-[100px] relative'>
                 {/* <img src='/images/Home/Advertisting.png' className='w-full h-[100%]' /> */}
-
 
                 {ImageUrl ? <>{showImage ?
                     <a href={LinkUrl} target='blank'><img src={ImageUrl} alt={ImageUrl} style={{ objectFit: 'cover' }}  className='w-[100%] h-[12vw] sm:w-[100%]' /></a>

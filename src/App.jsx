@@ -92,6 +92,8 @@ function App() {
           <Route path="/Terms of use" element={<TermsandCondition />} />
           <Route path="/Privacy Policy" element={<PrivacyPolicy />} />
 
+
+
           <Route path="/Login" element={!isLogin ? <Login /> : <Navigate to="/profile" />}/>
           <Route path="/signup" element={isLogin ? <Home /> : <Register />} />
           <Route path="/forgot-password" element={isLogin ? <Home /> : <ForgotPass />}/>
